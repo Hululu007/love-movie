@@ -1,0 +1,51 @@
+{
+  "updated_at": "2026-11-15 00:19 UTC+8",
+  "people": [
+    {
+      "imdb_id": "nm0634240",
+      "name": "Christopher Nolan",
+      "imdb_url": "https://www.imdb.com/name/nm0634240/",
+      "works": [],
+      "error": "Failed to fetch https://www.imdb.com/name/nm0634240/: None",
+      "display_name": "Christopher Nolan",
+      "notes": "重点关注新作动态",
+      "works_count": 0
+    }
+  ],
+  "series": [
+    {
+      "name": "Dune",
+      "status": "连载中",
+      "notes": "",
+      "entries": [
+        {
+          "imdb_id": "tt1160419",
+          "title": "Dune: Part One",
+          "year": null,
+          "imdb_rating": null,
+          "production_status": "",
+          "imdb_url": "https://www.imdb.com/title/tt1160419/",
+          "error": "Failed to fetch https://www.imdb.com/title/tt1160419/: None",
+          "douban_id": "",
+          "douban_url": "https://search.douban.com/movie/subject_search?search_text=Dune%3A%20Part%20One",
+          "douban_title": "",
+          "douban_rating": null
+        },
+        {
+          "imdb_id": "tt15239678",
+          "title": "Dune: Part Two",
+          "year": null,
+          "imdb_rating": null,
+          "production_status": "",
+          "imdb_url": "https://www.imdb.com/title/tt15239678/",
+          "error": "Failed to fetch https://www.imdb.com/title/tt15239678/: None",
+          "douban_id": "35575567",
+          "douban_url": "https://movie.douban.com/subject/35575567/?suggest=Dune%3A+Part+Two",
+          "douban_title": "沙丘2",
+          "douban_rating": null
+        }
+      ]
+    }
+  ],
+  "recent_changes": []
+}
