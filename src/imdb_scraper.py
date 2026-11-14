@@ -67,7 +67,7 @@ def _load_imdb_ratings():
 
 
 def _query_wikidata_person(nm_id):
-    sparql = f'''SELECT ?work ?imdb ?pubDate ?douban ?enLabel ?zhLabel ?role WHERE {{
+    sparql = f'''SELECT ?work ?imdb ?pubDate ?douban ?role WHERE {{
   ?person wdt:P345 "{nm_id}" .
   {{
     {{ ?work wdt:P57 ?person . BIND("Director" AS ?role) }}
@@ -81,8 +81,6 @@ def _query_wikidata_person(nm_id):
   ?work wdt:P345 ?imdb .
   OPTIONAL {{ ?work wdt:P577 ?pubDate . }}
   OPTIONAL {{ ?work wdt:P4529 ?douban . }}
-  OPTIONAL {{ ?work rdfs:label ?enLabel . FILTER(LANG(?enLabel) = "en") }}
-  OPTIONAL {{ ?work rdfs:label ?zhLabel . FILTER(LANG(?zhLabel) = "zh") }}
 }}
 LIMIT 300'''
     try:
@@ -140,6 +138,43 @@ def _fetch_html_safe(url):
     return ""
 
 
+def _fetch_wikidata_labels(qids):
+    labels = {}
+    qids = [q for q in dict.fromkeys(qids) if q]
+    for i in range(0, len(qids), 50):
+        batch = qids[i : i + 50]
+        try:
+            r = requests.get(
+                "https://www.wikidata.org/w/api.php",
+                params={
+                    "action": "wbgetentities",
+                    "ids": "|".join(batch),
+                    "props": "labels",
+                    "languages": "zh-cn|zh-hans|zh|en",
+                    "format": "json",
+                },
+                headers=WIKIDATA_HEADERS,
+                timeout=30,
+            )
+            if r.status_code == 200:
+                entities = r.json().get("entities", {})
+                for qid, ent in entities.items():
+                    ent_labels = ent.get("labels", {})
+                    zh = ""
+                    for lang in ("zh-cn", "zh-hans", "zh"):
+                        if lang in ent_labels:
+                            zh = ent_labels[lang].get("value", "")
+                            if zh:
+                                break
+                    en = (ent_labels.get("en") or {}).get("value", "")
+                    labels[qid] = (zh, en)
+            else:
+                print(f"[wikidata_labels] HTTP {r.status_code} {r.text[:200]}", flush=True)
+        except Exception as e:
+            print(f"[wikidata_labels] error {e}", flush=True)
+    return labels
+
+
 def fetch_person(imdb_input, allowed_roles=None):
     nm_id = extract_imdb_id(imdb_input)
     if not nm_id or not nm_id.startswith("nm"):
@@ -150,6 +185,8 @@ def fetch_person(imdb_input, allowed_roles=None):
     avatar = (sug.get("i") or {}).get("imageUrl", "")
     rows = _query_wikidata_person(nm_id)
     by_tt = {}
+    ratings = _load_imdb_ratings()
+    tt_to_qid = {}
     for row in rows:
         tt_id = extract_imdb_id((row.get("imdb") or {}).get("value"))
         if not tt_id or not tt_id.startswith("tt"):
@@ -166,15 +203,13 @@ def fetch_person(imdb_input, allowed_roles=None):
             "url": f"https://www.imdb.com/title/{tt_id}/",
             "poster": "",
             "douban_id": "",
+            "imdb_rating": ratings.get(tt_id),
         })
+        qid = (row.get("work") or {}).get("value", "").rsplit("/", 1)[-1]
+        if qid and tt_id not in tt_to_qid:
+            tt_to_qid[tt_id] = qid
         if role:
             entry["roles"].add(role)
-        zh = (row.get("zhLabel") or {}).get("value", "")
-        en = (row.get("enLabel") or {}).get("value", "")
-        if zh and not entry["title"]:
-            entry["title"] = zh
-        elif en and not entry["title"]:
-            entry["title"] = en
         pub = (row.get("pubDate") or {}).get("value", "")[:10]
         if pub and (not entry["release_date"] or pub < entry["release_date"]):
             entry["release_date"] = pub
@@ -183,8 +218,15 @@ def fetch_person(imdb_input, allowed_roles=None):
         douban = (row.get("douban") or {}).get("value", "")
         if douban and not entry["douban_id"]:
             entry["douban_id"] = douban
+    labels_by_qid = _fetch_wikidata_labels(tt_to_qid.values()) if tt_to_qid else {}
     credits = []
     for entry in by_tt.values():
+        qid = tt_to_qid.get(entry["imdb_id"], "")
+        zh, en = labels_by_qid.get(qid, ("", ""))
+        if zh:
+            entry["title"] = zh
+        elif en:
+            entry["title"] = en
         if not entry["title"]:
             entry["title"] = entry["imdb_id"]
         entry["roles"] = sorted(entry["roles"])
