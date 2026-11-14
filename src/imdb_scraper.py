@@ -1,6 +1,5 @@
 import json
 import re
-import time
 import requests
 from bs4 import BeautifulSoup
 
@@ -15,18 +14,14 @@ def extract_imdb_id(raw_value):
     if not raw_value:
         return None
     m = IMDB_ID_PATTERN.search(str(raw_value).strip())
-    return m.group(1) if match_ok(m) else None
-
-def match_ok(m):
-    return m is not None
+    return m.group(1) if m is not None else None
 
 def _fetch_imdb_suggestion(imdb_id):
     url = f"https://v3.sg.media-imdb.com/suggestion/x/{imdb_id}.json"
     try:
         r = requests.get(url, headers=DEFAULT_HEADERS, timeout=12)
         if r.status_code == 200:
-            data = r.json()
-            items = data.get("d") or []
+            items = r.json().get("d") or []
             for item in items:
                 if item.get("id") == imdb_id:
                     return item
@@ -35,32 +30,52 @@ def _fetch_imdb_suggestion(imdb_id):
         pass
     return {}
 
+def _find_wikidata_qid(imdb_id):
+    try:
+        r = requests.get(
+            "https://www.wikidata.org/w/api.php",
+            params={
+                "action": "query",
+                "list": "search",
+                "srsearch": f"haswbstatement:P345={imdb_id}",
+                "format": "json",
+            },
+            headers=WIKIDATA_HEADERS,
+            timeout=12,
+        )
+        if r.status_code == 200:
+            hits = r.json().get("query", {}).get("search", [])
+            if hits:
+                return hits[0].get("title")
+    except Exception:
+        pass
+    return None
+
 def _query_wikidata_person(nm_id):
+    qid = _find_wikidata_qid(nm_id)
+    if not qid:
+        return []
     sparql = f"""
-    SELECT ?personLabel ?personImage ?work ?workLabel ?workZhLabel ?imdb ?douban ?pubDate ?role WHERE {{
-      ?person wdt:P345 "{nm_id}" .
-      OPTIONAL {{ ?person wdt:P18 ?personImage . }}
-      {{
-        ?work wdt:P57 ?person . BIND("Director" AS ?role)
-      }} UNION {{
-        ?work wdt:P161 ?person . BIND("Actor" AS ?role)
-      }} UNION {{
-        ?work wdt:P58 ?person . BIND("Writer" AS ?role)
-      }}
+    SELECT ?work ?imdb ?pubDate ?douban ?enLabel ?zhLabel ?role WHERE {{
+      {{ ?work wdt:P57 wd:{qid} . BIND("Director" AS ?role) }}
+      UNION
+      {{ ?work wdt:P161 wd:{qid} . BIND("Actor" AS ?role) }}
+      UNION
+      {{ ?work wdt:P58 wd:{qid} . BIND("Writer" AS ?role) }}
       ?work wdt:P345 ?imdb .
-      OPTIONAL {{ ?work wdt:P4529 ?douban . }}
       OPTIONAL {{ ?work wdt:P577 ?pubDate . }}
-      OPTIONAL {{ ?work rdfs:label ?workZhLabel . FILTER(LANG(?workZhLabel) = "zh") }}
-      SERVICE wikibase:label {{ bd:serviceParam wikibase:language "en,zh". }}
+      OPTIONAL {{ ?work wdt:P4529 ?douban . }}
+      OPTIONAL {{ ?work rdfs:label ?enLabel . FILTER(LANG(?enLabel) = "en") }}
+      OPTIONAL {{ ?work rdfs:label ?zhLabel . FILTER(LANG(?zhLabel) = "zh") }}
     }}
-    LIMIT 120
+    LIMIT 150
     """
     try:
         r = requests.get(
             "https://query.wikidata.org/sparql",
             params={"query": sparql, "format": "json"},
             headers=WIKIDATA_HEADERS,
-            timeout=20,
+            timeout=25,
         )
         if r.status_code == 200:
             return r.json().get("results", {}).get("bindings", [])
@@ -69,14 +84,15 @@ def _query_wikidata_person(nm_id):
     return []
 
 def _query_wikidata_title(tt_id):
+    qid = _find_wikidata_qid(tt_id)
+    if not qid:
+        return {}
     sparql = f"""
-    SELECT ?workLabel ?workZhLabel ?douban ?pubDate ?image WHERE {{
-      ?work wdt:P345 "{tt_id}" .
-      OPTIONAL {{ ?work wdt:P4529 ?douban . }}
-      OPTIONAL {{ ?work wdt:P577 ?pubDate . }}
-      OPTIONAL {{ ?work wdt:P18 ?image . }}
-      OPTIONAL {{ ?work rdfs:label ?workZhLabel . FILTER(LANG(?workZhLabel) = "zh") }}
-      SERVICE wikibase:label {{ bd:serviceParam wikibase:language "en,zh". }}
+    SELECT ?enLabel ?zhLabel ?douban ?pubDate WHERE {{
+      OPTIONAL {{ wd:{qid} wdt:P4529 ?douban . }}
+      OPTIONAL {{ wd:{qid} wdt:P577 ?pubDate . }}
+      OPTIONAL {{ wd:{qid} rdfs:label ?enLabel . FILTER(LANG(?enLabel) = "en") }}
+      OPTIONAL {{ wd:{qid} rdfs:label ?zhLabel . FILTER(LANG(?zhLabel) = "zh") }}
     }}
     LIMIT 5
     """
@@ -114,12 +130,7 @@ def fetch_person(imdb_input, allowed_roles=None):
     role_filter = {r.lower() for r in (allowed_roles or [])}
 
     merged = {}
-    rows = _query_wikidata_person(nm_id)
-    for row in rows:
-        if name == nm_id and row.get("personLabel", {}).get("value"):
-            name = row["personLabel"]["value"]
-        if not avatar and row.get("personImage", {}).get("value"):
-            avatar = row["personImage"]["value"]
+    for row in _query_wikidata_person(nm_id):
         tid = (row.get("imdb") or {}).get("value") or ""
         if not tid.startswith("tt"):
             continue
@@ -128,8 +139,8 @@ def fetch_person(imdb_input, allowed_roles=None):
             continue
         pub = (row.get("pubDate") or {}).get("value") or ""
         year = int(pub[:4]) if len(pub) >= 4 and pub[:4].isdigit() else None
-        title = (row.get("workLabel") or {}).get("value") or tid
-        zh_title = (row.get("workZhLabel") or {}).get("value") or ""
+        title = (row.get("enLabel") or {}).get("value") or (row.get("zhLabel") or {}).get("value") or tid
+        zh_title = (row.get("zhLabel") or {}).get("value") or ""
         douban_id = (row.get("douban") or {}).get("value") or ""
         prod_status = "Upcoming" if (year and year >= 2026) else ""
         if tid not in merged:
@@ -162,15 +173,15 @@ def fetch_title(imdb_input):
     sugg = _fetch_imdb_suggestion(tt_id)
     wd = _query_wikidata_title(tt_id)
 
-    title = sugg.get("l") or (wd.get("workLabel") or {}).get("value") or tt_id
+    title = sugg.get("l") or (wd.get("enLabel") or {}).get("value") or tt_id
     year = sugg.get("y")
     if not year:
         pub = (wd.get("pubDate") or {}).get("value") or ""
         if len(pub) >= 4 and pub[:4].isdigit():
             year = int(pub[:4])
-    poster = (sugg.get("i") or {}).get("imageUrl") or (wd.get("image") or {}).get("value") or ""
+    poster = (sugg.get("i") or {}).get("imageUrl") or ""
     title_type = sugg.get("qid") or sugg.get("q") or "Movie"
-    zh_title = (wd.get("workZhLabel") or {}).get("value") or ""
+    zh_title = (wd.get("zhLabel") or {}).get("value") or ""
     douban_id = (wd.get("douban") or {}).get("value") or ""
     prod_status = "Upcoming" if (year and int(year) >= 2026) else ""
 
