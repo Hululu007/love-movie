@@ -1,8 +1,8 @@
 import json
-import re
 from pathlib import Path
 
 DATA_PATH = Path("data/tracker_data.json")
+DOCS_DATA_PATH = Path("docs/data.json")
 TRACKER_MD_PATH = Path("TRACKER.md")
 README_PATH = Path("README.md")
 
@@ -93,6 +93,8 @@ def render_all():
     md = render_markdown(data)
     TRACKER_MD_PATH.write_text(md, encoding="utf-8")
     update_readme(md)
-
+    DOCS_DATA_PATH.parent.mkdir(parents=True, exist_ok=True)
+    DOCS_DATA_PATH.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    
 if __name__ == "__main__":
     render_all()
