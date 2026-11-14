@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Love Movie" />
+  <title>Love Movie · 星光追影手账</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="ornament-top">
+    <div class="header-row">
+      <div class="brand">✦ Love Movie · 星光手账</div>
+      <button id="themeToggle" class="theme-btn">☀️ 昼 / 夜</button>
+    </div>
+    <div id="updatedAt" class="meta">正在加载星光档案...</div>
+    <div class="search-wrap">
+      <input id="searchInput" class="search-input" type="search" placeholder="搜索心动影人、片名、系列或状态..." />
+    </div>
+  </header>
+
+  <main id="app"></main>
+
+  <nav class="hud-nav">
+    <button class="hud-btn active" data-tab="home"><span>✨</span><span>情报</span></button>
+    <button class="hud-btn" data-tab="people"><span>💫</span><span>影人</span></button>
+    <button class="hud-btn" data-tab="series"><span>📖</span><span>系列</span></button>
+    <button class="hud-btn" data-tab="upcoming"><span>⏳</span><span>档期</span></button>
+  </nav>
+
+  <div id="drawer" class="drawer">
+    <div class="drawer-panel">
+      <div class="drawer-head">
+        <div id="drawerTitle" class="brand">影人档案</div>
+        <button id="closeDrawer" class="close-btn">收起 ✕</button>
+      </div>
+      <div id="drawerBody"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
