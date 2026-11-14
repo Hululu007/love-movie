@@ -1,0 +1,19 @@
+settings:
+  recent_years_limit: 0
+  enable_douban_helper: true
+  request_delay_seconds: 1.5
+
+people:
+  - name: "Christopher Nolan"
+    imdb: "https://www.imdb.com/name/nm0634240/"
+    roles: ["Director", "Writer", "Producer"]
+    notes: "重点关注新作动态"
+
+series:
+  - name: "Dune"
+    status: "连载中"
+    entries:
+      - title: "Dune: Part One"
+        imdb: "tt1160419"
+      - title: "Dune: Part Two"
+        imdb: "https://www.imdb.com/title/tt15239678/"
