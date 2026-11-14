@@ -4,5 +4,17 @@
     "douban_url": "https://movie.douban.com/subject/35575567/?suggest=Dune%3A+Part+Two",
     "douban_title": "沙丘2",
     "douban_rating": null
+  },
+  "Dune::2021": {
+    "douban_id": "3001114",
+    "douban_url": "https://movie.douban.com/subject/3001114/?suggest=Dune",
+    "douban_title": "沙丘",
+    "douban_rating": null
+  },
+  "Dune: Part Two::2024": {
+    "douban_id": "35575567",
+    "douban_url": "https://movie.douban.com/subject/35575567/?suggest=Dune%3A+Part+Two",
+    "douban_title": "沙丘2",
+    "douban_rating": null
   }
 }

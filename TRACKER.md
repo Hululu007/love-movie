@@ -1,10 +1,4 @@
-## 🎬 最新追影看板（更新于 2026-11-15 00:19 UTC+8）
-
-### ⏳ 即将上映 / 制作中项目
-| 归属 | 片名 | 状态 | 年份 | 链接 |
-| :--- | :--- | :--- | :---: | :--- |
-| Dune | Dune: Part One | 待定 | TBD | [IMDb](https://www.imdb.com/title/tt1160419/) / [豆瓣](https://search.douban.com/movie/subject_search?search_text=Dune%3A%20Part%20One) |
-| Dune | Dune: Part Two（沙丘2） | 待定 | TBD | [IMDb](https://www.imdb.com/title/tt15239678/) / [豆瓣](https://movie.douban.com/subject/35575567/?suggest=Dune%3A+Part+Two) |
+## 🎬 最新追影看板（更新于 2026-11-15 00:51 UTC+8）
 
 ### 👤 追影人清单
 #### [Christopher Nolan](https://www.imdb.com/name/nm0634240/)（共 0 部）
@@ -22,5 +16,5 @@
 #### Dune `连载中`
 | 年份 | 片名 | 类型/状态 | IMDb | 豆瓣 |
 | :---: | :--- | :--- | :---: | :--- |
-| TBD | **Dune: Part One** | — | [—](https://www.imdb.com/title/tt1160419/) | [—](https://search.douban.com/movie/subject_search?search_text=Dune%3A%20Part%20One) |
-| TBD | **Dune: Part Two**（沙丘2） | — | [—](https://www.imdb.com/title/tt15239678/) | [—](https://movie.douban.com/subject/35575567/?suggest=Dune%3A+Part+Two) |
+| 2021 | **Dune**（沙丘） | movie | [—](https://www.imdb.com/title/tt1160419/) | [—](https://movie.douban.com/subject/3001114/?suggest=Dune) |
+| 2024 | **Dune: Part Two**（沙丘2） | movie | [—](https://www.imdb.com/title/tt15239678/) | [—](https://movie.douban.com/subject/35575567/?suggest=Dune%3A+Part+Two) |
