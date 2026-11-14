@@ -21,7 +21,7 @@ def render_markdown(data):
         lines.append("")
     upcoming = []
     for p in data.get("people") or []:
-        for w in p.get("works") or []:
+        for w in p.get("credits") or p.get("works") or []:
             if w.get("production_status") or not w.get("year"):
                 upcoming.append({"source": p.get("display_name") or p.get("name"), **w})
     for s in data.get("series") or []:
@@ -42,7 +42,7 @@ def render_markdown(data):
     lines.append("### 👤 追影人清单")
     for p in data.get("people") or []:
         pname = p.get("display_name") or p.get("name")
-        works = p.get("works") or []
+        works = p.get"credits") or p.get("works") or []
         lines.append(f"#### [{pname}]({p.get('imdb_url')})（共 {len(works)} 部）")
         if p.get("notes"):
             lines.append(f"> {p['notes']}\n")
