@@ -1,7 +1,7 @@
-## 🎬 最新追影看板（更新于 2026-11-15 00:59 UTC+8）
+## 🎬 最新追影看板（更新于 2026-11-15 01:14 UTC+8）
 
 ### 👤 追影人清单
-#### [Christopher Nolan](https://www.imdb.com/name/nm0634240/)（共 0 部）
+#### [Christopher Nolan](None)（共 0 部）
 > 重点关注新作动态
 
 <details>
@@ -16,5 +16,5 @@
 #### Dune `连载中`
 | 年份 | 片名 | 类型/状态 | IMDb | 豆瓣 |
 | :---: | :--- | :--- | :---: | :--- |
-| 2021 | **Dune**（沙丘） | movie | [—](https://www.imdb.com/title/tt1160419/) | [—](https://movie.douban.com/subject/3001114/?suggest=Dune) |
-| 2024 | **Dune: Part Two**（沙丘2） | movie | [—](https://www.imdb.com/title/tt15239678/) | [—](https://movie.douban.com/subject/35575567/?suggest=Dune%3A+Part+Two) |
+| 2021 | **沙丘** | — | [⭐ 8.0](None) | [—](https://search.douban.com/movie/subject_search?search_text=%E6%B2%99%E4%B8%98) |
+| 2024 | **沙丘2** | — | [⭐ 8.4](None) | [—](https://search.douban.com/movie/subject_search?search_text=%E6%B2%99%E4%B8%982) |

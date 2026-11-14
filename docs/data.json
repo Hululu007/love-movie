@@ -1,15 +1,16 @@
 {
-  "updated_at": "2026-11-15 00:59 UTC+8",
+  "updated_at": "2026-11-15 01:14 UTC+8",
   "people": [
     {
       "imdb_id": "nm0634240",
       "name": "Christopher Nolan",
       "avatar": "https://m.media-amazon.com/images/M/MV5BNjE3NDQyOTYyMV5BMl5BanBnXkFtZTcwODcyODU2Mw@@._V1_.jpg",
-      "imdb_url": "https://www.imdb.com/name/nm0634240/",
-      "works_count": 0,
-      "works": [],
+      "url": "https://www.imdb.com/name/nm0634240/",
+      "credits": [],
       "display_name": "Christopher Nolan",
-      "notes": "重点关注新作动态"
+      "notes": "重点关注新作动态",
+      "works": [],
+      "works_count": 0
     }
   ],
   "series": [
@@ -20,30 +21,28 @@
       "entries": [
         {
           "imdb_id": "tt1160419",
-          "title": "Dune",
-          "douban_title": "沙丘",
-          "douban_id": "3001114",
-          "douban_url": "https://movie.douban.com/subject/3001114/?suggest=Dune",
+          "title": "沙丘",
           "year": 2021,
+          "release_date": "2021-09-03",
+          "imdb_rating": 8.0,
           "poster": "https://m.media-amazon.com/images/M/MV5BNWIyNmU5MGYtZDZmNi00ZjAwLWJlYjgtZTc0ZGIxMDE4ZGYwXkEyXkFqcGc@._V1_.jpg",
-          "title_type": "movie",
-          "imdb_rating": null,
-          "production_status": "",
-          "imdb_url": "https://www.imdb.com/title/tt1160419/",
+          "url": "https://www.imdb.com/title/tt1160419/",
+          "douban_id": "",
+          "douban_url": "https://search.douban.com/movie/subject_search?search_text=%E6%B2%99%E4%B8%98",
+          "douban_title": "",
           "douban_rating": null
         },
         {
           "imdb_id": "tt15239678",
-          "title": "Dune: Part Two",
-          "douban_title": "沙丘2",
-          "douban_id": "35575567",
-          "douban_url": "https://movie.douban.com/subject/35575567/?suggest=Dune%3A+Part+Two",
+          "title": "沙丘2",
           "year": 2024,
+          "release_date": "2024-02-27",
+          "imdb_rating": 8.4,
           "poster": "https://m.media-amazon.com/images/M/MV5BNTc0YmQxMjEtODI5MC00NjFiLTlkMWUtOGQ5NjFmYWUyZGJhXkEyXkFqcGc@._V1_.jpg",
-          "title_type": "movie",
-          "imdb_rating": null,
-          "production_status": "",
-          "imdb_url": "https://www.imdb.com/title/tt15239678/",
+          "url": "https://www.imdb.com/title/tt15239678/",
+          "douban_id": "",
+          "douban_url": "https://search.douban.com/movie/subject_search?search_text=%E6%B2%99%E4%B8%982",
+          "douban_title": "",
           "douban_rating": null
         }
       ]
