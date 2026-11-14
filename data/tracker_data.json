@@ -1,12 +1,286 @@
 {
-  "updated_at": "2026-11-15 01:14 UTC+8",
+  "updated_at": "2026-11-15 01:22 UTC+8",
   "people": [
     {
       "imdb_id": "nm0634240",
       "name": "Christopher Nolan",
       "avatar": "https://m.media-amazon.com/images/M/MV5BNjE3NDQyOTYyMV5BMl5BanBnXkFtZTcwODcyODU2Mw@@._V1_.jpg",
       "url": "https://www.imdb.com/name/nm0634240/",
-      "credits": [],
+      "credits": [
+        {
+          "imdb_id": "tt33764258",
+          "title": "奥德赛",
+          "year": 2026,
+          "release_date": "2026-07-06",
+          "roles": [
+            "Director",
+            "Producer",
+            "Writer"
+          ],
+          "url": "https://www.imdb.com/title/tt33764258/",
+          "poster": "",
+          "douban_id": "36808876",
+          "imdb_rating": 8.4
+        },
+        {
+          "imdb_id": "tt15398776",
+          "title": "奥本海默",
+          "year": 2023,
+          "release_date": "2023-07-20",
+          "roles": [
+            "Director",
+            "Producer",
+            "Writer"
+          ],
+          "url": "https://www.imdb.com/title/tt15398776/",
+          "poster": "",
+          "douban_id": "35593344",
+          "imdb_rating": 8.2
+        },
+        {
+          "imdb_id": "tt6723592",
+          "title": "信条",
+          "year": 2020,
+          "release_date": "2020-08-13",
+          "roles": [
+            "Director",
+            "Producer",
+            "Writer"
+          ],
+          "url": "https://www.imdb.com/title/tt6723592/",
+          "poster": "",
+          "douban_id": "30444960",
+          "imdb_rating": 7.3
+        },
+        {
+          "imdb_id": "tt5013056",
+          "title": "敦刻尔克",
+          "year": 2017,
+          "release_date": "2017-07-13",
+          "roles": [
+            "Director",
+            "Producer",
+            "Writer"
+          ],
+          "url": "https://www.imdb.com/title/tt5013056/",
+          "poster": "",
+          "douban_id": "26607693",
+          "imdb_rating": 7.8
+        },
+        {
+          "imdb_id": "tt4907572",
+          "title": "奎氏兄弟",
+          "year": 2015,
+          "release_date": "2015-01-01",
+          "roles": [
+            "Director"
+          ],
+          "url": "https://www.imdb.com/title/tt4907572/",
+          "poster": "",
+          "douban_id": "26580111",
+          "imdb_rating": 6.3
+        },
+        {
+          "imdb_id": "tt2209764",
+          "title": "全面進化",
+          "year": 2014,
+          "release_date": "2014-01-01",
+          "roles": [
+            "Producer"
+          ],
+          "url": "https://www.imdb.com/title/tt2209764/",
+          "poster": "",
+          "douban_id": "10810745",
+          "imdb_rating": 6.2
+        },
+        {
+          "imdb_id": "tt0816692",
+          "title": "星际穿越",
+          "year": 2014,
+          "release_date": "2014-10-26",
+          "roles": [
+            "Director",
+            "Producer",
+            "Writer"
+          ],
+          "url": "https://www.imdb.com/title/tt0816692/",
+          "poster": "",
+          "douban_id": "1889243",
+          "imdb_rating": 8.7
+        },
+        {
+          "imdb_id": "tt0770828",
+          "title": "超人：钢铁之躯",
+          "year": 2013,
+          "release_date": "2013-06-10",
+          "roles": [
+            "Producer",
+            "Writer"
+          ],
+          "url": "https://www.imdb.com/title/tt0770828/",
+          "poster": "",
+          "douban_id": "2049435",
+          "imdb_rating": 7.1
+        },
+        {
+          "imdb_id": "tt1345836",
+          "title": "蝙蝠侠：黑暗骑士崛起",
+          "year": 2012,
+          "release_date": "2012-07-20",
+          "roles": [
+            "Director",
+            "Producer",
+            "Writer"
+          ],
+          "url": "https://www.imdb.com/title/tt1345836/",
+          "poster": "",
+          "douban_id": "3395373",
+          "imdb_rating": 8.4
+        },
+        {
+          "imdb_id": "tt1375666",
+          "title": "盗梦空间",
+          "year": 2010,
+          "release_date": "2010-07-08",
+          "roles": [
+            "Director",
+            "Producer",
+            "Writer"
+          ],
+          "url": "https://www.imdb.com/title/tt1375666/",
+          "poster": "",
+          "douban_id": "3541415",
+          "imdb_rating": 8.8
+        },
+        {
+          "imdb_id": "tt0468569",
+          "title": "蝙蝠侠：黑暗骑士",
+          "year": 2008,
+          "release_date": "2008-07-18",
+          "roles": [
+            "Director",
+            "Producer",
+            "Writer"
+          ],
+          "url": "https://www.imdb.com/title/tt0468569/",
+          "poster": "",
+          "douban_id": "1851857",
+          "imdb_rating": 9.1
+        },
+        {
+          "imdb_id": "tt0482571",
+          "title": "致命魔术",
+          "year": 2006,
+          "release_date": "2006-10-17",
+          "roles": [
+            "Director",
+            "Producer",
+            "Writer"
+          ],
+          "url": "https://www.imdb.com/title/tt0482571/",
+          "poster": "",
+          "douban_id": "1780330",
+          "imdb_rating": 8.5
+        },
+        {
+          "imdb_id": "tt0372784",
+          "title": "蝙蝠侠：侠影之谜",
+          "year": 2005,
+          "release_date": "2005-06-15",
+          "roles": [
+            "Director",
+            "Writer"
+          ],
+          "url": "https://www.imdb.com/title/tt0372784/",
+          "poster": "",
+          "douban_id": "1309069",
+          "imdb_rating": 8.2
+        },
+        {
+          "imdb_id": "tt0278504",
+          "title": "白夜追兇",
+          "year": 2002,
+          "release_date": "2002-01-01",
+          "roles": [
+            "Director"
+          ],
+          "url": "https://www.imdb.com/title/tt0278504/",
+          "poster": "",
+          "douban_id": "1307210",
+          "imdb_rating": 7.2
+        },
+        {
+          "imdb_id": "tt0209144",
+          "title": "记忆碎片",
+          "year": 2000,
+          "release_date": "2000-09-05",
+          "roles": [
+            "Director",
+            "Writer"
+          ],
+          "url": "https://www.imdb.com/title/tt0209144/",
+          "poster": "",
+          "douban_id": "1304447",
+          "imdb_rating": 8.4
+        },
+        {
+          "imdb_id": "tt0154506",
+          "title": "追随",
+          "year": 1998,
+          "release_date": "1998-04-24",
+          "roles": [
+            "Director",
+            "Producer",
+            "Writer"
+          ],
+          "url": "https://www.imdb.com/title/tt0154506/",
+          "poster": "",
+          "douban_id": "1397546",
+          "imdb_rating": 7.4
+        },
+        {
+          "imdb_id": "tt0411302",
+          "title": "狮蚁",
+          "year": 1997,
+          "release_date": "1997-01-01",
+          "roles": [
+            "Director",
+            "Writer"
+          ],
+          "url": "https://www.imdb.com/title/tt0411302/",
+          "poster": "",
+          "douban_id": "1499669",
+          "imdb_rating": 7.0
+        },
+        {
+          "imdb_id": "tt6386408",
+          "title": "tt6386408",
+          "year": 1990,
+          "release_date": "1990-09-12",
+          "roles": [
+            "Director",
+            "Producer",
+            "Writer"
+          ],
+          "url": "https://www.imdb.com/title/tt6386408/",
+          "poster": "",
+          "douban_id": "",
+          "imdb_rating": 5.1
+        },
+        {
+          "imdb_id": "tt6386412",
+          "title": "Larceny",
+          "year": null,
+          "release_date": "",
+          "roles": [
+            "Director"
+          ],
+          "url": "https://www.imdb.com/title/tt6386412/",
+          "poster": "",
+          "douban_id": "",
+          "imdb_rating": 5.9
+        }
+      ],
       "display_name": "Christopher Nolan",
       "notes": "重点关注新作动态",
       "works": [],
