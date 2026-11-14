@@ -45,11 +45,11 @@ function workCard(item, sourceLabel) {
 function openMuseDrawer(person) {
   const pname = person.display_name || person.name;
   document.getElementById("drawerTitle").textContent = `💫 ${pname}`;
-  const works = person.works || [];
+  const works = person.credits || person.works || [];
   let html = `
     <div class="btn-row" style="margin-bottom:14px;">
       <a class="btn-link btn-imdb" href="${esc(person.imdb_url)}" target="_blank" rel="noopener">★ IMDb 影人主页</a>
-      <span class="pill gold">收录 ${works.length} 部作品</span>
+      <span class="pill gold">收录 ${person.works_count ?? works.ength} 部作品</span>
     </div>
   `;
   if (!works.length) {
@@ -63,7 +63,7 @@ function openMuseDrawer(person) {
 
 function renderMuseCard(person, idx) {
   const pname = person.display_name || person.name;
-  const works = person.works || [];
+  const works = person.credits || person.works || [];
   const upcomingCount = works.filter(w => w.production_status || !w.year).length;
   const initial = pname.trim().charAt(0).toUpperCase();
   const avatarHtml = person.avatar
@@ -76,7 +76,7 @@ function renderMuseCard(person, idx) {
         <div class="muse-name">${esc(pname)}</div>
         <div class="muse-note">${esc(person.notes || "点击展开星光作品全档案")}</div>
         <div class="muse-tags">
-          <span class="pill gold">羁绊作品 ${works.length}</span>
+          <span class="pill gold">羁绊作品 ${person.works_count ?? works.length}</span>
           ${upcomingCount ? `<span class="pill">⏳ 待映新作 ${upcomingCount}</span>` : ""}
         </div>
       </div>
@@ -122,7 +122,7 @@ function render() {
     });
   } else if (activeTab === "upcoming") {
     const up = [];
-    (DATA.people || []).forEach(p => (p.works || []).forEach(w => {
+    (DATA.people || []).forEach(p => (p.credits || p.works || []).forEach(w => {
       if (w.production_status || !w.year) up.push({ item: w, src: p.display_name || p.name });
     }));
     (DATA.series || []).forEach(s => (s.entries || []).forEach(e => {
