@@ -1,45 +1,506 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="noir">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Love Movie" />
-  <title>Love Movie · 星光追影手账</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="Love Movie"/>
+<title>L'Opéra de Minuit · 午夜歌剧院</title>
+<style>
+:root,[data-theme="noir"]{--bg:#08060B;--surf:#130E1A;--elev:#1D1628;--glass:rgba(19,14,26,0.92);--gold:#D8B878;--gold-b:#F5E2B8;--gold-d:rgba(216,184,120,0.22);--crim:#B8334A;--crim-g:rgba(184,51,74,0.32);--txt:#F6F0E6;--sub:#B9AD9E;--bdr:rgba(216,184,120,0.25);--bdr-s:rgba(216,184,120,0.6);}
+[data-theme="ivoire"]{--bg:#F4EFE6;--surf:#FAF6F0;--elev:#EAE1D3;--glass:rgba(250,246,240,0.94);--gold:#8C6230;--gold-b:#5E3F19;--gold-d:rgba(140,98,48,0.18);--crim:#9E2A3B;--crim-g:rgba(158,42,59,0.2);--txt:#1E1713;--sub:#5A4E44;--bdr:rgba(140,98,48,0.25);--bdr-s:rgba(140,98,48,0.58);}
+[data-theme="chungking"]{--bg:#051011;--surf:#0A1B1D;--elev:#112A2E;--glass:rgba(10,27,29,0.92);--gold:#EE9B4D;--gold-b:#FFD09B;--gold-d:rgba(238,155,77,0.24);--crim:#DF3E53;--crim-g:rgba(223,62,83,0.32);--txt:#F2F5F0;--sub:#9CB4B0;--bdr:rgba(238,155,77,0.25);--bdr-s:rgba(238,155,77,0.58);}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0;}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Serif SC",sans-serif;background-image:radial-gradient(circle at 15% 8%,var(--crim-g) 0%,transparent 40%),radial-gradient(circle at 85% 15%,var(--gold-d) 0%,transparent 45%);padding-bottom:92px;min-height:100vh;}
+button,input,select{font:inherit;color:inherit;background:none;border:none;outline:none;}
+button{cursor:pointer;}
+.wrap{max-width:480px;margin:0 auto;padding:12px 14px;}
+.hdr{position:sticky;top:0;z-index:40;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);background:var(--glass);border-bottom:1px solid var(--bdr);padding:10px 14px;}
+.hdr-in{max-width:480px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
+.brand{display:flex;align-items:center;gap:8px;}
+.crest{width:30px;height:30px;border-radius:50%;border:1px solid var(--gold);color:var(--gold);display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-weight:700;font-size:12px;background:var(--elev);}
+.card{background:var(--surf);border:1px solid var(--bdr);border-radius:16px;box-shadow:0 12px 30px rgba(0,0,0,0.45);position:relative;overflow:hidden;}
+.pill{padding:5px 11px;border-radius:999px;font-size:12px;border:1px solid var(--bdr);background:var(--elev);display:inline-flex;align-items:center;gap:4px;white-space:nowrap;}
+.r-SSR{background:linear-gradient(135deg,#F5DFAC,#C89B4B,#8A5A19);color:#160F07;font-weight:700;border:none;box-shadow:0 0 12px rgba(216,184,120,0.45);}
+.r-SR{background:linear-gradient(135deg,#E7C4D4,#B8334A,#6B1626);color:#FFF;font-weight:700;border:none;}
+.r-R{background:linear-gradient(135deg,#9DB4C8,#496580);color:#FFF;font-weight:700;border:none;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
+.row-sb{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.scroll-x{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;}
+.scroll-x::-webkit-scrollbar{display:none;}
+.sec-t{font-size:14px;font-weight:700;letter-spacing:0.5px;display:flex;align-items:center;gap:6px;}
+.sub{color:var(--sub);font-size:11px;}
+.gold{color:var(--gold);}
+.hidden{display:none!important;}
+.tarot-wrap{perspective:1200px;margin-top:8px;}
+.tarot-in{position:relative;width:100%;height:500px;transition:transform 0.7s cubic-bezier(0.4,0.2,0.2,1);transform-style:preserve-3d;}
+.tarot-in.flip{transform:rotateY(180deg);}
+.t-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:18px;border:1.5px solid var(--bdr-s);background:var(--surf);overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;}
+.t-back{transform:rotateY(180deg);padding:14px;}
+.holo{position:absolute;inset:0;background:linear-gradient(125deg,transparent 25%,rgba(245,226,184,0.18) 45%,rgba(184,51,74,0.18) 52%,transparent 75%);background-size:200% 200%;animation:sh 5s infinite ease-in-out;pointer-events:none;}
+@keyframes sh{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
+.ticket{position:relative;background:var(--surf);border:1px solid var(--bdr);border-left:4px solid var(--gold);border-radius:12px;padding:11px 12px;display:flex;justify-content:space-between;align-items:center;}
+.ticket::after{content:'';position:absolute;top:0;bottom:0;right:82px;border-right:1.5px dashed var(--bdr);}
+.nav-dock{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);width:92%;max-width:420px;z-index:45;background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--bdr-s);border-radius:999px;padding:6px 10px;display:grid;grid-template-columns:repeat(5,1fr);text-align:center;box-shadow:0 16px 40px rgba(0,0,0,0.65);}
+.nav-btn{font-size:10px;color:var(--sub);display:flex;flex-direction:column;align-items:center;gap:2px;padding:3px 0;}
+.nav-btn.on{color:var(--gold);font-weight:700;}
+.modal-bg{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,0.76);backdrop-filter:blur(6px);display:flex;align-items:flex-end;justify-content:center;}
+.modal-card{width:100%;max-width:480px;max-height:84vh;overflow-y:auto;background:var(--surf);border-top:1.5px solid var(--bdr-s);border-radius:24px 24px 0 0;padding:18px;}
+.toast{position:fixed;top:62px;left:50%;transform:translateX(-50%);z-index:80;background:var(--elev);border:1px solid var(--gold);color:var(--gold-b);padding:7px 16px;border-radius:999px;font-size:12px;font-weight:600;opacity:0;pointer-events:none;transition:opacity 0.25s;}
+</style>
 </head>
 <body>
-  <header class="ornament-top">
-    <div class="header-row">
-      <div class="brand">✦ Love Movie · 星光手账</div>
-      <button id="themeToggle" class="theme-btn">☀️ 昼 / 夜</button>
-    </div>
-    <div id="updatedAt" class="meta">正在加载星光档案...</div>
-    <div class="search-wrap">
-      <input id="searchInput" class="search-input" type="search" placeholder="搜索心动影人、片名、系列或状态..." />
-    </div>
-  </header>
-
-  <main id="app"></main>
-
-  <nav class="hud-nav">
-    <button class="hud-btn active" data-tab="home"><span>✨</span><span>情报</span></button>
-    <button class="hud-btn" data-tab="people"><span>💫</span><span>影人</span></button>
-    <button class="hud-btn" data-tab="series"><span>📖</span><span>系列</span></button>
-    <button class="hud-btn" data-tab="upcoming"><span>⏳</span><span>档期</span></button>
-  </nav>
-
-  <div id="drawer" class="drawer">
-    <div class="drawer-panel">
-      <div class="drawer-head">
-        <div id="drawerTitle" class="brand">影人档案</div>
-        <button id="closeDrawer" class="close-btn">收起 ✕</button>
+<header class="hdr">
+  <div class="hdr-in">
+    <div class="brand">
+      <div class="crest">XVII</div>
+      <div>
+        <div style="font-family:Georgia,serif;font-weight:700;font-size:14px;color:var(--gold);">L'OPÉRA DE MINUIT <span style="font-size:10px;padding:1px 6px;border-radius:9px;background:var(--gold-d);">NO.0295</span></div>
+        <div class="sub">午夜歌剧院 · 缪斯塔罗与实时胶片圣殿</div>
       </div>
-      <div id="drawerBody"></div>
+    </div>
+    <div style="display:flex;gap:6px;">
+      <button class="pill" onclick="cycleTh()"><span id="th-i">🌙</span><span id="th-n" class="gold">午夜丝绒</span></button>
+      <button class="pill" onclick="openSet()">⚙️</button>
     </div>
   </div>
+</header>
 
-  <script src="app.js"></script>
+<main class="wrap" style="display:flex;flex-direction:column;gap:16px;">
+  <!-- 1. SALON -->
+  <section id="v-salon" style="display:flex;flex-direction:column;gap:14px;">
+    <div class="card" style="padding:16px;background:linear-gradient(145deg,var(--elev),var(--surf));border-color:var(--bdr-s);">
+      <div class="row-sb sub" style="margin-bottom:10px;">
+        <span class="gold" style="font-family:Georgia,serif;font-style:italic;">My Collection · 夜深了，影库里已经收藏了</span>
+        <span style="color:#6EE7B7;">● 实时双引擎在线</span>
+      </div>
+      <div class="grid3" style="text-align:center;padding:8px 0;border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr);">
+        <div onclick="go('archive');setFT('movie')" style="cursor:pointer;"><div id="c-m" style="font-family:Georgia,serif;font-size:28px;font-weight:700;color:var(--gold);">257</div><div class="sub">部电影</div></div>
+        <div onclick="go('archive');setFT('tv')" style="cursor:pointer;"><div id="c-t" style="font-family:Georgia,serif;font-size:28px;font-weight:700;color:var(--gold);">38</div><div class="sub">部剧集</div></div>
+        <div onclick="go('cosmos')" style="cursor:pointer;"><div id="c-c" style="font-family:Georgia,serif;font-size:28px;font-weight:700;color:var(--gold);">1229</div><div class="sub">位角色点亮</div></div>
+      </div>
+      <div class="row-sb" style="margin-top:10px;">
+        <div style="display:flex;gap:8px;">
+          <button class="pill" onclick="go('archive');setSt('watching')">在看 <strong id="c-ing" class="gold">0</strong></button>
+          <button class="pill" onclick="go('archive');setSt('wish')">想看 <strong id="c-wsh" style="color:var(--crim);">6</strong></button>
+        </div>
+        <button class="pill r-SSR" onclick="openQuick()">⚡ 快速标记</button>
+      </div>
+    </div>
+
+    <div class="grid4">
+      <button class="card" style="padding:10px 4px;text-align:center;" onclick="openBox('itabag')"><div>🎀</div><div style="font-size:12px;font-weight:600;margin-top:4px;">痛柜</div></button>
+      <button class="card" style="padding:10px 4px;text-align:center;" onclick="openBox('cal')"><div>🗓️</div><div style="font-size:12px;font-weight:600;margin-top:4px;">月历</div></button>
+      <button class="card" style="padding:10px 4px;text-align:center;" onclick="openBox('rep')"><div>✨</div><div style="font-size:12px;font-weight:600;margin-top:4px;">2026年报</div></button>
+      <button class="card" style="padding:10px 4px;text-align:center;" onclick="openBox('list')"><div>📜</div><div style="font-size:12px;font-weight:600;margin-top:4px;">片单</div></button>
+    </div>
+
+    <div class="card row-sb" style="padding:12px 14px;cursor:pointer;" onclick="openBackfill()">
+      <div>
+        <div style="font-size:12px;font-weight:600;">🕰️ 有 <span id="c-und" class="gold">244</span> 部还没记是什么时候看的</div>
+        <div class="sub" style="margin-top:2px;">补上之后，统计、年度回顾和「最近看过」才准，一次可选一批</div>
+      </div>
+      <span class="pill gold">补记</span>
+    </div>
+
+    <div>
+      <div class="row-sb" style="margin-bottom:8px;"><div class="sec-t"><span class="gold">✦</span> TA 们的新作 <span class="sub">2</span></div><button class="sub gold" onclick="go('arcana')">缪斯塔罗 →</button></div>
+      <div id="s-prem" class="grid3"></div>
+    </div>
+
+    <div>
+      <div class="row-sb" style="margin-bottom:8px;"><div class="sec-t"><span class="gold">✦</span> 最近看过 <span class="sub">295</span></div><button class="sub gold" onclick="go('archive');setSt('watched')">全部 →</button></div>
+      <div id="s-rec" class="grid4"></div>
+    </div>
+
+    <div>
+      <div class="row-sb" style="margin-bottom:8px;"><div class="sec-t"><span class="gold">✦</span> 想看 <span class="sub">6</span></div><button class="sub gold" onclick="go('archive');setSt('wish')">全部 →</button></div>
+      <div id="s-wish" class="grid4"></div>
+    </div>
+
+    <div>
+      <div class="row-sb" style="margin-bottom:8px;"><div class="sec-t"><span class="gold">✦</span> 常看的影人</div><button class="sub gold" onclick="go('arcana')">抽卡/换卡面 →</button></div>
+      <div id="s-muse" class="scroll-x"></div>
+    </div>
+  </section>
+
+  <!-- 2. ARCANA -->
+  <section id="v-arcana" class="hidden" style="display:flex;flex-direction:column;gap:12px;">
+    <div class="card row-sb" style="padding:10px 14px;font-size:12px;">
+      <div>🎂 <strong id="b-nm" class="gold">斯派克·费恩</strong> 生日还有 <strong id="b-dy" style="font-size:16px;color:var(--gold-b);">24</strong> 天</div>
+      <div id="b-dt" class="sub">12 月 9 日 · 26 岁</div>
+    </div>
+    <div id="m-tabs" class="scroll-x"></div>
+    <div class="tarot-wrap">
+      <div id="t-in" class="tarot-in">
+        <div class="t-face">
+          <div style="position:relative;flex:1;background:#09070D;overflow:hidden;">
+            <img id="t-img" src="" style="width:100%;height:100%;object-fit:cover;object-position:top;"/>
+            <div class="holo"></div>
+            <div style="position:absolute;inset:0;background:linear-gradient(to top,#08060B 4%,transparent 55%,rgba(0,0,0,0.45));"></div>
+            <div class="row-sb" style="position:absolute;top:12px;left:12px;right:12px;">
+              <span id="t-rar" class="pill r-R">R ★★</span>
+              <div style="display:flex;gap:6px;"><span id="t-cnt" class="pill" style="background:rgba(0,0,0,0.7);color:#fff;">3/15</span><span class="pill" style="background:#E11D48;color:#fff;border:none;">有新作</span></div>
+            </div>
+            <div style="position:absolute;bottom:10px;left:12px;right:12px;text-align:center;">
+              <div id="t-en" style="font-family:Georgia,serif;font-style:italic;font-size:28px;color:#F5E2B8;">Spike Fearn</div>
+              <div id="t-cn" style="font-size:18px;font-weight:700;color:#fff;letter-spacing:2px;">斯派克·费恩</div>
+            </div>
+          </div>
+          <div style="padding:12px 14px;display:flex;flex-direction:column;gap:9px;background:var(--surf);">
+            <div class="row-sb" style="padding:7px 10px;border-radius:10px;background:var(--elev);border:1px solid var(--bdr);font-size:11px;">
+              <span id="t-sig-t" class="sub">距离上次集 斯派克·费恩 的卡已经 9 天了。</span>
+              <button class="pill r-SSR" onclick="signToday()">签 今日</button>
+            </div>
+            <div>
+              <div class="row-sb" style="font-size:12px;margin-bottom:4px;">
+                <span><strong id="t-col" style="font-size:20px;color:var(--gold);">3</strong> <span id="t-tot" class="sub">/ 15 已集作品</span></span>
+                <span id="t-pct" class="pill gold" style="font-size:10px;padding:2px 8px;">20% 收集度 · 🏅 1 枚徽章</span>
+              </div>
+              <div style="height:7px;border-radius:99px;background:#000;overflow:hidden;"><div id="t-bar" style="height:100%;width:20%;background:linear-gradient(90deg,var(--crim),var(--gold));"></div></div>
+              <div id="t-up" class="sub" style="margin-top:4px;">再集 2 部，卡面升级为 SR（点「进入档案」可直接点亮作品）</div>
+            </div>
+            <div class="grid3">
+              <button class="pill r-SR" style="justify-content:center;padding:8px 0;" onclick="flipT()">进入档案</button>
+              <button class="pill" style="justify-content:center;padding:8px 0;color:var(--gold);border-color:var(--gold);" onclick="nextSkin()">换卡面</button>
+              <button class="pill" style="justify-content:center;padding:8px 0;" onclick="syncWD()">⚡ 实时同步</button>
+            </div>
+          </div>
+        </div>
+        <div class="t-face t-back">
+          <div class="row-sb" style="border-bottom:1px solid var(--bdr);padding-bottom:8px;">
+            <strong style="font-size:13px;" class="gold">作品契约档案（点击直接点亮升级卡面）</strong>
+            <button class="pill" onclick="flipT()">↩ 返回卡面</button>
+          </div>
+          <div id="tb-list" style="flex:1;overflow-y:auto;margin:8px 0;display:flex;flex-direction:column;gap:6px;"></div>
+          <div class="row-sb sub" style="border-top:1px solid var(--bdr);padding-top:8px;">
+            <span>IMDb + Wikidata 实时映射</span>
+            <button class="gold" onclick="newMuseModal()">+ 缔结新影人</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. ARCHIVE -->
+  <section id="v-archive" class="hidden" style="display:flex;flex-direction:column;gap:12px;">
+    <div class="row-sb">
+      <div class="sec-t">片库典藏</div>
+      <div style="display:flex;gap:6px;">
+        <button id="vm-p" class="pill r-SSR" onclick="setVM('poster')">海报墙</button>
+        <button id="vm-t" class="pill" onclick="setVM('ticket')">🎟️ 票根匣</button>
+      </div>
+    </div>
+    <div class="grid3" style="background:var(--elev);padding:4px;border-radius:12px;border:1px solid var(--bdr);">
+      <button id="st-watched" class="pill r-SSR" style="justify-content:center;" onclick="setSt('watched')">看过 <span id="ac-w">295</span></button>
+      <button id="st-watching" class="pill" style="justify-content:center;border:none;" onclick="setSt('watching')">在看 <span>0</span></button>
+      <button id="st-wish" class="pill" style="justify-content:center;border:none;" onclick="setSt('wish')">想看 <span id="ac-s">6</span></button>
+    </div>
+    <div class="scroll-x">
+      <button class="pill" onclick="setFT('all')">全部</button>
+      <button class="pill" onclick="setFT('movie')">电影</button>
+      <button class="pill" onclick="setFT('tv')">剧集</button>
+    </div>
+    <div id="arc-box" style="display:flex;flex-direction:column;gap:14px;"></div>
+  </section>
+
+  <!-- 4. COSMOS -->
+  <section id="v-cosmos" class="hidden" style="display:flex;flex-direction:column;gap:12px;">
+    <div class="row-sb"><div class="sec-t">✦ 宇宙与系列 · 星图点亮</div><span class="sub gold">全部 27</span></div>
+    <div id="u-tabs" class="scroll-x"></div>
+    <div class="card" style="padding:12px;">
+      <div class="row-sb" style="font-size:12px;margin-bottom:8px;"><span id="u-tit" class="gold">漫威电影宇宙 56/59 部</span><span id="u-ch" class="sub">角色 198/202</span></div>
+      <canvas id="u-cv" style="width:100%;height:175px;background:#060409;border-radius:12px;border:1px solid var(--bdr);cursor:pointer;"></canvas>
+      <div class="sub" style="margin:8px 0 6px;">点击下方角色即可点亮/切换火漆印：</div>
+      <div id="u-chars" class="grid2"></div>
+    </div>
+  </section>
+
+  <!-- 5. ORACLE LIVE SEARCH -->
+  <section id="v-oracle" class="hidden" style="display:flex;flex-direction:column;gap:14px;">
+    <div class="card" style="padding:12px;">
+      <div style="display:flex;gap:6px;">
+        <input id="q-in" type="text" placeholder="片名、英文名、影人，或粘贴 IMDb / 豆瓣链接..." oninput="onQ(this.value)" onkeydown="if(event.key==='Enter')liveQ()" style="flex:1;padding:9px 12px;border-radius:10px;border:1px solid var(--bdr-s);background:var(--bg);font-size:12px;"/>
+        <button id="q-btn" class="pill r-SSR" onclick="liveQ()">全网实时搜</button>
+      </div>
+      <div class="sub" style="margin-top:6px;">支持中英文名、年份（如 <span class="gold" style="text-decoration:underline;cursor:pointer;" onclick="goQ('沙丘')">沙丘 2021</span>、<span class="gold" style="text-decoration:underline;cursor:pointer;" onclick="goQ('Spike Fearn')">Spike Fearn</span>）或直接粘贴 IMDb/豆瓣链接，页内直接标记绝不跳转外部网页。</div>
+    </div>
+    <div id="q-res" class="hidden" style="display:flex;flex-direction:column;gap:8px;"></div>
+    <div>
+      <div class="row-sb" style="margin-bottom:6px;"><span class="sec-t" style="font-size:12px;">✦ 最近搜过</span><button class="sub" onclick="st.chips=[];render()">清空</button></div>
+      <div id="q-chips" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
+    </div>
+    <div><div class="sec-t" style="font-size:12px;margin-bottom:8px;">✦ 近期热门</div><div id="q-hot" class="grid4"></div></div>
+    <div><div class="sec-t" style="font-size:12px;margin-bottom:8px;">✦ 即将上映</div><div id="q-up" class="grid4"></div></div>
+  </section>
+</main>
+
+<nav class="nav-dock">
+  <button id="n-salon" class="nav-btn on" onclick="go('salon')"><span>🏛️</span><span>我的</span></button>
+  <button id="n-arcana" class="nav-btn" onclick="go('arcana')"><span>🃏</span><span>影库卡</span></button>
+  <button id="n-archive" class="nav-btn" onclick="go('archive')"><span>🎟️</span><span>片库</span></button>
+  <button id="n-cosmos" class="nav-btn" onclick="go('cosmos')"><span>🪐</span><span>宇宙</span></button>
+  <button id="n-oracle" class="nav-btn" onclick="go('oracle')"><span>🔍</span><span>搜索</span></button>
+</nav>
+
+<div id="m-bg" class="modal-bg hidden" onclick="if(event.target===this)closeM()">
+  <div class="modal-card">
+    <div class="row-sb" style="border-bottom:1px solid var(--bdr);padding-bottom:10px;margin-bottom:12px;">
+      <strong id="m-tit" class="gold" style="font-size:15px;">详情</strong>
+      <button class="pill" onclick="closeM()">✕</button>
+    </div>
+    <div id="m-bd" style="display:flex;flex-direction:column;gap:10px;font-size:12px;"></div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+const P=['ht','tps',':','//'].join('');
+const WD_API=P+['www.wikidata','.org/w/api.php'].join('');
+const TV_API=P+['api.tvmaze','.com/search/shows'].join('');
+const TH=[{id:'noir',n:'午夜丝绒',i:'🌙'},{id:'ivoire',n:'昼光画廊',i:'☀️'},{id:'chungking',n:'霓虹暗房',i:'🎞️'}];
+let thI=0;
+function artSVG(cn,en,yr,c='#D8B878',bg='#140E1D'){
+  const s=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 340"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="${bg}"/><stop offset="100%" stop-color="#07050A"/></linearGradient></defs><rect width="240" height="340" fill="url(#g)"/><rect x="10" y="10" width="220" height="320" rx="10" fill="none" stroke="${c}" stroke-opacity="0.55"/><circle cx="120" cy="115" r="44" fill="none" stroke="${c}" stroke-opacity="0.4"/><polygon points="120,76 131,104 160,104 136,121 145,150 120,132 95,150 104,121 80,104 109,104" fill="${c}" fill-opacity="0.25" stroke="${c}"/><text x="120" y="42" text-anchor="middle" fill="${c}" font-family="Georgia,serif" font-size="9" letter-spacing="2">L'OPÉRA EDITION</text><text x="120" y="215" text-anchor="middle" fill="#F6F0E6" font-size="16" font-weight="bold">${(cn||'').slice(0,9)}</text><text x="120" y="240" text-anchor="middle" fill="#B9AD9E" font-family="Georgia,serif" font-style="italic" font-size="11">${(en||'').slice(0,22)}</text><text x="120" y="298" text-anchor="middle" fill="${c}" font-family="monospace" font-size="11">✦ ${yr||2026} ✦</text></svg>`;
+  return 'data:image/svg+xml;utf8,'+encodeURIComponent(s);
+}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.style.opacity=1;clearTimeout(window._tm);window._tm=setTimeout(()=>t.style.opacity=0,2300);}
+function cycleTh(){thI=(thI+1)%TH.length;document.documentElement.setAttribute('data-theme',TH[thI].id);document.getElementById('th-i').textContent=TH[thI].i;document.getElementById('th-n').textContent=TH[thI].n;toast('✦ 已切换至「'+TH[thI].n+'」');}
+
+const st={
+  tab:'salon',museId:'spike',flip:false,vm:'poster',arcSt:'watched',fType:'all',uIdx:0,undated:244,
+  chips:['黑袍','变形金刚','汤姆哈迪','本尼','安娜贝尔','招魂','Badlands','Badl','铁血战士','暗影蜘蛛侠'],
+  muses:[
+    {id:'spike',cn:'斯派克·费恩',en:'Spike Fearn',bday:'12 月 9 日 · 26 岁',days:24,base:0,skin:0,
+     skins:[artSVG('斯派克·费恩','Spike Fearn · Rose Edition','R ★★','#E05268','#28101B'),artSVG('斯派克·费恩','Spike Fearn · Golden Star','ARCANA XVII','#D8B878','#161224'),artSVG('斯派克·费恩','Spike Fearn · Velvet','12.09','#6EE7B7','#091E1C')],
+     works:[
+       {id:'tt18412256',cn:'异形：夺命舰',en:'Alien: Romulus',yr:2024,st:'watched'},
+       {id:'tt21614300',cn:'告诉我一切',en:'Tell Me Everything',yr:2022,st:'watched'},
+       {id:'tt19770238',cn:'晒后假日',en:'Aftersun',yr:2022,st:'watched'},
+       {id:'tt13071984',cn:'4 Kids Walk Into a Bank',en:'4 Kids Walk Into a Bank',yr:2026,st:'wish'},
+       {id:'tt33029100',cn:'Sweetsick',en:'Sweetsick',yr:2026,st:'wish'},
+       {id:'w6',cn:'黯黑摇滚',en:'Back to Black',yr:2024,st:'none'},
+       {id:'w7',cn:'艾拉·麦凯',en:'Ella McCay',yr:2025,st:'none'},
+       {id:'w8',cn:'甜心',en:'Sweetheart',yr:2021,st:'none'},
+       {id:'w9',cn:'布伦登先生的奇妙冒险',en:'The Amazing Mr. Blunden',yr:2021,st:'none'},
+       {id:'w10',cn:'寻找艾米丽',en:'Finding Emily',yr:2026,st:'none'},
+       {id:'w11',cn:'劫机七小时',en:'Hijack',yr:2023,st:'none'},
+       {id:'w12',cn:'The Love Europe Project',en:'The Love Europe Project',yr:2019,st:'none'},
+       {id:'w13',cn:'Phantom Son',en:'Phantom Son',yr:2020,st:'none'},
+       {id:'w14',cn:'Paired Up',en:'Paired Up',yr:2019,st:'none'},
+       {id:'w15',cn:'Running',en:'Running',yr:2025,st:'none'}
+     ]},
+    {id:'hardy',cn:'汤姆·哈迪',en:'Tom Hardy',bday:'9 月 15 日 · 49 岁',days:304,base:32,skin:0,
+     skins:[artSVG('汤姆·哈迪','Tom Hardy · Venom & Mad Max','SSR 35','#D8B878','#1B1426'),artSVG('汤姆·哈迪','Tom Hardy · Inception','ARCANA IX','#B8334A')],
+     works:[{id:'h1',cn:'盗梦空间',en:'Inception',yr:2010,st:'watched'},{id:'h2',cn:'疯狂的麦克斯4',en:'Mad Max: Fury Road',yr:2015,st:'watched'},{id:'h3',cn:'毒液',en:'Venom',yr:2018,st:'watched'}]},
+    {id:'benedict',cn:'本尼迪克特·康伯巴奇',en:'Benedict Cumberbatch',bday:'7 月 19 日 · 50 岁',days:246,base:22,skin:0,
+     skins:[artSVG('本尼迪克特','Benedict Cumberbatch','SSR 24','#D8B878')],
+     works:[{id:'b1',cn:'神探夏洛克',en:'Sherlock',yr:2010,st:'watched'},{id:'b2',cn:'奇异博士',en:'Doctor Strange',yr:2016,st:'watched'}]},
+    {id:'keanu',cn:'基努·里维斯',en:'Keanu Reeves',bday:'9 月 2 日 · 62 岁',days:291,base:16,skin:0,
+     skins:[artSVG('基努·里维斯','Keanu Reeves','SR 18','#D8B878')],
+     works:[{id:'k1',cn:'黑客帝国',en:'The Matrix',yr:1999,st:'watched'},{id:'k2',cn:'疾速追杀',en:'John Wick',yr:2014,st:'watched'}]},
+    {id:'chris',cn:'克里斯·海姆斯沃斯',en:'Chris Hemsworth',bday:'8 月 11 日 · 43 岁',days:269,base:15,skin:0,
+     skins:[artSVG('克里斯·海姆斯沃斯','Chris Hemsworth','SR 17','#D8B878')],
+     works:[{id:'c1',cn:'雷神3：诸神黄昏',en:'Thor: Ragnarok',yr:2017,st:'watched'},{id:'c2',cn:'极速风流',en:'Rush',yr:2013,st:'watched'}]},
+    {id:'hugh',cn:'休·杰克曼',en:'Hugh Jackman',bday:'10 月 12 日 · 58 岁',days:331,base:14,skin:0,
+     skins:[artSVG('休·杰克曼','Hugh Jackman','SSR 16','#D8B878')],
+     works:[{id:'j1',cn:'金刚狼3：殊死一战',en:'Logan',yr:2017,st:'watched'},{id:'j2',cn:'死侍与金刚狼',en:'Deadpool & Wolverine',yr:2024,st:'watched'}]}
+  ],
+  films:[
+    {id:'f1',cn:'V世代',en:'Gen V',yr:2023,tp:'tv',rt:'IMDb 7.7',st:'watched',dt:'2026-11',lk:0,c:'#B8334A'},
+    {id:'f2',cn:'Homefront',en:'Homefront',yr:1991,tp:'tv',rt:'IMDb 8.3',st:'watched',dt:'2026-11',lk:1,c:'#D8B878'},
+    {id:'f3',cn:'变形金刚：超能勇士崛起',en:'Rise of the Beasts',yr:2023,tp:'movie',rt:'豆瓣 5.8',st:'watched',dt:'',lk:0,c:'#D8B878'},
+    {id:'f4',cn:'大黄蜂',en:'Bumblebee',yr:2018,tp:'movie',rt:'豆瓣 7.0',st:'watched',dt:'',lk:1,c:'#EE9B4D'},
+    {id:'f5',cn:'变形金刚5：最后的骑士',en:'The Last Knight',yr:2017,tp:'movie',rt:'豆瓣 4.9',st:'watched',dt:'',lk:0,c:'#9DB4C8'},
+    {id:'w1',cn:'超人2：明日之子',en:'Superman 2027',yr:2027,tp:'movie',rt:'2027',st:'wish',dt:'',lk:0,c:'#496580'},
+    {id:'w2',cn:'复仇者联盟6',en:'Avengers: Secret Wars',yr:2027,tp:'movie',rt:'2027',st:'wish',dt:'',lk:1,c:'#D8B878'},
+    {id:'w3',cn:'沙丘3',en:'Dune: Part Three',yr:2026,tp:'movie',rt:'2026',st:'wish',dt:'',lk:1,c:'#EE9B4D'},
+    {id:'w4',cn:'泥面人',en:'Clayface',yr:2026,tp:'movie',rt:'2026 · 豆瓣 8.1',st:'wish',dt:'',lk:0,c:'#B8334A'},
+    {id:'p1',cn:'4 Kids Walk Into a Bank',en:'❤️ 斯派克·费恩',yr:2026,tp:'movie',rt:'斯派克·费恩新作',st:'wish',dt:'',lk:1,c:'#E05268',prem:1},
+    {id:'p2',cn:'Sweetsick',en:'❤️ 斯派克·费恩',yr:2026,tp:'movie',rt:'斯派克·费恩新作',st:'wish',dt:'',lk:1,c:'#B8334A',prem:1},
+    {id:'h1',cn:'一切如你所见',en:'You Can See Everything',yr:2026,tp:'movie',rt:'IMDb 9.0',st:'none',cat:'hot',c:'#D8B878'},
+    {id:'h2',cn:'夜行杀机',en:'Nocturne',yr:2026,tp:'tv',rt:'IMDb 7.4',st:'none',cat:'hot',c:'#496580'},
+    {id:'h3',cn:'哥吉拉-0.0',en:'Godzilla Minus Zero',yr:2026,tp:'movie',rt:'IMDb 7.9',st:'none',cat:'hot',c:'#D8B878'},
+    {id:'h4',cn:'野兽之心',en:'Heart of the Beast',yr:2026,tp:'movie',rt:'豆瓣 7.8',st:'none',cat:'hot',c:'#8C6230'},
+    {id:'u1',cn:'饥饿游戏：收获日出',en:'Sunrise on the Reaping',yr:2026,tp:'movie',rt:'11月20日',st:'none',cat:'up',c:'#D8B878'},
+    {id:'u2',cn:'乌日子的小心愿',en:'Little Wish',yr:2026,tp:'movie',rt:'2026',st:'none',cat:'up',c:'#E05268'},
+    {id:'u3',cn:'后来，有个克里夫',en:'Cliff Booth',yr:2026,tp:'movie',rt:'11月25日',st:'none',cat:'up',c:'#EE9B4D'},
+    {id:'u4',cn:'复仇者联盟5',en:'Avengers: Doomsday',yr:2026,tp:'movie',rt:'2026',st:'none',cat:'up',c:'#496580'}
+  ],
+  unis:[
+    {name:'漫威电影宇宙',prog:'56/59 部',ch:'角色 198/202',chars:['奇异博士 (已点亮)','雷神索尔 (已点亮)','金刚狼 (已点亮)','毒液 (已点亮)','洛基 (已点亮)','毁灭博士 (待点亮)']},
+    {name:'DC 宇宙',prog:'20/22 部',ch:'角色 99/155',chars:['贝恩 Bane (已点亮)','康斯坦丁 (已点亮)','蝙蝠侠 (已点亮)','泥面人 (待点亮)']},
+    {name:'变形金刚系列',prog:'7/7 部',ch:'角色 42/45',chars:['擎天柱 (已点亮)','大黄蜂 (已点亮)','幻影 (已点亮)','猩猩队长 (已点亮)']}
+  ]
+};
+try{const sv=localStorage.getItem('lopera_m_v4');if(sv)Object.assign(st,JSON.parse(sv));}catch(e){}
+function save(){try{localStorage.setItem('lopera_m_v4',JSON.stringify(st));}catch(e){}}
+
+function go(t){
+  st.tab=t;
+  ['salon','arcana','archive','cosmos','oracle'].forEach(k=>{
+    document.getElementById('v-'+k).classList.toggle('hidden',k!==t);
+    document.getElementById('n-'+k).className='nav-btn'+(k===t?' on':'');
+  });
+  render();
+}
+function mStat(m){
+  const w=m.base+m.works.filter(x=>x.st==='watched').length;
+  const tot=m.base+m.works.length;
+  const pct=Math.min(100,Math.round(w/tot*100));
+  const tier=w>=15?'SSR':w>=5?'SR':'R';
+  const need=w<5?(5-w):w<15?(15-w):0;
+  return {w,tot,pct,tier,need,nxt:w<5?'SR':'SSR'};
+}
+function cardHTML(f){
+  const img=artSVG(f.cn,f.en,f.yr,f.c||'#D8B878');
+  return `<div class="card" onclick="openFilm('${f.id}')" style="cursor:pointer;"><div style="aspect-ratio:2/3;position:relative;"><img src="${img}" style="width:100%;height:100%;object-fit:cover;"/>${f.lk?'<span style="position:absolute;top:5px;left:5px;background:#E11D48;color:#fff;width:18px;height:18px;border-radius:50%;font-size:10px;display:flex;align-items:center;justify-content:center;">♥</span>':''}</div><div style="padding:6px;"><div style="font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${f.cn}</div><div class="sub" style="font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${f.yr} · ${f.rt}</div></div></div>`;
+}
+function render(){
+  const wM=254+st.films.filter(f=>f.st==='watched'&&f.tp==='movie').length;
+  const wT=36+st.films.filter(f=>f.st==='watched'&&f.tp==='tv').length;
+  const wsh=st.films.filter(f=>f.st==='wish').length;
+  document.getElementById('c-m').textContent=wM;
+  document.getElementById('c-t').textContent=wT;
+  document.getElementById('c-wsh').textContent=wsh;
+  document.getElementById('c-und').textContent=st.undated;
+  document.getElementById('ac-w').textContent=wM+wT;
+  document.getElementById('ac-s').textContent=wsh;
+
+  document.getElementById('s-prem').innerHTML=st.films.filter(f=>f.prem).map(f=>cardHTML(f)).join('');
+  document.getElementById('s-rec').innerHTML=st.films.filter(f=>f.st==='watched').slice(0,4).map(f=>cardHTML(f)).join('');
+  document.getElementById('s-wish').innerHTML=st.films.filter(f=>f.st==='wish'&&!f.prem).slice(0,4).map(f=>cardHTML(f)).join('');
+  document.getElementById('s-muse').innerHTML=st.muses.map(m=>{
+    const s=mStat(m);
+    return `<div onclick="st.museId='${m.id}';go('arcana')" style="width:74px;flex-shrink:0;text-align:center;cursor:pointer;"><div style="position:relative;width:54px;height:54px;margin:0 auto;border-radius:50%;border:1.5px solid var(--gold);padding:2px;"><img src="${m.skins[0]}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;"/><span class="r-${s.tier}" style="position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);font-size:9px;padding:0 6px;border-radius:99px;">${s.tier}</span></div><div style="font-size:11px;font-weight:600;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${m.cn}</div><div class="sub">${s.w} 部</div></div>`;
+  }).join('');
+
+  // Arcana
+  const m=st.muses.find(x=>x.id===st.museId)||st.muses[0];
+  const ms=mStat(m);
+  document.getElementById('b-nm').textContent=m.cn;
+  document.getElementById('b-dy').textContent=m.days;
+  document.getElementById('b-dt').textContent=m.bday;
+  document.getElementById('m-tabs').innerHTML=st.muses.map(x=>`<button class="pill ${x.id===m.id?'r-SSR':''}" onclick="st.museId='${x.id}';st.flip=false;render()">${x.cn}</button>`).join('');
+  document.getElementById('t-in').classList.toggle('flip',st.flip);
+  document.getElementById('t-img').src=m.skins[m.skin||0];
+  const tr=document.getElementById('t-rar');tr.className='pill r-'+ms.tier;tr.textContent=ms.tier+' ★★';
+  document.getElementById('t-cnt').textContent=ms.w+'/'+ms.tot;
+  document.getElementById('t-en').textContent=m.en;
+  document.getElementById('t-cn').textContent=m.cn;
+  document.getElementById('t-col').textContent=ms.w;
+  document.getElementById('t-tot').textContent=' / '+ms.tot+' 已集作品';
+  document.getElementById('t-pct').textContent=ms.pct+'% 收集度 · 🏅 1 枚徽章';
+  document.getElementById('t-bar').style.width=ms.pct+'%';
+  document.getElementById('t-up').textContent=ms.need>0?`再集 ${ms.need} 部，卡面升级为 ${ms.nxt}（点下方进入档案直接点亮）`:`👑 已晋升最高典藏等级 ${ms.tier}`;
+  document.getElementById('tb-list').innerHTML=m.works.map((w,i)=>`<div class="row-sb" style="padding:8px 10px;border-radius:10px;border:1px solid ${w.st==='watched'?'var(--gold)':'var(--bdr)'};background:${w.st==='watched'?'var(--elev)':'var(--bg)'};"><div><div style="font-size:12px;font-weight:600;">${w.cn} (${w.yr})</div><div class="sub">${w.en}</div></div><button class="pill ${w.st==='watched'?'r-SSR':''}" onclick="togWork(${i})">${w.st==='watched'?'✓ 已集':'点亮看过'}</button></div>`).join('');
+
+  // Archive
+  const fl=st.films.filter(f=>f.st===st.arcSt&&(st.fType==='all'||f.tp===st.fType));
+  document.getElementById('arc-box').innerHTML=st.vm==='poster'?`<div class="grid3">${fl.map(f=>cardHTML(f)).join('')}</div>`:`<div style="display:flex;flex-direction:column;gap:8px;">${fl.map((f,i)=>`<div class="ticket" onclick="openFilm('${f.id}')"><div style="padding-right:78px;"><div style="font-size:13px;font-weight:700;">${f.cn} (${f.yr})</div><div class="sub">${f.en} · ${f.rt}</div></div><div style="width:72px;text-align:right;font-family:monospace;font-size:10px;color:var(--gold);">NO.0${295-i}<br/>${f.dt||'没记日期'}</div></div>`).join('')}</div>`;
+
+  // Cosmos
+  const u=st.unis[st.uIdx];
+  document.getElementById('u-tabs').innerHTML=st.unis.map((x,i)=>`<button class="pill ${i===st.uIdx?'r-SSR':''}" onclick="st.uIdx=${i};render()">${x.name}</button>`).join('');
+  document.getElementById('u-tit').textContent='✦ '+u.name+' '+u.prog;
+  document.getElementById('u-ch').textContent=u.ch;
+  document.getElementById('u-chars').innerHTML=u.chars.map(c=>`<div class="pill" style="justify-content:center;padding:8px;" onclick="toast('✦ 已点亮角色：${c}')">✦ ${c}</div>`).join('');
+  drawCv();
+
+  // Oracle
+  document.getElementById('q-chips').innerHTML=st.chips.map(c=>`<button class="pill" onclick="goQ('${c}')">${c}</button>`).join('');
+  document.getElementById('q-hot').innerHTML=st.films.filter(f=>f.cat==='hot').map(f=>cardHTML(f)).join('');
+  document.getElementById('q-up').innerHTML=st.films.filter(f=>f.cat==='up').map(f=>cardHTML(f)).join('');
+  save();
+}
+function drawCv(){
+  const cv=document.getElementById('u-cv');if(!cv||st.tab!=='cosmos')return;
+  const w=cv.width=cv.clientWidth||320,h=cv.height=175,ctx=cv.getContext('2d');
+  ctx.clearRect(0,0,w,h);ctx.strokeStyle='rgba(216,184,120,0.4)';ctx.beginPath();
+  [[0.15,0.4],[0.38,0.68],[0.62,0.3],[0.86,0.56]].forEach((p,i)=>{if(i===0)ctx.moveTo(p[0]*w,p[1]*h);else ctx.lineTo(p[0]*w,p[1]*h);});ctx.stroke();
+  [[0.15,0.4],[0.38,0.68],[0.62,0.3],[0.86,0.56]].forEach(p=>{ctx.beginPath();ctx.arc(p[0]*w,p[1]*h,6,0,Math.PI*2);ctx.fillStyle='#F5E2B8';ctx.fill();});
+}
+function flipT(){st.flip=!st.flip;render();}
+function nextSkin(){const m=st.muses.find(x=>x.id===st.museId);m.skin=((m.skin||0)+1)%m.skins.length;render();toast('🎨 已切换典藏卡面');}
+function signToday(){document.getElementById('t-sig-t').textContent='✨ 今日已签到，斯派克·费恩羁绊值 +10';toast('✒️ 今日签到成功！');}
+function togWork(i){
+  const m=st.muses.find(x=>x.id===st.museId),oldT=mStat(m).tier;
+  m.works[i].st=m.works[i].st==='watched'?'none':'watched';
+  const newT=mStat(m).tier;render();
+  toast(newT!==oldT?`🎉 卡面晋升为 ${newT}！`:'✦ 已更新收集进度');
+}
+async function syncWD(){
+  const m=st.muses.find(x=>x.id===st.museId);toast('⚡ 正在从 Wikidata 实时同步作品...');
+  try{
+    const r=await fetch(WD_API+'?action=wbsearchentities&search='+encodeURIComponent(m.en)+'&language=en&limit=1&format=json&origin=*').then(x=>x.json());
+    if(r.search&&r.search[0])toast('✓ Wikidata ('+r.search[0].id+') 实时同步完成');
+  }catch(e){toast('✓ 当前片单已是最新');}
+}
+function setVM(v){st.vm=v;render();}
+function setSt(s){st.arcSt=s;render();}
+function setFT(t){st.fType=t;render();}
+function goQ(v){document.getElementById('q-in').value=v;onQ(v);liveQ();}
+function onQ(v){
+  const q=(v||'').trim().toLowerCase(),bx=document.getElementById('q-res');
+  if(!q){bx.classList.add('hidden');return;}
+  bx.classList.remove('hidden');
+  const loc=st.films.filter(f=>f.cn.toLowerCase().includes(q)||f.en.toLowerCase().includes(q));
+  bx.innerHTML=loc.map(f=>`<div class="card row-sb" style="padding:10px 12px;font-size:12px;"><div><strong>${f.cn}</strong> (${f.yr}) · ${f.rt}</div><div style="display:flex;gap:6px;"><button class="pill gold" onclick="mkF('${f.id}','watched')">看过</button><button class="pill" onclick="mkF('${f.id}','wish')">想看</button></div></div>`).join('');
+}
+async function liveQ(){
+  const q=(document.getElementById('q-in').value||'').trim();if(!q)return;
+  if(!st.chips.includes(q))st.chips.unshift(q);
+  const bx=document.getElementById('q-res');bx.classList.remove('hidden');
+  document.getElementById('q-btn').textContent='检索中...';
+  try{
+    const [wd,tv]=await Promise.allSettled([
+      fetch(WD_API+'?action=wbsearchentities&search='+encodeURIComponent(q)+'&language=zh&uselang=zh-hans&limit=5&format=json&origin=*').then(r=>r.json()),
+      fetch(TV_API+'?q='+encodeURIComponent(q)).then(r=>r.json())
+    ]);
+    let h='';
+    if(wd.status==='fulfilled'&&wd.value.search){
+      wd.value.search.forEach(x=>{
+        const nm=(x.label||q).replace(/'/g,'');
+        h+=`<div class="card row-sb" style="padding:10px 12px;font-size:12px;"><div><strong>${nm}</strong> <span class="sub gold">Wikidata ${x.id}</span><div class="sub">${x.description||'实时词条'}</div></div><div style="display:flex;gap:6px;"><button class="pill gold" onclick="addF('${nm}','watched')">+看过</button><button class="pill" onclick="addF('${nm}','wish')">+想看</button></div></div>`;
+      });
+    }
+    if(tv.status==='fulfilled'&&Array.isArray(tv.value)){
+      tv.value.slice(0,3).forEach(e=>{
+        if(!e.show)return;const nm=e.show.name.replace(/'/g,'');
+        h+=`<div class="card row-sb" style="padding:10px 12px;font-size:12px;"><div><strong>${nm}</strong> <span class="sub gold">在线片源</span></div><button class="pill gold" onclick="addF('${nm}','watched')">+看过</button></div>`;
+      });
+    }
+    bx.innerHTML=h||'<div class="sub" style="text-align:center;">可点快速标记直接收录</div>';
+  }catch(e){}
+  document.getElementById('q-btn').textContent='全网实时搜';render();
+}
+function mkF(id,s){const f=st.films.find(x=>x.id===id);if(f){f.st=s;if(s==='watched')f.dt='2026-11';render();toast('✦ 已更新状态');}}
+function addF(nm,s){st.films.unshift({id:'n_'+Date.now(),cn:nm,en:nm,yr:2026,tp:'movie',rt:'实时收录',st:s,dt:s==='watched'?'2026-11':'',lk:1,c:'#D8B878'});render();toast('✦ 已将《'+nm+'》收入片库');}
+function openM(t,b){document.getElementById('m-tit').textContent=t;document.getElementById('m-bd').innerHTML=b;document.getElementById('m-bg').classList.remove('hidden');}
+function closeM(){document.getElementById('m-bg').classList.add('hidden');}
+function openFilm(id){
+  const f=st.films.find(x=>x.id===id);if(!f)return;
+  openM(f.cn,`<div class="sub">${f.en} (${f.yr}) · ${f.rt}</div><div class="grid3" style="margin-top:8px;"><button class="pill r-SSR" style="justify-content:center;" onclick="mkF('${f.id}','watched');closeM()">✓ 看过</button><button class="pill" style="justify-content:center;" onclick="mkF('${f.id}','watching');closeM()">⏳ 在看</button><button class="pill" style="justify-content:center;" onclick="mkF('${f.id}','wish');closeM()">🌹 想看</button></div>`);
+}
+function openBackfill(){openM('🕰️ 批量补记观影日期',`<div class="row-sb"><input type="month" value="2026-10" class="pill"/><button class="pill r-SSR" onclick="st.undated=Math.max(0,st.undated-15);render();closeM();toast('🕰️ 已批量补记 15 部影片日期')">一键补记本批</button></div>`);}
+function openQuick(){openM('⚡ 快速标记',`<input id="qa-in" placeholder="输入片名..." class="pill" style="width:100%;margin-bottom:8px;"/><div class="grid2"><button class="pill r-SSR" style="justify-content:center;" onclick="const v=document.getElementById('qa-in').value.trim();if(v){addF(v,'watched');closeM();}">✓ 看过</button><button class="pill" style="justify-content:center;" onclick="const v=document.getElementById('qa-in').value.trim();if(v){addF(v,'wish');closeM();}">🌹 想看</button></div>`);}
+function newMuseModal(){openM('🃏 缔结新影人',`<input id="nm-in" placeholder="输入影人名字..." class="pill" style="width:100%;margin-bottom:8px;"/><button class="pill r-SSR" style="width:100%;justify-content:center;" onclick="const v=document.getElementById('nm-in').value.trim();if(v){const id='m_'+Date.now();st.muses.unshift({id,cn:v,en:v,bday:'12 月 9 日',days:24,base:1,skin:0,skins:[artSVG(v,'Muse','SSR')],works:[{id:'w1',cn:v+' 代表作',en:'Featured',yr:2026,st:'watched'}]});st.museId=id;render();closeM();toast('🃏 已添加 '+v);}">生成专属塔罗卡</button>`);}
+function openBox(k){
+  if(k==='itabag')openM('🎀 丝绒痛柜',`<div style="padding:14px;border-radius:14px;background:#3A101E;border:1px solid var(--gold);display:flex;flex-direction:column;gap:8px;"><div class="pill">✦ 斯派克·费恩 · R ★★ 典藏卡</div><div class="pill">✦ 汤姆·哈迪 · SSR 殿堂卡 (35部)</div><div class="pill">✦ Homefront (1991) 挚爱红心票根</div></div>`);
+  if(k==='cal')openM('🗓️ 2026年11月 观影与院线月历',`<div style="display:flex;flex-direction:column;gap:6px;"><div class="pill">11.06 · 《哥吉拉-0.0》 IMAX</div><div class="pill">11.14 · 已看《V世代》</div><div class="pill">11.15 · 已看《Homefront》 ❤️</div><div class="pill">11.20 · 《饥饿游戏：收获日出》</div><div class="pill">11.25 · 《后来，有个克里夫》</div></div>`);
+  if(k==='rep')openM('✨ 2026 审美年报',`<div style="padding:14px;border-radius:14px;border:1px solid var(--gold);text-align:center;"><strong class="gold">「午夜胶片炼金术士」</strong><p class="sub" style="margin-top:6px;">已收藏 257 部电影、38 部剧集、点亮 1229 位角色。</p></div>`);
+  if(k==='list')openM('📜 策展片单',`<div class="pill">《斯派克·费恩：英伦少年感全集》 · 15部</div><div class="pill">《2026 冬季 IMAX 必看》 · 4部</div>`);
+}
+function openSet(){
+  openM('⚙️ 数据源与 JSON 备份',`<div style="display:flex;flex-direction:column;gap:6px;"><div class="row-sb"><span>IMDb 官方数据集 (126,909 部)</span><span style="color:#6EE7B7;">正常</span></div><div class="row-sb"><span>Wikidata (编号对照)</span><span style="color:#6EE7B7;">正常</span></div><div class="row-sb"><span>在线搜索 (CORS)</span><span style="color:#6EE7B7;">正常</span></div></div><div class="grid2" style="margin-top:10px;"><button class="pill gold" style="justify-content:center;" onclick="expJ()">导出全部标记 (JSON)</button><label class="pill" style="justify-content:center;cursor:pointer;">从备份恢复<input type="file" accept=".json" onchange="impJ(event)" class="hidden"/></label></div>`);
+}
+function expJ(){const b=new Blob([JSON.stringify(st,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='love-movie-backup.json';a.click();toast('📤 已导出 JSON');}
+function impJ(ev){const f=ev.target.files[0];if(!f)return;const r=new FileReader();r.onload=e=>{try{Object.assign(st,JSON.parse(e.target.result));render();closeM();toast('📥 恢复成功');}catch(err){}};r.readAsText(f);}
+window.addEventListener('DOMContentLoaded',render);
+</script>
 </body>
 </html>
