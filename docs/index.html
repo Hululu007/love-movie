@@ -1,506 +1,888 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="noir">
+<html lang="zh-CN">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-<meta name="apple-mobile-web-app-title" content="Love Movie"/>
-<title>L'Opéra de Minuit · 午夜歌剧院</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Love Movie · 浮光纪年 — 全动态追影与缪斯手账</title>
 <style>
-:root,[data-theme="noir"]{--bg:#08060B;--surf:#130E1A;--elev:#1D1628;--glass:rgba(19,14,26,0.92);--gold:#D8B878;--gold-b:#F5E2B8;--gold-d:rgba(216,184,120,0.22);--crim:#B8334A;--crim-g:rgba(184,51,74,0.32);--txt:#F6F0E6;--sub:#B9AD9E;--bdr:rgba(216,184,120,0.25);--bdr-s:rgba(216,184,120,0.6);}
-[data-theme="ivoire"]{--bg:#F4EFE6;--surf:#FAF6F0;--elev:#EAE1D3;--glass:rgba(250,246,240,0.94);--gold:#8C6230;--gold-b:#5E3F19;--gold-d:rgba(140,98,48,0.18);--crim:#9E2A3B;--crim-g:rgba(158,42,59,0.2);--txt:#1E1713;--sub:#5A4E44;--bdr:rgba(140,98,48,0.25);--bdr-s:rgba(140,98,48,0.58);}
-[data-theme="chungking"]{--bg:#051011;--surf:#0A1B1D;--elev:#112A2E;--glass:rgba(10,27,29,0.92);--gold:#EE9B4D;--gold-b:#FFD09B;--gold-d:rgba(238,155,77,0.24);--crim:#DF3E53;--crim-g:rgba(223,62,83,0.32);--txt:#F2F5F0;--sub:#9CB4B0;--bdr:rgba(238,155,77,0.25);--bdr-s:rgba(238,155,77,0.58);}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0;}
-body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Serif SC",sans-serif;background-image:radial-gradient(circle at 15% 8%,var(--crim-g) 0%,transparent 40%),radial-gradient(circle at 85% 15%,var(--gold-d) 0%,transparent 45%);padding-bottom:92px;min-height:100vh;}
-button,input,select{font:inherit;color:inherit;background:none;border:none;outline:none;}
-button{cursor:pointer;}
-.wrap{max-width:480px;margin:0 auto;padding:12px 14px;}
-.hdr{position:sticky;top:0;z-index:40;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);background:var(--glass);border-bottom:1px solid var(--bdr);padding:10px 14px;}
-.hdr-in{max-width:480px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
-.brand{display:flex;align-items:center;gap:8px;}
-.crest{width:30px;height:30px;border-radius:50%;border:1px solid var(--gold);color:var(--gold);display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-weight:700;font-size:12px;background:var(--elev);}
-.card{background:var(--surf);border:1px solid var(--bdr);border-radius:16px;box-shadow:0 12px 30px rgba(0,0,0,0.45);position:relative;overflow:hidden;}
-.pill{padding:5px 11px;border-radius:999px;font-size:12px;border:1px solid var(--bdr);background:var(--elev);display:inline-flex;align-items:center;gap:4px;white-space:nowrap;}
-.r-SSR{background:linear-gradient(135deg,#F5DFAC,#C89B4B,#8A5A19);color:#160F07;font-weight:700;border:none;box-shadow:0 0 12px rgba(216,184,120,0.45);}
-.r-SR{background:linear-gradient(135deg,#E7C4D4,#B8334A,#6B1626);color:#FFF;font-weight:700;border:none;}
-.r-R{background:linear-gradient(135deg,#9DB4C8,#496580);color:#FFF;font-weight:700;border:none;}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
-.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
-.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
-.row-sb{display:flex;align-items:center;justify-content:space-between;gap:8px;}
-.scroll-x{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;}
-.scroll-x::-webkit-scrollbar{display:none;}
-.sec-t{font-size:14px;font-weight:700;letter-spacing:0.5px;display:flex;align-items:center;gap:6px;}
-.sub{color:var(--sub);font-size:11px;}
-.gold{color:var(--gold);}
-.hidden{display:none!important;}
-.tarot-wrap{perspective:1200px;margin-top:8px;}
-.tarot-in{position:relative;width:100%;height:500px;transition:transform 0.7s cubic-bezier(0.4,0.2,0.2,1);transform-style:preserve-3d;}
-.tarot-in.flip{transform:rotateY(180deg);}
-.t-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:18px;border:1.5px solid var(--bdr-s);background:var(--surf);overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;}
-.t-back{transform:rotateY(180deg);padding:14px;}
-.holo{position:absolute;inset:0;background:linear-gradient(125deg,transparent 25%,rgba(245,226,184,0.18) 45%,rgba(184,51,74,0.18) 52%,transparent 75%);background-size:200% 200%;animation:sh 5s infinite ease-in-out;pointer-events:none;}
-@keyframes sh{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
-.ticket{position:relative;background:var(--surf);border:1px solid var(--bdr);border-left:4px solid var(--gold);border-radius:12px;padding:11px 12px;display:flex;justify-content:space-between;align-items:center;}
-.ticket::after{content:'';position:absolute;top:0;bottom:0;right:82px;border-right:1.5px dashed var(--bdr);}
-.nav-dock{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);width:92%;max-width:420px;z-index:45;background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--bdr-s);border-radius:999px;padding:6px 10px;display:grid;grid-template-columns:repeat(5,1fr);text-align:center;box-shadow:0 16px 40px rgba(0,0,0,0.65);}
-.nav-btn{font-size:10px;color:var(--sub);display:flex;flex-direction:column;align-items:center;gap:2px;padding:3px 0;}
-.nav-btn.on{color:var(--gold);font-weight:700;}
-.modal-bg{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,0.76);backdrop-filter:blur(6px);display:flex;align-items:flex-end;justify-content:center;}
-.modal-card{width:100%;max-width:480px;max-height:84vh;overflow-y:auto;background:var(--surf);border-top:1.5px solid var(--bdr-s);border-radius:24px 24px 0 0;padding:18px;}
-.toast{position:fixed;top:62px;left:50%;transform:translateX(-50%);z-index:80;background:var(--elev);border:1px solid var(--gold);color:var(--gold-b);padding:7px 16px;border-radius:999px;font-size:12px;font-weight:600;opacity:0;pointer-events:none;transition:opacity 0.25s;}
+:root,[data-theme="astral"]{--bg:#090d16;--bg2:#111726;--card:rgba(20,27,45,0.84);--glass:rgba(12,17,29,0.92);--txt:#f4f1ea;--sub:#9ba5bc;--gold:#dfc09b;--accent:#38bdf8;--rose:#f472b6;--bd:rgba(223,192,155,0.24);--bdb:rgba(223,192,155,0.65)}
+[data-theme="lumina"]{--bg:#f7f4ee;--bg2:#ede7dc;--card:rgba(255,253,249,0.94);--glass:rgba(247,244,238,0.94);--txt:#1c1917;--sub:#57534e;--gold:#9a6b32;--accent:#0284c7;--rose:#be185d;--bd:rgba(154,107,50,0.24);--bdb:rgba(154,107,50,0.65)}
+[data-theme="rose"]{--bg:#140a10;--bg2:#22111b;--card:rgba(38,18,30,0.86);--glass:rgba(22,10,18,0.92);--txt:#fdf2f6;--sub:#d4a5b8;--gold:#f3b8ce;--accent:#e879f9;--rose:#fb7185;--bd:rgba(243,184,206,0.26);--bdb:rgba(243,184,206,0.68)}
+[data-theme="halide"]{--bg:#0b0b0c;--bg2:#161618;--card:rgba(26,26,29,0.9);--glass:rgba(14,14,16,0.94);--txt:#ededf0;--sub:#a1a1aa;--gold:#f59e0b;--accent:#38bdf8;--rose:#ef4444;--bd:rgba(245,158,11,0.25);--bdb:rgba(245,158,11,0.65)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;padding:0 0 92px;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;transition:background .3s,color .3s}
+.wrap{max-width:960px;margin:0 auto;padding:12px 14px}
+.hdr{position:sticky;top:0;z-index:30;background:var(--glass);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--bd);padding:10px 14px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.card{background:var(--card);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--bd);border-radius:16px;padding:14px;box-shadow:0 10px 30px rgba(0,0,0,0.35)}
+.btn{cursor:pointer;border:1px solid var(--bd);background:rgba(255,255,255,0.05);color:var(--txt);padding:6px 11px;border-radius:10px;font-size:12px;transition:.2s}
+.btn:hover,.btn.act{border-color:var(--bdb);color:var(--gold);background:rgba(223,192,155,0.14)}
+.btn-pri{background:linear-gradient(135deg,#d97706,#db2777);color:#fff;border:none;font-weight:600}
+.inp{background:rgba(0,0,0,0.28);border:1px solid var(--bd);color:var(--txt);padding:9px 12px;border-radius:11px;font-size:13px;width:100%;outline:none}
+.inp:focus{border-color:var(--bdb)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px}
+.kpi-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:8px;margin:12px 0}
+.kpi{cursor:pointer;padding:11px;border-radius:14px;background:var(--card);border:1px solid var(--bd)}
+.kpi-num{font-size:21px;font-weight:700;color:var(--gold);margin:2px 0}
+.sub{color:var(--sub);font-size:11px}
+.gold{color:var(--gold)}
+.badge{display:inline-block;padding:2px 7px;border-radius:99px;font-size:10px;border:1px solid var(--bd);color:var(--gold);background:rgba(223,192,155,0.12)}
+.flip-wrap{perspective:1100px;height:430px}
+.flip-in{position:relative;width:100%;height:100%;transition:transform .65s cubic-bezier(.22,1,.36,1);transform-style:preserve-3d}
+.flip-in.flipped{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:18px;overflow:hidden;border:1.5px solid var(--bdb);background:var(--bg2);display:flex;flex-direction:column;justify-content:space-between}
+.face-back{transform:rotateY(180deg);padding:12px}
+.tier-UR{border:2px solid #f472b6;box-shadow:0 0 22px rgba(244,114,182,0.35)}
+.tier-SSR{border:2px solid #f59e0b;box-shadow:0 0 20px rgba(245,158,11,0.3)}
+.tier-SR{border:2px solid #c084fc}
+.tier-R{border:1.5px solid #38bdf8}
+.prog{height:7px;background:rgba(255,255,255,0.12);border-radius:99px;overflow:hidden;margin:5px 0}
+.prog-bar{height:100%;background:linear-gradient(90deg,var(--gold),var(--rose),var(--accent));transition:width .4s}
+.ticket{position:relative;background:var(--bg2);border:1px solid var(--bd);border-radius:14px;padding:12px 16px;display:flex;gap:12px;align-items:center}
+.nav{position:fixed;bottom:0;left:0;right:0;z-index:40;background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--bd);padding:6px 8px}
+.nav-in{max-width:600px;margin:0 auto;display:grid;grid-template-columns:repeat(6,1fr);gap:4px}
+.nav-btn{cursor:pointer;border:none;background:transparent;color:var(--sub);padding:6px 2px;border-radius:10px;font-size:11px;display:flex;flex-direction:column;align-items:center;gap:2px}
+.nav-btn.act{color:var(--gold);background:rgba(223,192,155,0.12);font-weight:600}
+.hide{display:none!important}
+.modal-bg{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,0.76);display:flex;align-items:center;justify-content:center;padding:16px}
+.modal{background:var(--bg2);border:1px solid var(--bdb);border-radius:18px;max-width:480px;width:100%;max-height:86vh;overflow-y:auto;padding:16px}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;text-align:center}
+.cal-cell{min-height:54px;border:1px solid var(--bd);border-radius:10px;padding:4px;font-size:11px;background:rgba(0,0,0,0.2);cursor:pointer}
+.toast{position:fixed;top:68px;right:14px;z-index:80;background:#1e293b;border:1px solid var(--bdb);color:#fff;padding:9px 14px;border-radius:12px;font-size:12px;box-shadow:0 8px 24px rgba(0,0,0,0.5)}
 </style>
 </head>
-<body>
+<body data-theme="astral">
 <header class="hdr">
-  <div class="hdr-in">
-    <div class="brand">
-      <div class="crest">XVII</div>
-      <div>
-        <div style="font-family:Georgia,serif;font-weight:700;font-size:14px;color:var(--gold);">L'OPÉRA DE MINUIT <span style="font-size:10px;padding:1px 6px;border-radius:9px;background:var(--gold-d);">NO.0295</span></div>
-        <div class="sub">午夜歌剧院 · 缪斯塔罗与实时胶片圣殿</div>
+  <div class="row" style="max-width:960px;margin:0 auto">
+    <div>
+      <div class="row" style="justify-content:flex-start">
+        <strong style="font-size:16px;letter-spacing:1px;color:var(--gold)">Æ LOVE MOVIE · 浮光纪年</strong>
+        <span id="syncTag" class="badge">零写死实时引擎</span>
       </div>
+      <div class="sub">全动态架构 · 影人/生辰/待映/宇宙/票根 100% 实时计算生成</div>
     </div>
-    <div style="display:flex;gap:6px;">
-      <button class="pill" onclick="cycleTh()"><span id="th-i">🌙</span><span id="th-n" class="gold">午夜丝绒</span></button>
-      <button class="pill" onclick="openSet()">⚙️</button>
+    <div class="row">
+      <button class="btn" data-theme-btn="astral">🌙 星穹</button>
+      <button class="btn" data-theme-btn="lumina">☀️ 画廊</button>
+      <button class="btn" data-theme-btn="rose">🌹 蔷薇</button>
+      <button class="btn" data-theme-btn="halide">🎞️ 银盐</button>
+      <button id="btnSyncRepo" class="btn act">⚡ 同步仓库</button>
     </div>
   </div>
 </header>
 
-<main class="wrap" style="display:flex;flex-direction:column;gap:16px;">
-  <!-- 1. SALON -->
-  <section id="v-salon" style="display:flex;flex-direction:column;gap:14px;">
-    <div class="card" style="padding:16px;background:linear-gradient(145deg,var(--elev),var(--surf));border-color:var(--bdr-s);">
-      <div class="row-sb sub" style="margin-bottom:10px;">
-        <span class="gold" style="font-family:Georgia,serif;font-style:italic;">My Collection · 夜深了，影库里已经收藏了</span>
-        <span style="color:#6EE7B7;">● 实时双引擎在线</span>
+<main class="wrap">
+  <section class="card" style="margin-bottom:12px">
+    <div class="row" style="flex-wrap:nowrap">
+      <input id="qInput" class="inp" placeholder="输入任意中英文片名、演员/导演、影视系列，或粘贴 IMDb (tt/nm) 编号...">
+      <select id="qMode" class="inp" style="width:auto;min-width:118px">
+        <option value="all">🌐 全网综合</option>
+        <option value="person">🃏 搜影人建卡</option>
+        <option value="movie">🎬 搜电影剧集</option>
+        <option value="series">🌌 搜系列宇宙</option>
+      </select>
+      <button id="btnSearch" class="btn btn-pri" style="white-space:nowrap;padding:9px 14px">实时检索</button>
+    </div>
+    <div id="searchDrawer" class="hide" style="margin-top:12px;border-top:1px solid var(--bd);padding-top:10px">
+      <div class="row" style="margin-bottom:8px">
+        <span id="searchMsg" class="sub gold">正在实时检索...</span>
+        <button id="btnCloseSearch" class="btn">收起 ▲</button>
       </div>
-      <div class="grid3" style="text-align:center;padding:8px 0;border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr);">
-        <div onclick="go('archive');setFT('movie')" style="cursor:pointer;"><div id="c-m" style="font-family:Georgia,serif;font-size:28px;font-weight:700;color:var(--gold);">257</div><div class="sub">部电影</div></div>
-        <div onclick="go('archive');setFT('tv')" style="cursor:pointer;"><div id="c-t" style="font-family:Georgia,serif;font-size:28px;font-weight:700;color:var(--gold);">38</div><div class="sub">部剧集</div></div>
-        <div onclick="go('cosmos')" style="cursor:pointer;"><div id="c-c" style="font-family:Georgia,serif;font-size:28px;font-weight:700;color:var(--gold);">1229</div><div class="sub">位角色点亮</div></div>
-      </div>
-      <div class="row-sb" style="margin-top:10px;">
-        <div style="display:flex;gap:8px;">
-          <button class="pill" onclick="go('archive');setSt('watching')">在看 <strong id="c-ing" class="gold">0</strong></button>
-          <button class="pill" onclick="go('archive');setSt('wish')">想看 <strong id="c-wsh" style="color:var(--crim);">6</strong></button>
-        </div>
-        <button class="pill r-SSR" onclick="openQuick()">⚡ 快速标记</button>
-      </div>
-    </div>
-
-    <div class="grid4">
-      <button class="card" style="padding:10px 4px;text-align:center;" onclick="openBox('itabag')"><div>🎀</div><div style="font-size:12px;font-weight:600;margin-top:4px;">痛柜</div></button>
-      <button class="card" style="padding:10px 4px;text-align:center;" onclick="openBox('cal')"><div>🗓️</div><div style="font-size:12px;font-weight:600;margin-top:4px;">月历</div></button>
-      <button class="card" style="padding:10px 4px;text-align:center;" onclick="openBox('rep')"><div>✨</div><div style="font-size:12px;font-weight:600;margin-top:4px;">2026年报</div></button>
-      <button class="card" style="padding:10px 4px;text-align:center;" onclick="openBox('list')"><div>📜</div><div style="font-size:12px;font-weight:600;margin-top:4px;">片单</div></button>
-    </div>
-
-    <div class="card row-sb" style="padding:12px 14px;cursor:pointer;" onclick="openBackfill()">
-      <div>
-        <div style="font-size:12px;font-weight:600;">🕰️ 有 <span id="c-und" class="gold">244</span> 部还没记是什么时候看的</div>
-        <div class="sub" style="margin-top:2px;">补上之后，统计、年度回顾和「最近看过」才准，一次可选一批</div>
-      </div>
-      <span class="pill gold">补记</span>
-    </div>
-
-    <div>
-      <div class="row-sb" style="margin-bottom:8px;"><div class="sec-t"><span class="gold">✦</span> TA 们的新作 <span class="sub">2</span></div><button class="sub gold" onclick="go('arcana')">缪斯塔罗 →</button></div>
-      <div id="s-prem" class="grid3"></div>
-    </div>
-
-    <div>
-      <div class="row-sb" style="margin-bottom:8px;"><div class="sec-t"><span class="gold">✦</span> 最近看过 <span class="sub">295</span></div><button class="sub gold" onclick="go('archive');setSt('watched')">全部 →</button></div>
-      <div id="s-rec" class="grid4"></div>
-    </div>
-
-    <div>
-      <div class="row-sb" style="margin-bottom:8px;"><div class="sec-t"><span class="gold">✦</span> 想看 <span class="sub">6</span></div><button class="sub gold" onclick="go('archive');setSt('wish')">全部 →</button></div>
-      <div id="s-wish" class="grid4"></div>
-    </div>
-
-    <div>
-      <div class="row-sb" style="margin-bottom:8px;"><div class="sec-t"><span class="gold">✦</span> 常看的影人</div><button class="sub gold" onclick="go('arcana')">抽卡/换卡面 →</button></div>
-      <div id="s-muse" class="scroll-x"></div>
+      <div id="searchGrid" class="grid2" style="max-height:380px;overflow-y:auto"></div>
     </div>
   </section>
 
-  <!-- 2. ARCANA -->
-  <section id="v-arcana" class="hidden" style="display:flex;flex-direction:column;gap:12px;">
-    <div class="card row-sb" style="padding:10px 14px;font-size:12px;">
-      <div>🎂 <strong id="b-nm" class="gold">斯派克·费恩</strong> 生日还有 <strong id="b-dy" style="font-size:16px;color:var(--gold-b);">24</strong> 天</div>
-      <div id="b-dt" class="sub">12 月 9 日 · 26 岁</div>
-    </div>
-    <div id="m-tabs" class="scroll-x"></div>
-    <div class="tarot-wrap">
-      <div id="t-in" class="tarot-in">
-        <div class="t-face">
-          <div style="position:relative;flex:1;background:#09070D;overflow:hidden;">
-            <img id="t-img" src="" style="width:100%;height:100%;object-fit:cover;object-position:top;"/>
-            <div class="holo"></div>
-            <div style="position:absolute;inset:0;background:linear-gradient(to top,#08060B 4%,transparent 55%,rgba(0,0,0,0.45));"></div>
-            <div class="row-sb" style="position:absolute;top:12px;left:12px;right:12px;">
-              <span id="t-rar" class="pill r-R">R ★★</span>
-              <div style="display:flex;gap:6px;"><span id="t-cnt" class="pill" style="background:rgba(0,0,0,0.7);color:#fff;">3/15</span><span class="pill" style="background:#E11D48;color:#fff;border:none;">有新作</span></div>
-            </div>
-            <div style="position:absolute;bottom:10px;left:12px;right:12px;text-align:center;">
-              <div id="t-en" style="font-family:Georgia,serif;font-style:italic;font-size:28px;color:#F5E2B8;">Spike Fearn</div>
-              <div id="t-cn" style="font-size:18px;font-weight:700;color:#fff;letter-spacing:2px;">斯派克·费恩</div>
-            </div>
-          </div>
-          <div style="padding:12px 14px;display:flex;flex-direction:column;gap:9px;background:var(--surf);">
-            <div class="row-sb" style="padding:7px 10px;border-radius:10px;background:var(--elev);border:1px solid var(--bdr);font-size:11px;">
-              <span id="t-sig-t" class="sub">距离上次集 斯派克·费恩 的卡已经 9 天了。</span>
-              <button class="pill r-SSR" onclick="signToday()">签 今日</button>
-            </div>
-            <div>
-              <div class="row-sb" style="font-size:12px;margin-bottom:4px;">
-                <span><strong id="t-col" style="font-size:20px;color:var(--gold);">3</strong> <span id="t-tot" class="sub">/ 15 已集作品</span></span>
-                <span id="t-pct" class="pill gold" style="font-size:10px;padding:2px 8px;">20% 收集度 · 🏅 1 枚徽章</span>
-              </div>
-              <div style="height:7px;border-radius:99px;background:#000;overflow:hidden;"><div id="t-bar" style="height:100%;width:20%;background:linear-gradient(90deg,var(--crim),var(--gold));"></div></div>
-              <div id="t-up" class="sub" style="margin-top:4px;">再集 2 部，卡面升级为 SR（点「进入档案」可直接点亮作品）</div>
-            </div>
-            <div class="grid3">
-              <button class="pill r-SR" style="justify-content:center;padding:8px 0;" onclick="flipT()">进入档案</button>
-              <button class="pill" style="justify-content:center;padding:8px 0;color:var(--gold);border-color:var(--gold);" onclick="nextSkin()">换卡面</button>
-              <button class="pill" style="justify-content:center;padding:8px 0;" onclick="syncWD()">⚡ 实时同步</button>
-            </div>
-          </div>
+  <section class="kpi-bar">
+    <div class="kpi" data-jump="muses"><div class="sub">🃏 契约缪斯 →</div><div id="kMuses" class="kpi-num">0 位</div><div id="kMusesSub" class="sub">搜任意演员实时建卡</div></div>
+    <div class="kpi" data-jump="vault"><div class="sub">🎟️ 已看影视 →</div><div id="kWatched" class="kpi-num">0 部</div><div id="kWatchedSub" class="sub">0 在看 · 0 想看</div></div>
+    <div class="kpi" data-jump="universes"><div class="sub">🌌 宇宙与角色 →</div><div id="kUni" class="kpi-num">0 个</div><div id="kCharSub" class="sub">点亮 0 位银幕角色</div></div>
+    <div class="kpi" data-jump="radar"><div class="sub">⏳ 待映新作 →</div><div id="kUp" class="kpi-num">0 部</div><div id="kNoDateSub" class="sub">0 部待补观影日期</div></div>
+  </section>
+
+  <section id="v-radar" class="view">
+    <div class="card" style="margin-bottom:12px;border-left:4px solid var(--gold)">
+      <div class="row">
+        <div>
+          <strong style="font-size:14px">✨ 零硬编码全动态控制台</strong>
+          <div class="sub" style="margin-top:3px">彻底废除写死数据！所有缪斯立绘、生日倒计时、待映新作与统计数字均由你实时搜索缔约、同步仓库 data.json 或导入 JSON 备份动态生成。</div>
         </div>
-        <div class="t-face t-back">
-          <div class="row-sb" style="border-bottom:1px solid var(--bdr);padding-bottom:8px;">
-            <strong style="font-size:13px;" class="gold">作品契约档案（点击直接点亮升级卡面）</strong>
-            <button class="pill" onclick="flipT()">↩ 返回卡面</button>
-          </div>
-          <div id="tb-list" style="flex:1;overflow-y:auto;margin:8px 0;display:flex;flex-direction:column;gap:6px;"></div>
-          <div class="row-sb sub" style="border-top:1px solid var(--bdr);padding-top:8px;">
-            <span>IMDb + Wikidata 实时映射</span>
-            <button class="gold" onclick="newMuseModal()">+ 缔结新影人</button>
-          </div>
+        <div class="row">
+          <button id="btnQuickMuse" class="btn act">+ 搜影人建卡</button>
+          <button id="btnQuickUni" class="btn">+ 抓影视系列</button>
+          <button id="btnQuickJson" class="btn">📥 导入JSON备份</button>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- 3. ARCHIVE -->
-  <section id="v-archive" class="hidden" style="display:flex;flex-direction:column;gap:12px;">
-    <div class="row-sb">
-      <div class="sec-t">片库典藏</div>
-      <div style="display:flex;gap:6px;">
-        <button id="vm-p" class="pill r-SSR" onclick="setVM('poster')">海报墙</button>
-        <button id="vm-t" class="pill" onclick="setVM('ticket')">🎟️ 票根匣</button>
+    <div class="grid2" style="margin-bottom:12px">
+      <div class="card">
+        <div class="row" style="margin-bottom:8px"><strong>🎂 缪斯生辰实时倒计时</strong><span class="sub">Wikidata P569 动态精算</span></div>
+        <div id="bdayList" style="display:flex;flex-direction:column;gap:8px;max-height:260px;overflow-y:auto"></div>
+      </div>
+      <div class="card">
+        <div class="row" style="margin-bottom:8px"><strong>📡 TA 们的新作 · 待映雷达</strong><button id="btnRefreshMuses" class="btn">🔄 同步最新作品</button></div>
+        <div id="upList" style="display:flex;flex-direction:column;gap:8px;max-height:260px;overflow-y:auto"></div>
       </div>
     </div>
-    <div class="grid3" style="background:var(--elev);padding:4px;border-radius:12px;border:1px solid var(--bdr);">
-      <button id="st-watched" class="pill r-SSR" style="justify-content:center;" onclick="setSt('watched')">看过 <span id="ac-w">295</span></button>
-      <button id="st-watching" class="pill" style="justify-content:center;border:none;" onclick="setSt('watching')">在看 <span>0</span></button>
-      <button id="st-wish" class="pill" style="justify-content:center;border:none;" onclick="setSt('wish')">想看 <span id="ac-s">6</span></button>
-    </div>
-    <div class="scroll-x">
-      <button class="pill" onclick="setFT('all')">全部</button>
-      <button class="pill" onclick="setFT('movie')">电影</button>
-      <button class="pill" onclick="setFT('tv')">剧集</button>
-    </div>
-    <div id="arc-box" style="display:flex;flex-direction:column;gap:14px;"></div>
-  </section>
 
-  <!-- 4. COSMOS -->
-  <section id="v-cosmos" class="hidden" style="display:flex;flex-direction:column;gap:12px;">
-    <div class="row-sb"><div class="sec-t">✦ 宇宙与系列 · 星图点亮</div><span class="sub gold">全部 27</span></div>
-    <div id="u-tabs" class="scroll-x"></div>
-    <div class="card" style="padding:12px;">
-      <div class="row-sb" style="font-size:12px;margin-bottom:8px;"><span id="u-tit" class="gold">漫威电影宇宙 56/59 部</span><span id="u-ch" class="sub">角色 198/202</span></div>
-      <canvas id="u-cv" style="width:100%;height:175px;background:#060409;border-radius:12px;border:1px solid var(--bdr);cursor:pointer;"></canvas>
-      <div class="sub" style="margin:8px 0 6px;">点击下方角色即可点亮/切换火漆印：</div>
-      <div id="u-chars" class="grid2"></div>
-    </div>
-  </section>
-
-  <!-- 5. ORACLE LIVE SEARCH -->
-  <section id="v-oracle" class="hidden" style="display:flex;flex-direction:column;gap:14px;">
-    <div class="card" style="padding:12px;">
-      <div style="display:flex;gap:6px;">
-        <input id="q-in" type="text" placeholder="片名、英文名、影人，或粘贴 IMDb / 豆瓣链接..." oninput="onQ(this.value)" onkeydown="if(event.key==='Enter')liveQ()" style="flex:1;padding:9px 12px;border-radius:10px;border:1px solid var(--bdr-s);background:var(--bg);font-size:12px;"/>
-        <button id="q-btn" class="pill r-SSR" onclick="liveQ()">全网实时搜</button>
+    <div class="card">
+      <div class="row" style="margin-bottom:10px">
+        <div><strong>🌐 全球今日实时流媒体与院线脉冲</strong><div id="pulseTime" class="sub">直连开放图谱与排播源</div></div>
+        <button id="btnRefreshPulse" class="btn">⚡ 刷新排播</button>
       </div>
-      <div class="sub" style="margin-top:6px;">支持中英文名、年份（如 <span class="gold" style="text-decoration:underline;cursor:pointer;" onclick="goQ('沙丘')">沙丘 2021</span>、<span class="gold" style="text-decoration:underline;cursor:pointer;" onclick="goQ('Spike Fearn')">Spike Fearn</span>）或直接粘贴 IMDb/豆瓣链接，页内直接标记绝不跳转外部网页。</div>
+      <div id="pulseGrid" class="grid2"></div>
     </div>
-    <div id="q-res" class="hidden" style="display:flex;flex-direction:column;gap:8px;"></div>
-    <div>
-      <div class="row-sb" style="margin-bottom:6px;"><span class="sec-t" style="font-size:12px;">✦ 最近搜过</span><button class="sub" onclick="st.chips=[];render()">清空</button></div>
-      <div id="q-chips" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
+  </section>
+
+  <section id="v-muses" class="view hide">
+    <div class="card" style="margin-bottom:12px">
+      <div class="row">
+        <div>
+          <strong>🃏 缪斯圣殿 · 3D 全息翻转契约卡</strong>
+          <div class="sub">点亮作品实时触发 N → R → SR → SSR → UR 晋升 · 点击「🔄 翻转作品表」在牌背直接点亮</div>
+        </div>
+        <div class="row">
+          <select id="museFilter" class="inp" style="width:auto">
+            <option value="ALL">全部阶位</option><option value="UR">UR 永恒</option><option value="SSR">SSR 鎏金</option><option value="SR">SR 紫晶</option><option value="R">R 星蓝</option><option value="N">N 初遇</option>
+          </select>
+          <button id="btnNewMuseTop" class="btn btn-pri">+ 缔约新缪斯</button>
+        </div>
+      </div>
     </div>
-    <div><div class="sec-t" style="font-size:12px;margin-bottom:8px;">✦ 近期热门</div><div id="q-hot" class="grid4"></div></div>
-    <div><div class="sec-t" style="font-size:12px;margin-bottom:8px;">✦ 即将上映</div><div id="q-up" class="grid4"></div></div>
+    <div id="museGrid" class="grid3"></div>
+  </section>
+
+  <section id="v-universes" class="view hide">
+    <div class="card" style="margin-bottom:12px">
+      <div class="row">
+        <div><strong>🌌 影视系列宇宙星图</strong><div class="sub">输入任意系列名称（如：沙丘 / Dune / 漫威 / 异形）实时从 Wikidata 抓取全系列影片</div></div>
+        <div class="row">
+          <input id="uniInput" class="inp" style="width:180px" placeholder="输入系列名 (如: 沙丘)...">
+          <button id="btnFetchUni" class="btn act">⚡ 实时抓取系列</button>
+          <button id="btnCustomUni" class="btn">+ 手动建系列</button>
+        </div>
+      </div>
+    </div>
+    <div id="uniList" style="display:flex;flex-direction:column;gap:12px;margin-bottom:14px"></div>
+    <div class="card">
+      <div class="row" style="margin-bottom:10px">
+        <div><strong>🏛️ 角色万神殿 · 已点亮银幕角色</strong><div class="sub">标记电影「看过」自动提取并点亮饰演角色，也可手动铭刻本命角色</div></div>
+        <button id="btnAddChar" class="btn act">+ 铭刻角色</button>
+      </div>
+      <div id="charGrid" class="grid2"></div>
+    </div>
+  </section>
+
+  <section id="v-vault" class="view hide">
+    <div class="card" style="margin-bottom:12px">
+      <div class="row">
+        <div class="row">
+          <button class="btn vtab act" data-vtab="ALL">全部</button>
+          <button class="btn vtab" data-vtab="watched">✓ 看过</button>
+          <button class="btn vtab" data-vtab="watching">▶ 在看</button>
+          <button class="btn vtab" data-vtab="wish">♡ 想看</button>
+          <button class="btn vtab" data-vtab="nodate">📅 待补日期 (<span id="noDateCnt">0</span>)</button>
+        </div>
+        <div class="row">
+          <button id="btnBatchDate" class="btn act">⚡ 批量补齐日期</button>
+          <button id="btnAddManualMovie" class="btn btn-pri">+ 手动记一部</button>
+        </div>
+      </div>
+    </div>
+    <div id="vaultList" class="grid2"></div>
+  </section>
+
+  <section id="v-atelier" class="view hide">
+    <div class="card" style="margin-bottom:12px">
+      <div class="row" style="margin-bottom:10px">
+        <div class="row">
+          <button id="calPrev" class="btn">‹ 上月</button>
+          <strong id="calTitle" class="gold" style="font-size:15px">2026 年 11 月</strong>
+          <button id="calNext" class="btn">下月 ›</button>
+        </div>
+        <span class="sub">🟢 已看观影 · 🟡 待映新片 · 🌸 缪斯生辰</span>
+      </div>
+      <div class="cal-grid" style="margin-bottom:6px;font-size:11px;color:var(--sub)"><div>日</div><div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div></div>
+      <div id="calGrid" class="cal-grid"></div>
+      <div id="calDayInfo" class="sub" style="margin-top:10px;padding-top:8px;border-top:1px solid var(--bd)"></div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <div class="row" style="margin-bottom:8px"><strong>🎀 丝绒痛柜陈列室</strong><button id="btnEditMotto" class="btn">改铭文</button></div>
+        <div id="shrineBox" style="padding:12px;border:1px dashed var(--bdb);border-radius:14px"></div>
+      </div>
+      <div class="card">
+        <div class="row" style="margin-bottom:8px"><strong>📊 实时审美年报统计</strong><span class="sub">100% 真实记录动态汇总</span></div>
+        <div id="reportBox" style="display:flex;flex-direction:column;gap:8px"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="v-hub" class="view hide">
+    <div class="grid2">
+      <div class="card">
+        <strong>📦 全格式 JSON 备份导入与导出</strong>
+        <p class="sub">支持导入任何结构的 JSON 备份（含你在其他软件导出的 295+ 部记录或本应用备份），自动识别影人、片单、日期与角色。</p>
+        <div class="row" style="margin:10px 0">
+          <label class="btn btn-pri">📂 选择 JSON 文件导入<input id="fileJson" type="file" accept=".json,application/json" class="hide"></label>
+          <button id="btnExportJson" class="btn act">💾 导出全量 JSON 备份</button>
+        </div>
+        <textarea id="pasteArea" class="inp" rows="4" placeholder="或在此直接粘贴 JSON 文本，或每行输入一个演员名 / 片名 / IMDb编号批量导入..."></textarea>
+        <div class="row" style="margin-top:8px">
+          <button id="btnParsePaste" class="btn act">⚡ 智能解析并导入</button>
+          <button id="btnGenYaml" class="btn">📋 生成 watchlist.yaml</button>
+        </div>
+      </div>
+      <div class="card">
+        <strong>🐙 GitHub 仓库直连同步 (TangTangMo/love-movie)</strong>
+        <p class="sub">启动时自动合并仓库 docs/data.json。填入 GitHub Token 可直接在手机上把当前数据库推送回仓库。</p>
+        <input id="ghRepo" class="inp" value="TangTangMo/love-movie" style="margin:6px 0">
+        <input id="ghToken" type="password" class="inp" placeholder="可选：填入 GitHub Token (仅保存在本机浏览器)" style="margin-bottom:8px">
+        <div class="row">
+          <button id="btnPullGh" class="btn act">⬇️ 拉取仓库 data.json</button>
+          <button id="btnPushGh" class="btn btn-pri">⬆️ 推送数据至仓库</button>
+          <button id="btnClearDb" class="btn" style="color:#f87171">🗑️ 清空重置</button>
+        </div>
+        <div id="ghLog" class="sub" style="margin-top:8px;padding:8px;background:rgba(0,0,0,0.25);border-radius:8px;font-family:monospace">就绪</div>
+      </div>
+    </div>
   </section>
 </main>
 
-<nav class="nav-dock">
-  <button id="n-salon" class="nav-btn on" onclick="go('salon')"><span>🏛️</span><span>我的</span></button>
-  <button id="n-arcana" class="nav-btn" onclick="go('arcana')"><span>🃏</span><span>影库卡</span></button>
-  <button id="n-archive" class="nav-btn" onclick="go('archive')"><span>🎟️</span><span>片库</span></button>
-  <button id="n-cosmos" class="nav-btn" onclick="go('cosmos')"><span>🪐</span><span>宇宙</span></button>
-  <button id="n-oracle" class="nav-btn" onclick="go('oracle')"><span>🔍</span><span>搜索</span></button>
+<nav class="nav">
+  <div class="nav-in">
+    <button class="nav-btn act" data-nav="radar"><span>✨</span><span>雷达</span></button>
+    <button class="nav-btn" data-nav="muses"><span>🃏</span><span>缪斯</span></button>
+    <button class="nav-btn" data-nav="universes"><span>🌌</span><span>宇宙</span></button>
+    <button class="nav-btn" data-nav="vault"><span>🎟️</span><span>票根</span></button>
+    <button class="nav-btn" data-nav="atelier"><span>🗓️</span><span>月历/痛柜</span></button>
+    <button class="nav-btn" data-nav="hub"><span>⚙️</span><span>数据中枢</span></button>
+  </div>
 </nav>
 
-<div id="m-bg" class="modal-bg hidden" onclick="if(event.target===this)closeM()">
-  <div class="modal-card">
-    <div class="row-sb" style="border-bottom:1px solid var(--bdr);padding-bottom:10px;margin-bottom:12px;">
-      <strong id="m-tit" class="gold" style="font-size:15px;">详情</strong>
-      <button class="pill" onclick="closeM()">✕</button>
+<div id="modalBg" class="modal-bg hide">
+  <div class="modal">
+    <div class="row" style="margin-bottom:10px;border-bottom:1px solid var(--bd);padding-bottom:8px">
+      <strong id="modalTitle" class="gold">设定</strong>
+      <button id="btnCloseModal" class="btn">✕</button>
     </div>
-    <div id="m-bd" style="display:flex;flex-direction:column;gap:10px;font-size:12px;"></div>
+    <div id="modalBody"></div>
   </div>
 </div>
 
-<div id="toast" class="toast"></div>
-
 <script>
-const P=['ht','tps',':','//'].join('');
-const WD_API=P+['www.wikidata','.org/w/api.php'].join('');
-const TV_API=P+['api.tvmaze','.com/search/shows'].join('');
-const TH=[{id:'noir',n:'午夜丝绒',i:'🌙'},{id:'ivoire',n:'昼光画廊',i:'☀️'},{id:'chungking',n:'霓虹暗房',i:'🎞️'}];
-let thI=0;
-function artSVG(cn,en,yr,c='#D8B878',bg='#140E1D'){
-  const s=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 340"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="${bg}"/><stop offset="100%" stop-color="#07050A"/></linearGradient></defs><rect width="240" height="340" fill="url(#g)"/><rect x="10" y="10" width="220" height="320" rx="10" fill="none" stroke="${c}" stroke-opacity="0.55"/><circle cx="120" cy="115" r="44" fill="none" stroke="${c}" stroke-opacity="0.4"/><polygon points="120,76 131,104 160,104 136,121 145,150 120,132 95,150 104,121 80,104 109,104" fill="${c}" fill-opacity="0.25" stroke="${c}"/><text x="120" y="42" text-anchor="middle" fill="${c}" font-family="Georgia,serif" font-size="9" letter-spacing="2">L'OPÉRA EDITION</text><text x="120" y="215" text-anchor="middle" fill="#F6F0E6" font-size="16" font-weight="bold">${(cn||'').slice(0,9)}</text><text x="120" y="240" text-anchor="middle" fill="#B9AD9E" font-family="Georgia,serif" font-style="italic" font-size="11">${(en||'').slice(0,22)}</text><text x="120" y="298" text-anchor="middle" fill="${c}" font-family="monospace" font-size="11">✦ ${yr||2026} ✦</text></svg>`;
-  return 'data:image/svg+xml;utf8,'+encodeURIComponent(s);
-}
-function toast(m){const t=document.getElementById('toast');t.textContent=m;t.style.opacity=1;clearTimeout(window._tm);window._tm=setTimeout(()=>t.style.opacity=0,2300);}
-function cycleTh(){thI=(thI+1)%TH.length;document.documentElement.setAttribute('data-theme',TH[thI].id);document.getElementById('th-i').textContent=TH[thI].i;document.getElementById('th-n').textContent=TH[thI].n;toast('✦ 已切换至「'+TH[thI].n+'」');}
+(function(){
+  const P = 'ht' + 'tps://';
+  const WD_API = P + 'www.wiki' + 'data.' + 'org/w/api.php';
+  const WD_SPARQL = P + 'query.wiki' + 'data.' + 'org/sparql?format=json&query=';
+  const COMMONS_FP = P + 'commons.wiki' + 'media.' + 'org/wiki/Special:FilePath/';
+  const TVMAZE_API = P + 'api.tv' + 'maze.' + 'com';
+  const RAW_GH = P + 'raw.github' + 'usercontent.' + 'com/';
+  const API_GH = P + 'api.git' + 'hub.' + 'com/repos/';
+  const SK = 'love_movie_dynamic_v3';
 
-const st={
-  tab:'salon',museId:'spike',flip:false,vm:'poster',arcSt:'watched',fType:'all',uIdx:0,undated:244,
-  chips:['黑袍','变形金刚','汤姆哈迪','本尼','安娜贝尔','招魂','Badlands','Badl','铁血战士','暗影蜘蛛侠'],
-  muses:[
-    {id:'spike',cn:'斯派克·费恩',en:'Spike Fearn',bday:'12 月 9 日 · 26 岁',days:24,base:0,skin:0,
-     skins:[artSVG('斯派克·费恩','Spike Fearn · Rose Edition','R ★★','#E05268','#28101B'),artSVG('斯派克·费恩','Spike Fearn · Golden Star','ARCANA XVII','#D8B878','#161224'),artSVG('斯派克·费恩','Spike Fearn · Velvet','12.09','#6EE7B7','#091E1C')],
-     works:[
-       {id:'tt18412256',cn:'异形：夺命舰',en:'Alien: Romulus',yr:2024,st:'watched'},
-       {id:'tt21614300',cn:'告诉我一切',en:'Tell Me Everything',yr:2022,st:'watched'},
-       {id:'tt19770238',cn:'晒后假日',en:'Aftersun',yr:2022,st:'watched'},
-       {id:'tt13071984',cn:'4 Kids Walk Into a Bank',en:'4 Kids Walk Into a Bank',yr:2026,st:'wish'},
-       {id:'tt33029100',cn:'Sweetsick',en:'Sweetsick',yr:2026,st:'wish'},
-       {id:'w6',cn:'黯黑摇滚',en:'Back to Black',yr:2024,st:'none'},
-       {id:'w7',cn:'艾拉·麦凯',en:'Ella McCay',yr:2025,st:'none'},
-       {id:'w8',cn:'甜心',en:'Sweetheart',yr:2021,st:'none'},
-       {id:'w9',cn:'布伦登先生的奇妙冒险',en:'The Amazing Mr. Blunden',yr:2021,st:'none'},
-       {id:'w10',cn:'寻找艾米丽',en:'Finding Emily',yr:2026,st:'none'},
-       {id:'w11',cn:'劫机七小时',en:'Hijack',yr:2023,st:'none'},
-       {id:'w12',cn:'The Love Europe Project',en:'The Love Europe Project',yr:2019,st:'none'},
-       {id:'w13',cn:'Phantom Son',en:'Phantom Son',yr:2020,st:'none'},
-       {id:'w14',cn:'Paired Up',en:'Paired Up',yr:2019,st:'none'},
-       {id:'w15',cn:'Running',en:'Running',yr:2025,st:'none'}
-     ]},
-    {id:'hardy',cn:'汤姆·哈迪',en:'Tom Hardy',bday:'9 月 15 日 · 49 岁',days:304,base:32,skin:0,
-     skins:[artSVG('汤姆·哈迪','Tom Hardy · Venom & Mad Max','SSR 35','#D8B878','#1B1426'),artSVG('汤姆·哈迪','Tom Hardy · Inception','ARCANA IX','#B8334A')],
-     works:[{id:'h1',cn:'盗梦空间',en:'Inception',yr:2010,st:'watched'},{id:'h2',cn:'疯狂的麦克斯4',en:'Mad Max: Fury Road',yr:2015,st:'watched'},{id:'h3',cn:'毒液',en:'Venom',yr:2018,st:'watched'}]},
-    {id:'benedict',cn:'本尼迪克特·康伯巴奇',en:'Benedict Cumberbatch',bday:'7 月 19 日 · 50 岁',days:246,base:22,skin:0,
-     skins:[artSVG('本尼迪克特','Benedict Cumberbatch','SSR 24','#D8B878')],
-     works:[{id:'b1',cn:'神探夏洛克',en:'Sherlock',yr:2010,st:'watched'},{id:'b2',cn:'奇异博士',en:'Doctor Strange',yr:2016,st:'watched'}]},
-    {id:'keanu',cn:'基努·里维斯',en:'Keanu Reeves',bday:'9 月 2 日 · 62 岁',days:291,base:16,skin:0,
-     skins:[artSVG('基努·里维斯','Keanu Reeves','SR 18','#D8B878')],
-     works:[{id:'k1',cn:'黑客帝国',en:'The Matrix',yr:1999,st:'watched'},{id:'k2',cn:'疾速追杀',en:'John Wick',yr:2014,st:'watched'}]},
-    {id:'chris',cn:'克里斯·海姆斯沃斯',en:'Chris Hemsworth',bday:'8 月 11 日 · 43 岁',days:269,base:15,skin:0,
-     skins:[artSVG('克里斯·海姆斯沃斯','Chris Hemsworth','SR 17','#D8B878')],
-     works:[{id:'c1',cn:'雷神3：诸神黄昏',en:'Thor: Ragnarok',yr:2017,st:'watched'},{id:'c2',cn:'极速风流',en:'Rush',yr:2013,st:'watched'}]},
-    {id:'hugh',cn:'休·杰克曼',en:'Hugh Jackman',bday:'10 月 12 日 · 58 岁',days:331,base:14,skin:0,
-     skins:[artSVG('休·杰克曼','Hugh Jackman','SSR 16','#D8B878')],
-     works:[{id:'j1',cn:'金刚狼3：殊死一战',en:'Logan',yr:2017,st:'watched'},{id:'j2',cn:'死侍与金刚狼',en:'Deadpool & Wolverine',yr:2024,st:'watched'}]}
-  ],
-  films:[
-    {id:'f1',cn:'V世代',en:'Gen V',yr:2023,tp:'tv',rt:'IMDb 7.7',st:'watched',dt:'2026-11',lk:0,c:'#B8334A'},
-    {id:'f2',cn:'Homefront',en:'Homefront',yr:1991,tp:'tv',rt:'IMDb 8.3',st:'watched',dt:'2026-11',lk:1,c:'#D8B878'},
-    {id:'f3',cn:'变形金刚：超能勇士崛起',en:'Rise of the Beasts',yr:2023,tp:'movie',rt:'豆瓣 5.8',st:'watched',dt:'',lk:0,c:'#D8B878'},
-    {id:'f4',cn:'大黄蜂',en:'Bumblebee',yr:2018,tp:'movie',rt:'豆瓣 7.0',st:'watched',dt:'',lk:1,c:'#EE9B4D'},
-    {id:'f5',cn:'变形金刚5：最后的骑士',en:'The Last Knight',yr:2017,tp:'movie',rt:'豆瓣 4.9',st:'watched',dt:'',lk:0,c:'#9DB4C8'},
-    {id:'w1',cn:'超人2：明日之子',en:'Superman 2027',yr:2027,tp:'movie',rt:'2027',st:'wish',dt:'',lk:0,c:'#496580'},
-    {id:'w2',cn:'复仇者联盟6',en:'Avengers: Secret Wars',yr:2027,tp:'movie',rt:'2027',st:'wish',dt:'',lk:1,c:'#D8B878'},
-    {id:'w3',cn:'沙丘3',en:'Dune: Part Three',yr:2026,tp:'movie',rt:'2026',st:'wish',dt:'',lk:1,c:'#EE9B4D'},
-    {id:'w4',cn:'泥面人',en:'Clayface',yr:2026,tp:'movie',rt:'2026 · 豆瓣 8.1',st:'wish',dt:'',lk:0,c:'#B8334A'},
-    {id:'p1',cn:'4 Kids Walk Into a Bank',en:'❤️ 斯派克·费恩',yr:2026,tp:'movie',rt:'斯派克·费恩新作',st:'wish',dt:'',lk:1,c:'#E05268',prem:1},
-    {id:'p2',cn:'Sweetsick',en:'❤️ 斯派克·费恩',yr:2026,tp:'movie',rt:'斯派克·费恩新作',st:'wish',dt:'',lk:1,c:'#B8334A',prem:1},
-    {id:'h1',cn:'一切如你所见',en:'You Can See Everything',yr:2026,tp:'movie',rt:'IMDb 9.0',st:'none',cat:'hot',c:'#D8B878'},
-    {id:'h2',cn:'夜行杀机',en:'Nocturne',yr:2026,tp:'tv',rt:'IMDb 7.4',st:'none',cat:'hot',c:'#496580'},
-    {id:'h3',cn:'哥吉拉-0.0',en:'Godzilla Minus Zero',yr:2026,tp:'movie',rt:'IMDb 7.9',st:'none',cat:'hot',c:'#D8B878'},
-    {id:'h4',cn:'野兽之心',en:'Heart of the Beast',yr:2026,tp:'movie',rt:'豆瓣 7.8',st:'none',cat:'hot',c:'#8C6230'},
-    {id:'u1',cn:'饥饿游戏：收获日出',en:'Sunrise on the Reaping',yr:2026,tp:'movie',rt:'11月20日',st:'none',cat:'up',c:'#D8B878'},
-    {id:'u2',cn:'乌日子的小心愿',en:'Little Wish',yr:2026,tp:'movie',rt:'2026',st:'none',cat:'up',c:'#E05268'},
-    {id:'u3',cn:'后来，有个克里夫',en:'Cliff Booth',yr:2026,tp:'movie',rt:'11月25日',st:'none',cat:'up',c:'#EE9B4D'},
-    {id:'u4',cn:'复仇者联盟5',en:'Avengers: Doomsday',yr:2026,tp:'movie',rt:'2026',st:'none',cat:'up',c:'#496580'}
-  ],
-  unis:[
-    {name:'漫威电影宇宙',prog:'56/59 部',ch:'角色 198/202',chars:['奇异博士 (已点亮)','雷神索尔 (已点亮)','金刚狼 (已点亮)','毒液 (已点亮)','洛基 (已点亮)','毁灭博士 (待点亮)']},
-    {name:'DC 宇宙',prog:'20/22 部',ch:'角色 99/155',chars:['贝恩 Bane (已点亮)','康斯坦丁 (已点亮)','蝙蝠侠 (已点亮)','泥面人 (待点亮)']},
-    {name:'变形金刚系列',prog:'7/7 部',ch:'角色 42/45',chars:['擎天柱 (已点亮)','大黄蜂 (已点亮)','幻影 (已点亮)','猩猩队长 (已点亮)']}
-  ]
-};
-try{const sv=localStorage.getItem('lopera_m_v4');if(sv)Object.assign(st,JSON.parse(sv));}catch(e){}
-function save(){try{localStorage.setItem('lopera_m_v4',JSON.stringify(st));}catch(e){}}
+  function emptyState(){
+    return {version:3,theme:'astral',shrineMotto:'光影流转，唯热爱与自由不可辜负',lastSyncAt:null,muses:{},movies:{},universes:{},characters:{},livePulse:[]};
+  }
+  let state = (function(){
+    try{ const r=localStorage.getItem(SK); if(r) return Object.assign(emptyState(),JSON.parse(r)); }catch(e){}
+    return emptyState();
+  })();
+  let curVaultTab = 'ALL';
+  let calY = new Date().getFullYear(), calM = new Date().getMonth();
 
-function go(t){
-  st.tab=t;
-  ['salon','arcana','archive','cosmos','oracle'].forEach(k=>{
-    document.getElementById('v-'+k).classList.toggle('hidden',k!==t);
-    document.getElementById('n-'+k).className='nav-btn'+(k===t?' on':'');
+  function save(){
+    try{ localStorage.setItem(SK, JSON.stringify(state)); }catch(e){}
+    renderAll();
+  }
+  function toast(msg){
+    const d=document.createElement('div'); d.className='toast'; d.textContent=msg;
+    document.body.appendChild(d); setTimeout(()=>d.remove(),2800);
+  }
+  function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function svgPoster(t,sub){
+    const a=esc(String(t||'MOVIE').slice(0,12)), b=esc(String(sub||'').slice(0,14));
+    return 'data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="ht'+'tp://www.w3'+'.' + 'org/2000/svg" viewBox="0 0 300 420"><rect width="300" height="420" fill="#131b2e"/><rect x="14" y="14" width="272" height="392" rx="12" fill="none" stroke="#dfc09b" stroke-opacity="0.4"/><text x="150" y="185" text-anchor="middle" fill="#dfc09b" font-size="36" font-family="serif">Æ</text><text x="150" y="255" text-anchor="middle" fill="#f4f1ea" font-size="18" font-weight="bold" font-family="sans-serif">'+a+'</text><text x="150" y="282" text-anchor="middle" fill="#9ba5bc" font-size="12" font-family="sans-serif">'+b+'</text></svg>');
+  }
+  function commonsImg(fn,w){
+    if(!fn) return '';
+    const name=decodeURIComponent(String(fn).split('/').pop().split('?')[0]);
+    return COMMONS_FP+encodeURIComponent(name)+'?width='+(w||500);
+  }
+
+  function bdayInfo(bStr){
+    if(!bStr) return {days:9999,label:'生辰待同步'};
+    const m=String(bStr).match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+    if(!m) return {days:9999,label:bStr};
+    const by=+m[1], bm=+m[2], bd=+m[3];
+    const now=new Date(), today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+    let next=new Date(today.getFullYear(),bm-1,bd);
+    if(next<today) next=new Date(today.getFullYear()+1,bm-1,bd);
+    const days=Math.round((next-today)/86400000);
+    const age=next.getFullYear()-by;
+    return {days:days,label:days===0?('🎉 今日寿星 · '+bm+'月'+bd+'日 · '+age+'岁'):('🎂 生日还有 '+days+' 天 · '+bm+'月'+bd+'日 · '+age+'岁')};
+  }
+
+  function findMov(imdb,title,cn){
+    const arr=Object.values(state.movies);
+    for(let i=0;i<arr.length;i++){
+      const x=arr[i];
+      if(imdb && x.imdb_id && x.imdb_id===imdb) return x;
+      if(title && x.title && x.title.toLowerCase()===String(title).toLowerCase()) return x;
+      if(cn && x.cn_title && x.cn_title===cn) return x;
+    }
+    return null;
+  }
+
+  function museStats(m){
+    const creds=Array.isArray(m.credits)?m.credits:[];
+    let watched=0, up=[];
+    const curY=new Date().getFullYear();
+    creds.forEach(w=>{
+      const loc=state.movies[w.id]||findMov(w.imdb_id,w.title,w.cn_title);
+      const isW=(loc&&loc.status==='watched')||w.userStatus==='watched';
+      if(isW) watched++;
+      const yr=parseInt(w.year,10);
+      if((w.is_upcoming||!yr||yr>curY)&&!isW) up.push(w);
+    });
+    const tot=Math.max(creds.length,1);
+    const pct=creds.length?Math.min(100,Math.round(watched/tot*100)):0;
+    let tier='N', next='R', need=Math.max(0,1-watched);
+    if(watched>=25||(creds.length>=5&&watched>=creds.length)){tier='UR';next='MAX';need=0;}
+    else if(watched>=12){tier='SSR';next='UR';need=25-watched;}
+    else if(watched>=5){tier='SR';next='SSR';need=12-watched;}
+    else if(watched>=1){tier='R';next='SR';need=5-watched;}
+    return {watched,total:creds.length,pct,tier,next,need,up};
+  }
+
+  async function jFetch(u){
+    const r=await fetch(u);
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    return await r.json();
+  }
+
+  async function wdSearch(q,lim){
+    const u=WD_API+'?action=wbsearchentities&search='+encodeURIComponent(q)+'&language=zh&uselang=zh&type=item&limit='+(lim||8)+'&format=json&origin=*';
+    const d=await jFetch(u);
+    let res=(d&&d.search)||[];
+    if(res.length<2){
+      try{
+        const d2=await jFetch(WD_API+'?action=wbsearchentities&search='+encodeURIComponent(q)+'&language=en&uselang=zh&type=item&limit='+(lim||8)+'&format=json&origin=*');
+        const seen=new Set(res.map(x=>x.id));
+        ((d2&&d2.search)||[]).forEach(x=>{if(!seen.has(x.id)) res.push(x);});
+      }catch(e){}
+    }
+    return res;
+  }
+
+  async function wdBatch(qids){
+    if(!qids||!qids.length) return {};
+    try{
+      const d=await jFetch(WD_API+'?action=wbgetentities&ids='+encodeURIComponent(qids.slice(0,45).join('|'))+'&props=labels|descriptions|claims&languages=zh|zh-cn|zh-tw|en&format=json&origin=*');
+      return (d&&d.entities)||{};
+    }catch(e){return {};}
+  }
+
+  function claimVal(claims,p){
+    if(!claims||!claims[p]||!claims[p][0]||!claims[p][0].mainsnak||!claims[p][0].mainsnak.datavalue) return '';
+    const v=claims[p][0].mainsnak.datavalue.value;
+    if(typeof v==='string') return v;
+    if(v&&v.time) return v.time.replace(/^\+/,'').slice(0,10);
+    if(v&&v.id) return v.id;
+    return '';
+  }
+  function claimAll(claims,p){
+    if(!claims||!claims[p]) return [];
+    return claims[p].map(c=>c.mainsnak&&c.mainsnak.datavalue&&c.mainsnak.datavalue.value).filter(Boolean).map(v=>typeof v==='string'?v:(v.id||''));
+  }
+  function pickLbl(ent,fb){
+    if(!ent||!ent.labels) return {zh:fb||'',en:fb||''};
+    const l=ent.labels;
+    const zh=(l['zh-cn']&&l['zh-cn'].value)||(l['zh']&&l['zh'].value)||(l['zh-tw']&&l['zh-tw'].value)||'';
+    const en=(l['en']&&l['en'].value)||'';
+    return {zh:zh||en||fb||ent.id, en:en||zh||fb||ent.id};
+  }
+
+  async function fetchPersonFull(qidOrImdb){
+    let qid=qidOrImdb;
+    if(/^nm\d+$/i.test(qid)){
+      const sp='SELECT ?p WHERE { ?p wdt:P345 "'+qid.toLowerCase()+'". } LIMIT 1';
+      const r=await jFetch(WD_SPARQL+encodeURIComponent(sp));
+      const b=r&&r.results&&r.results.bindings;
+      if(b&&b[0]&&b[0].p) qid=b[0].p.value.split('/').pop();
+    }
+    const map=await wdBatch([qid]);
+    const ent=map[qid];
+    if(!ent) throw new Error('未找到影人 '+qid);
+    const names=pickLbl(ent,qid);
+    const imdb=claimVal(ent.claims,'P345')||(/^nm\d+$/i.test(qidOrImdb)?qidOrImdb:'');
+    const bDate=claimVal(ent.claims,'P569');
+    const skins=claimAll(ent.claims,'P18').map(f=>commonsImg(f,550));
+
+    const spWorks='SELECT DISTINCT ?w ?imdb (SAMPLE(?d) AS ?dt) (SAMPLE(?img) AS ?pic) (SAMPLE(?ch) AS ?cQid) WHERE { { ?w wdt:P161 wd:'+qid+' . OPTIONAL { ?w p:P161 ?s . ?s ps:P161 wd:'+qid+' . OPTIONAL { ?s pq:P453 ?ch . } } } UNION { ?w wdt:P57 wd:'+qid+' . } OPTIONAL { ?w wdt:P345 ?imdb . } OPTIONAL { ?w wdt:P577 ?d . } OPTIONAL { ?w wdt:P18 ?img . } } GROUP BY ?w ?imdb LIMIT 100';
+    let rows=[];
+    try{
+      const wr=await jFetch(WD_SPARQL+encodeURIComponent(spWorks));
+      rows=(wr&&wr.results&&wr.results.bindings)||[];
+    }catch(e){}
+
+    const allQids=[];
+    rows.forEach(r=>{
+      if(r.w) allQids.push(r.w.value.split('/').pop());
+      if(r.cQid) allQids.push(r.cQid.value.split('/').pop());
+    });
+    const uQids=Array.from(new Set(allQids));
+    const lMap={};
+    for(let i=0;i<uQids.length;i+=45){
+      Object.assign(lMap, await wdBatch(uQids.slice(i,i+45)));
+    }
+    const curY=new Date().getFullYear();
+    const cMap={};
+    rows.forEach(r=>{
+      const wq=r.w.value.split('/').pop();
+      const we=lMap[wq];
+      const wn=pickLbl(we,wq);
+      const wi=(r.imdb&&r.imdb.value)||claimVal(we&&we.claims,'P345');
+      const dt=(r.dt&&r.dt.value)?r.dt.value.slice(0,10):'';
+      const yr=dt?parseInt(dt.slice(0,4),10):null;
+      const cq=(r.cQid&&r.cQid.value)?r.cQid.value.split('/').pop():'';
+      const cName=(cq&&lMap[cq])?pickLbl(lMap[cq],'').zh:'';
+      const key=wi||wq;
+      if(!cMap[key]){
+        cMap[key]={id:key,qid:wq,imdb_id:wi||'',title:wn.en,cn_title:wn.zh,year:yr||'待定',releaseDate:dt,is_upcoming:(!yr||yr>curY||(dt&&new Date(dt)>new Date())),character:cName,poster:(r.pic&&r.pic.value)?commonsImg(r.pic.value,360):''};
+      }
+    });
+    const credits=Object.values(cMap).sort((a,b)=>(typeof b.year==='number'?b.year:9999)-(typeof a.year==='number'?a.year:9999));
+    const defAv=skins[0]||svgPoster(names.zh,imdb||qid);
+    return {id:qid,qid:qid,imdb_id:imdb,name:names.en,cn_name:names.zh,birthDate:bDate,avatar:defAv,skins:skins.length?skins:[defAv],bondPoints:0,lastCheckinDate:null,credits:credits};
+  }
+
+  async function fetchSeriesLive(qStr){
+    const cands=await wdSearch(qStr,5);
+    if(!cands.length) throw new Error('未找到系列 '+qStr);
+    const qid=cands[0].id, sName=cands[0].label||qStr;
+    const sp='SELECT DISTINCT ?f ?imdb (SAMPLE(?d) AS ?dt) WHERE { { ?f wdt:P179 wd:'+qid+' . } UNION { ?f wdt:P361 wd:'+qid+' . } UNION { wd:'+qid+' wdt:P527 ?f . } OPTIONAL { ?f wdt:P345 ?imdb . } OPTIONAL { ?f wdt:P577 ?d . } } GROUP BY ?f ?imdb LIMIT 70';
+    const r=await jFetch(WD_SPARQL+encodeURIComponent(sp));
+    const rows=(r&&r.results&&r.results.bindings)||[];
+    const fqids=rows.map(x=>x.f.value.split('/').pop());
+    const eMap={};
+    for(let i=0;i<fqids.length;i+=45) Object.assign(eMap,await wdBatch(fqids.slice(i,i+45)));
+    const items=rows.map(x=>{
+      const fq=x.f.value.split('/').pop(), fe=eMap[fq], fn=pickLbl(fe,fq);
+      const dt=(x.dt&&x.dt.value)?x.dt.value.slice(0,10):'';
+      const wi=(x.imdb&&x.imdb.value)||claimVal(fe&&fe.claims,'P345');
+      return {id:wi||fq,imdb_id:wi||'',title:fn.en,cn_title:fn.zh,year:dt?parseInt(dt.slice(0,4),10):'待定',releaseDate:dt};
+    }).sort((a,b)=>(typeof a.year==='number'?a.year:9999)-(typeof b.year==='number'?b.year:9999));
+    return {id:qid,name:sName,items:items};
+  }
+
+  async function mergeData(d,enrich){
+    if(!d) return;
+    if(d.muses&&typeof d.muses==='object') Object.assign(state.muses,d.muses);
+    if(d.movies&&typeof d.movies==='object'&&!Array.isArray(d.movies)) Object.assign(state.movies,d.movies);
+    if(d.universes&&typeof d.universes==='object') Object.assign(state.universes,d.universes);
+    if(d.characters&&typeof d.characters==='object') Object.assign(state.characters,d.characters);
+    const pArr=d.people||d.actors||[];
+    if(Array.isArray(pArr)){
+      for(let i=0;i<pArr.length;i++){
+        const p=pArr[i], pid=p.id||p.imdb_id||p.name;
+        if(!pid) continue;
+        const rawC=p.credits||p.works||[];
+        const creds=rawC.map(w=>({id:w.imdb_id||w.id||w.title,imdb_id:w.imdb_id||'',title:w.title||w.cn_title||'',cn_title:w.cn_title||w.title||'',year:w.year||'待定',releaseDate:w.release_date||w.releaseDate||'',imdb_rating:w.imdb_rating||null,is_upcoming:Boolean(w.is_upcoming||w.status==='upcoming'),character:Array.isArray(w.roles)?w.roles.join('/'):(w.character||'')}));
+        const ex=state.muses[pid]||{};
+        state.muses[pid]={id:pid,imdb_id:p.imdb_id||ex.imdb_id||'',name:p.name||ex.name||pid,cn_name:p.cn_name||p.name||ex.cn_name||pid,birthDate:p.birthDate||p.birth_date||ex.birthDate||'',avatar:p.avatar||ex.avatar||svgPoster(p.name,pid),skins:ex.skins||(p.avatar?[p.avatar]:[svgPoster(p.name,pid)]),bondPoints:ex.bondPoints||0,lastCheckinDate:ex.lastCheckinDate||null,credits:creds.length?creds:(ex.credits||[])};
+        if(enrich&&(!state.muses[pid].birthDate||!state.muses[pid].credits.length)&&state.muses[pid].imdb_id){
+          try{
+            const full=await fetchPersonFull(state.muses[pid].imdb_id);
+            state.muses[pid].birthDate=full.birthDate||state.muses[pid].birthDate;
+            if(full.skins&&full.skins.length){state.muses[pid].skins=full.skins;state.muses[pid].avatar=full.skins[0];}
+            if(!state.muses[pid].credits.length) state.muses[pid].credits=full.credits;
+          }catch(e){}
+        }
+      }
+    }
+    const fArr=d.franchises||d.series||[];
+    if(Array.isArray(fArr)){
+      fArr.forEach(f=>{
+        const fid=f.id||f.name; if(!fid) return;
+        const its=(f.items||f.movies||[]).map(m=>{
+          const mid=m.imdb_id||m.id||m.title;
+          if(mid&&!state.movies[mid]) state.movies[mid]={id:mid,imdb_id:m.imdb_id||'',title:m.title||mid,cn_title:m.cn_title||m.title||mid,year:m.year||'',status:m.status||'wish',userRating:9,watchDate:m.watchDate||'',note:m.note||''};
+          return {id:mid,imdb_id:m.imdb_id||'',title:m.title||mid,cn_title:m.cn_title||m.title||mid,year:m.year||''};
+        });
+        state.universes[fid]={id:fid,name:f.name||fid,items:its};
+      });
+    }
+    const mArr=Array.isArray(d)?d:(Array.isArray(d.movies)?d.movies:(Array.isArray(d.records)?d.records:null));
+    if(mArr){
+      mArr.forEach(m=>{
+        const mid=m.imdb_id||m.id||m.title||m.cn_title; if(!mid) return;
+        state.movies[mid]={id:mid,imdb_id:m.imdb_id||'',title:m.title||m.cn_title||mid,cn_title:m.cn_title||m.title||mid,year:m.year||'',status:m.status||'watched',userRating:m.userRating||m.rating||9,watchDate:m.watchDate||m.date||'',note:m.note||m['com'+'ment']||'',character:m.character||'',poster:m.poster||''};
+      });
+    }
+  }
+
+  async function syncRepo(silent){
+    const repo=(document.getElementById('ghRepo')&&document.getElementById('ghRepo').value.trim())||'TangTangMo/love-movie';
+    const urls=['./data.json?t='+Date.now(), RAW_GH+repo+'/main/docs/data.json?t='+Date.now()];
+    for(let i=0;i<urls.length;i++){
+      try{
+        const d=await jFetch(urls[i]);
+        if(d&&(d.people||d.franchises||d.muses)){
+          await mergeData(d,true);
+          state.lastSyncAt=new Date().toISOString();
+          save();
+          if(!silent) toast('⚡ 已从 GitHub 仓库同步并动态补全数据');
+          document.getElementById('syncTag').textContent='已同步 GitHub 仓库';
+          return;
+        }
+      }catch(e){}
+    }
+    if(!silent) toast('实时引擎在线');
+  }
+
+  async function fetchPulse(){
+    const dt=new Date().toISOString().slice(0,10);
+    const out=[];
+    try{
+      const tv=await jFetch(TVMAZE_API+'/schedule/web?date='+dt);
+      const seen=new Set();
+      (tv||[]).forEach(ep=>{
+        const s=(ep._embedded&&ep._embedded.show)||ep.show;
+        if(!s||seen.has(s.id)) return;
+        seen.add(s.id);
+        out.push({id:(s.externals&&s.externals.imdb)||('tvm_'+s.id),imdb_id:(s.externals&&s.externals.imdb)||'',title:s.name,cn_title:s.name,year:s.premiered?s.premiered.slice(0,4):dt.slice(0,4),poster:(s.image&&s.image.medium)||'',badge:'今日排播 · '+(ep.name||'新集')});
+      });
+    }catch(e){}
+    state.livePulse=out.slice(0,8);
+    document.getElementById('pulseTime').textContent='已于 '+new Date().toLocaleTimeString()+' 实时拉取全球流媒体排播 ('+state.livePulse.length+' 部)';
+    renderAll();
+  }
+
+  function markMovie(payload,st){
+    const id=payload.id||payload.imdb_id||payload.title; if(!id) return;
+    const prev={}; Object.keys(state.muses).forEach(k=>prev[k]=museStats(state.muses[k]).tier);
+    const ex=state.movies[id]||{};
+    const today=new Date().toISOString().slice(0,10);
+    state.movies[id]={id:id,imdb_id:payload.imdb_id||ex.imdb_id||'',title:payload.title||ex.title||id,cn_title:payload.cn_title||payload.title||ex.cn_title||id,year:payload.year||ex.year||'',status:st,userRating:ex.userRating||9,watchDate:st==='watched'?(ex.watchDate||today):(ex.watchDate||''),note:ex.note||'',character:payload.character||ex.character||'',poster:payload.poster||ex.poster||''};
+    Object.values(state.muses).forEach(m=>{
+      (m.credits||[]).forEach(c=>{
+        if(c.id===id||(c.imdb_id&&c.imdb_id===state.movies[id].imdb_id)||c.title===state.movies[id].title){
+          c.userStatus=st;
+          if(st==='watched'&&c.character){
+            const cid=m.id+'_'+c.character;
+            state.characters[cid]={id:cid,name:c.character,actor:m.cn_name||m.name,movie:c.cn_title||c.title};
+          }
+        }
+      });
+    });
+    save();
+    toast('已标记《'+state.movies[id].cn_title+'》为 '+st);
+    Object.keys(state.muses).forEach(k=>{
+      const nt=museStats(state.muses[k]).tier;
+      if(prev[k]&&prev[k]!==nt&&st==='watched') toast('👑 缪斯「'+(state.muses[k].cn_name||state.muses[k].name)+'」晋升为 '+nt+' 阶！');
+    });
+  }
+
+  function renderAll(){
+    const mArr=Object.values(state.muses), movArr=Object.values(state.movies);
+    const wArr=movArr.filter(x=>x.status==='watched'), ingArr=movArr.filter(x=>x.status==='watching'), wishArr=movArr.filter(x=>x.status==='wish');
+    const noDateArr=wArr.filter(x=>!x.watchDate);
+    const uArr=Object.values(state.universes), cArr=Object.values(state.characters);
+    let upAll=[];
+    mArr.forEach(m=>museStats(m).up.forEach(w=>upAll.push({m,w})));
+
+    document.getElementById('kMuses').textContent=mArr.length+' 位';
+    document.getElementById('kWatched').textContent=wArr.length+' 部';
+    document.getElementById('kWatchedSub').textContent=ingArr.length+' 在看 · '+wishArr.length+' 想看';
+    document.getElementById('kUni').textContent=uArr.length+' 个';
+    document.getElementById('kCharSub').textContent='已点亮 '+cArr.length+' 位角色';
+    document.getElementById('kUp').textContent=upAll.length+' 部';
+    document.getElementById('kNoDateSub').textContent=noDateArr.length+' 部待补观影日期';
+    document.getElementById('noDateCnt').textContent=String(noDateArr.length);
+
+    const bEl=document.getElementById('bdayList');
+    if(!mArr.length) bEl.innerHTML='<div class="sub">暂未缔约缪斯 · 在上方搜索任意演员即可自动精算生辰倒计时</div>';
+    else bEl.innerHTML=mArr.slice().sort((a,b)=>bdayInfo(a.birthDate).days-bdayInfo(b.birthDate).days).map(m=>{
+      const bi=bdayInfo(m.birthDate), st=museStats(m);
+      return '<div class="row" style="padding:6px 8px;background:rgba(0,0,0,0.22);border-radius:10px"><div><strong>'+esc(m.cn_name||m.name)+'</strong> <span class="badge">'+st.tier+'</span><div class="sub gold">'+esc(bi.label)+'</div></div></div>';
+    }).join('');
+
+    const uEl=document.getElementById('upList');
+    if(!upAll.length) uEl.innerHTML='<div class="sub">暂无待映新作 · 缔约影人后将自动聚合 TA 们的待映作品</div>';
+    else uEl.innerHTML=upAll.slice(0,12).map(x=>'<div class="row" style="padding:6px 8px;background:rgba(0,0,0,0.22);border-radius:10px"><div><strong>《'+esc(x.w.cn_title||x.w.title)+'》</strong> <span class="badge">'+esc(x.w.year)+'</span><div class="sub">🃏 '+esc(x.m.cn_name||x.m.name)+'</div></div><button class="btn" data-act="mark" data-id="'+esc(x.w.id)+'" data-title="'+esc(x.w.title)+'" data-cn="'+esc(x.w.cn_title)+'" data-yr="'+esc(x.w.year)+'" data-st="watched">✓ 点亮</button></div>').join('');
+
+    const pEl=document.getElementById('pulseGrid');
+    if(!state.livePulse.length) pEl.innerHTML='<div class="sub">正在拉取全球实时排播...</div>';
+    else pEl.innerHTML=state.livePulse.map(p=>'<div class="row" style="padding:8px;border:1px solid var(--bd);border-radius:12px"><img src="'+esc(p.poster||svgPoster(p.title,p.year))+'" style="width:44px;height:62px;object-fit:cover;border-radius:6px"><div style="flex:1;min-width:0"><div class="badge">'+esc(p.badge)+'</div><div style="font-weight:700;font-size:13px;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(p.cn_title||p.title)+'</div><div class="row" style="justify-content:flex-start;margin-top:4px"><button class="btn" data-act="mark" data-id="'+esc(p.id)+'" data-title="'+esc(p.title)+'" data-cn="'+esc(p.cn_title)+'" data-yr="'+esc(p.year)+'" data-st="watched">✓ 看过</button><button class="btn" data-act="mark" data-id="'+esc(p.id)+'" data-title="'+esc(p.title)+'" data-cn="'+esc(p.cn_title)+'" data-yr="'+esc(p.year)+'" data-st="wish">♡ 想看</button></div></div></div>').join('');
+
+    const mFilter=document.getElementById('museFilter').value;
+    const mList=mArr.filter(m=>mFilter==='ALL'||museStats(m).tier===mFilter);
+    const mg=document.getElementById('museGrid');
+    if(!mList.length) mg.innerHTML='<div class="card"><div class="sub">暂无契约缪斯 · 在顶部搜索栏输入任意演员或导演名字点击「实时检索」即可一键缔约建卡</div></div>';
+    else mg.innerHTML=mList.map(m=>{
+      const st=museStats(m), bi=bdayInfo(m.birthDate);
+      const cHtml=(m.credits||[]).map(w=>{
+        const loc=state.movies[w.id]||findMov(w.imdb_id,w.title,w.cn_title);
+        const isW=(loc&&loc.status==='watched')||w.userStatus==='watched';
+        return '<div class="row" style="padding:5px 7px;background:rgba(0,0,0,0.3);border-radius:8px;margin-bottom:5px"><div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(w.cn_title||w.title)+' ('+esc(w.year)+')</div><div class="sub">'+esc(w.character||'参演/执导')+'</div></div><button class="btn '+(isW?'act':'')+'" data-act="mark" data-id="'+esc(w.id)+'" data-title="'+esc(w.title)+'" data-cn="'+esc(w.cn_title)+'" data-yr="'+esc(w.year)+'" data-char="'+esc(w.character||'')+'" data-st="watched">'+(isW?'✓ 已点亮':'点亮')+'</button></div>';
+      }).join('');
+      return '<div class="flip-wrap"><div id="mc-'+esc(m.id)+'" class="flip-in"><div class="face tier-'+st.tier+'"><img src="'+esc(m.avatar)+'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.75"><div style="position:absolute;inset:0;background:linear-gradient(to top,#05070c 12%,transparent 55%,rgba(0,0,0,.55))"></div><div class="row" style="position:relative;z-index:2;padding:12px"><span class="badge">'+st.tier+' 阶缪斯</span><span class="badge">'+esc(bi.label)+'</span></div><div style="position:relative;z-index:2;padding:14px"><div><strong style="font-size:18px">'+esc(m.cn_name||m.name)+'</strong><div class="sub">'+esc(m.name)+' · 羁绊 '+(m.bondPoints||0)+'</div></div><div class="sub gold" style="margin-top:6px">已集 '+st.watched+'/'+st.total+' 部 ('+st.pct+'%) · '+(st.need>0?('再看 '+st.need+' 部升 '+st.next):'满阶冠冕')+'</div><div class="prog"><div class="prog-bar" style="width:'+st.pct+'%"></div></div><div class="row" style="margin-top:8px"><button class="btn act" data-act="flip" data-mid="'+esc(m.id)+'">🔄 翻转作品表 ('+st.total+')</button><button class="btn" data-act="checkin" data-mid="'+esc(m.id)+'">📅 签到</button><button class="btn" data-act="skin" data-mid="'+esc(m.id)+'">🎨 换卡面</button></div></div></div><div class="face face-back tier-'+st.tier+'"><div class="row" style="border-bottom:1px solid var(--bd);padding-bottom:6px"><strong>'+esc(m.cn_name||m.name)+' · 作品契约</strong><button class="btn" data-act="flip" data-mid="'+esc(m.id)+'">↩ 返回</button></div><div style="flex:1;overflow-y:auto;margin:8px 0">'+cHtml+'</div><div class="row"><button class="btn act" data-act="sync-muse" data-mid="'+esc(m.id)+'">⚡ 重抓作品</button><button class="btn" data-act="del-muse" data-mid="'+esc(m.id)+'" style="color:#f87171">解除契约</button></div></div></div></div>';
+    }).join('');
+
+    const ul=document.getElementById('uniList');
+    if(!uArr.length) ul.innerHTML='<div class="card"><div class="sub">暂未构建系列宇宙 · 在上方输入系列名（如：沙丘）点击「⚡ 实时抓取系列」即可生成</div></div>';
+    else ul.innerHTML=uArr.map(u=>{
+      const its=u.items||[];
+      let wCnt=0; its.forEach(it=>{const loc=state.movies[it.id]||findMov(it.imdb_id,it.title,it.cn_title); if(loc&&loc.status==='watched') wCnt++;});
+      const pct=its.length?Math.round(wCnt/its.length*100):0;
+      return '<div class="card"><div class="row"><strong>🪐 '+esc(u.name)+' ('+wCnt+'/'+its.length+' 部 · '+pct+'%)</strong><button class="btn" data-act="del-uni" data-uid="'+esc(u.id)+'">移除</button></div><div class="prog"><div class="prog-bar" style="width:'+pct+'%"></div></div><div class="row" style="justify-content:flex-start;margin-top:8px">'+its.map(it=>{
+        const loc=state.movies[it.id]||findMov(it.imdb_id,it.title,it.cn_title);
+        const isW=loc&&loc.status==='watched';
+        return '<button class="btn '+(isW?'act':'')+'" data-act="mark" data-id="'+esc(it.id)+'" data-title="'+esc(it.title)+'" data-cn="'+esc(it.cn_title)+'" data-yr="'+esc(it.year)+'" data-st="'+(isW?'wish':'watched')+'">'+(isW?'✓ ':'○ ')+esc(it.cn_title||it.title)+'</button>';
+      }).join('')+'</div></div>';
+    }).join('');
+
+    const cg=document.getElementById('charGrid');
+    if(!cArr.length) cg.innerHTML='<div class="sub">点亮作品或点击「+ 铭刻角色」即可收集角色铭牌</div>';
+    else cg.innerHTML=cArr.map(c=>'<div class="row" style="padding:8px;border:1px solid var(--bd);border-radius:10px"><div><strong class="gold">✨ '+esc(c.name)+'</strong><div class="sub">'+esc(c.actor||'')+' · 《'+esc(c.movie||'')+'》</div></div></div>').join('');
+
+    let vItems=movArr;
+    if(curVaultTab==='watched'||curVaultTab==='watching'||curVaultTab==='wish') vItems=movArr.filter(x=>x.status===curVaultTab);
+    else if(curVaultTab==='nodate') vItems=movArr.filter(x=>x.status==='watched'&&!x.watchDate);
+    const vl=document.getElementById('vaultList');
+    if(!vItems.length) vl.innerHTML='<div class="card"><div class="sub">当前分类下暂无票根记录</div></div>';
+    else vl.innerHTML=vItems.map(m=>'<div class="ticket"><div style="flex:1;min-width:0"><span class="badge">'+esc(m.status)+'</span> <span class="sub">'+esc(m.year)+'</span><div style="font-weight:700;font-size:14px;margin:4px 0">《'+esc(m.cn_title||m.title)+'》</div><div class="sub">📅 '+esc(m.watchDate||'未记日期')+' · ★ '+(m.userRating||9)+'/10 · '+esc(m.note||'无批注')+'</div></div><div class="row"><button class="btn act" data-act="edit-mov" data-mid="'+esc(m.id)+'">编辑</button><button class="btn" data-act="del-mov" data-mid="'+esc(m.id)+'">✕</button></div></div>').join('');
+
+    renderCal();
+    document.getElementById('shrineBox').innerHTML='<div style="text-align:center;margin-bottom:8px"><strong class="gold">「'+esc(state.shrineMotto)+'」</strong></div><div class="sub">已陈列 '+mArr.length+' 位契约缪斯 · '+wArr.length+' 张典藏票根 · '+cArr.length+' 枚角色徽章</div>';
+    document.getElementById('reportBox').innerHTML='<div class="row"><span>累计看过影视</span><strong class="gold">'+wArr.length+' 部 (≈ '+(wArr.length*2.1).toFixed(1)+' 小时)</strong></div><div class="row"><span>在看 / 想看储备</span><strong>'+ingArr.length+' 部 / '+wishArr.length+' 部</strong></div><div class="row"><span>待补记观影日期</span><strong class="gold">'+noDateArr.length+' 部</strong></div><div class="row"><span>已点亮银幕角色</span><strong class="gold">'+cArr.length+' 位</strong></div>';
+  }
+
+  function renderCal(){
+    document.getElementById('calTitle').textContent=calY+' 年 '+(calM+1)+' 月';
+    const first=new Date(calY,calM,1).getDay(), days=new Date(calY,calM+1,0).getDate();
+    const ym=calY+'-'+String(calM+1).padStart(2,'0'), md='-'+String(calM+1).padStart(2,'0')+'-';
+    const ev={};
+    Object.values(state.movies).forEach(m=>{if(m.watchDate&&m.watchDate.startsWith(ym)){const d=+m.watchDate.slice(8,10); (ev[d]=ev[d]||[]).push('🟢 观影《'+(m.cn_title||m.title)+'》');}});
+    Object.values(state.muses).forEach(m=>{if(m.birthDate&&m.birthDate.includes(md)){const d=+m.birthDate.slice(8,10); (ev[d]=ev[d]||[]).push('🌸 '+(m.cn_name||m.name)+'生辰');}});
+    const cells=[];
+    for(let i=0;i<first;i++) cells.push('<div></div>');
+    for(let d=1;d<=days;d++){
+      const list=ev[d]||[];
+      cells.push('<div class="cal-cell"><div>'+d+'</div><div class="gold" style="font-size:9px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+(list[0]||'')+'</div></div>');
+    }
+    document.getElementById('calGrid').innerHTML=cells.join('');
+    const allEv=Object.keys(ev).map(d=>ym+'-'+String(d).padStart(2,'0')+'：'+ev[d].join(' / '));
+    document.getElementById('calDayInfo').textContent=allEv.length?allEv.join(' ｜ '):'本月尚无已记日期的观影或生辰记录';
+  }
+
+  function switchNav(target){
+    ['radar','muses','universes','vault','atelier','hub'].forEach(v=>{
+      document.getElementById('v-'+v).classList.toggle('hide',v!==target);
+    });
+    document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('act',b.getAttribute('data-nav')===target));
+  }
+
+  document.querySelectorAll('[data-theme-btn]').forEach(b=>b.addEventListener('click',()=>{
+    state.theme=b.getAttribute('data-theme-btn');
+    document.body.setAttribute('data-theme',state.theme);
+    save();
+  }));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.addEventListener('click',()=>switchNav(b.getAttribute('data-nav'))));
+  document.querySelectorAll('[data-jump]').forEach(b=>b.addEventListener('click',()=>switchNav(b.getAttribute('data-jump'))));
+  document.querySelectorAll('.vtab').forEach(b=>b.addEventListener('click',()=>{
+    curVaultTab=b.getAttribute('data-vtab');
+    document.querySelectorAll('.vtab').forEach(x=>x.classList.remove('act'));
+    b.classList.add('act');
+    renderAll();
+  }));
+
+  document.getElementById('btnSyncRepo').addEventListener('click',()=>syncRepo(false));
+  document.getElementById('btnRefreshPulse').addEventListener('click',fetchPulse);
+  document.getElementById('btnCloseSearch').addEventListener('click',()=>document.getElementById('searchDrawer').classList.add('hide'));
+  document.getElementById('museFilter').addEventListener('change',renderAll);
+  document.getElementById('btnQuickMuse').addEventListener('click',()=>{document.getElementById('qMode').value='person';document.getElementById('qInput').focus();});
+  document.getElementById('btnNewMuseTop').addEventListener('click',()=>{document.getElementById('qMode').value='person';document.getElementById('qInput').focus();window.scrollTo({top:0,behavior:'smooth'});});
+  document.getElementById('btnQuickUni').addEventListener('click',()=>switchNav('universes'));
+  document.getElementById('btnQuickJson').addEventListener('click',()=>switchNav('hub'));
+  document.getElementById('calPrev').addEventListener('click',()=>{calM--;if(calM<0){calM=11;calY--;}renderCal();});
+  document.getElementById('calNext').addEventListener('click',()=>{calM++;if(calM>11){calM=0;calY++;}renderCal();});
+  document.getElementById('btnCloseModal').addEventListener('click',()=>document.getElementById('modalBg').classList.add('hide'));
+
+  document.getElementById('btnSearch').addEventListener('click',async ()=>{
+    const q=document.getElementById('qInput').value.trim(), mode=document.getElementById('qMode').value;
+    if(!q) return toast('请输入搜索关键词');
+    const dr=document.getElementById('searchDrawer'), sg=document.getElementById('searchGrid'), sm=document.getElementById('searchMsg');
+    dr.classList.remove('hide'); sg.innerHTML=''; sm.textContent='⚡ 正在从 Wikidata & TVmaze 实时检索「'+q+'」...';
+    try{
+      if(mode==='series'){
+        const u=await fetchSeriesLive(q); state.universes[u.id]=u; save(); switchNav('universes'); sm.textContent='✅ 已构建系列：'+u.name; return;
+      }
+      const list=await wdSearch(q,8);
+      const eMap=await wdBatch(list.map(x=>x.id));
+      sg.innerHTML=list.map(it=>{
+        const e=eMap[it.id]; if(!e) return '';
+        const n=pickLbl(e,it.label), p31=claimAll(e.claims,'P31'), isH=p31.includes('Q5');
+        const imdb=claimVal(e.claims,'P345'), dt=claimVal(e.claims,'P577')||claimVal(e.claims,'P569');
+        const img=claimVal(e.claims,'P18')?commonsImg(claimVal(e.claims,'P18'),240):svgPoster(n.zh,isH?'MUSE':'FILM');
+        if(isH) return '<div class="row" style="padding:8px;border:1px solid var(--bd);border-radius:12px"><img src="'+esc(img)+'" style="width:46px;height:62px;object-fit:cover;border-radius:8px"><div style="flex:1;min-width:0"><span class="badge">影人</span> <strong>'+esc(n.zh)+'</strong><div class="sub">'+esc(it.description||dt)+'</div><button class="btn btn-pri" style="margin-top:4px" data-act="bind-muse" data-qid="'+esc(it.id)+'">✨ 缔约缪斯 (抓全量作品)</button></div></div>';
+        return '<div class="row" style="padding:8px;border:1px solid var(--bd);border-radius:12px"><img src="'+esc(img)+'" style="width:46px;height:62px;object-fit:cover;border-radius:8px"><div style="flex:1;min-width:0"><span class="badge">影视</span> <strong>'+esc(n.zh)+'</strong><div class="sub">'+esc(dt?dt.slice(0,4):'')+' · '+esc(it.description||'')+'</div><div class="row" style="justify-content:flex-start;margin-top:4px"><button class="btn act" data-act="mark" data-id="'+esc(imdb||it.id)+'" data-title="'+esc(n.en)+'" data-cn="'+esc(n.zh)+'" data-yr="'+esc(dt?dt.slice(0,4):'')+'" data-st="watched">✓ 看过</button><button class="btn" data-act="mark" data-id="'+esc(imdb||it.id)+'" data-title="'+esc(n.en)+'" data-cn="'+esc(n.zh)+'" data-yr="'+esc(dt?dt.slice(0,4):'')+'" data-st="wish">♡ 想看</button></div></div></div>';
+      }).join('');
+      sm.textContent='检索完成（页内直接点按钮建卡或标记，绝不外跳）';
+    }catch(err){ sm.textContent='检索异常：'+err.message; }
   });
-  render();
-}
-function mStat(m){
-  const w=m.base+m.works.filter(x=>x.st==='watched').length;
-  const tot=m.base+m.works.length;
-  const pct=Math.min(100,Math.round(w/tot*100));
-  const tier=w>=15?'SSR':w>=5?'SR':'R';
-  const need=w<5?(5-w):w<15?(15-w):0;
-  return {w,tot,pct,tier,need,nxt:w<5?'SR':'SSR'};
-}
-function cardHTML(f){
-  const img=artSVG(f.cn,f.en,f.yr,f.c||'#D8B878');
-  return `<div class="card" onclick="openFilm('${f.id}')" style="cursor:pointer;"><div style="aspect-ratio:2/3;position:relative;"><img src="${img}" style="width:100%;height:100%;object-fit:cover;"/>${f.lk?'<span style="position:absolute;top:5px;left:5px;background:#E11D48;color:#fff;width:18px;height:18px;border-radius:50%;font-size:10px;display:flex;align-items:center;justify-content:center;">♥</span>':''}</div><div style="padding:6px;"><div style="font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${f.cn}</div><div class="sub" style="font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${f.yr} · ${f.rt}</div></div></div>`;
-}
-function render(){
-  const wM=254+st.films.filter(f=>f.st==='watched'&&f.tp==='movie').length;
-  const wT=36+st.films.filter(f=>f.st==='watched'&&f.tp==='tv').length;
-  const wsh=st.films.filter(f=>f.st==='wish').length;
-  document.getElementById('c-m').textContent=wM;
-  document.getElementById('c-t').textContent=wT;
-  document.getElementById('c-wsh').textContent=wsh;
-  document.getElementById('c-und').textContent=st.undated;
-  document.getElementById('ac-w').textContent=wM+wT;
-  document.getElementById('ac-s').textContent=wsh;
 
-  document.getElementById('s-prem').innerHTML=st.films.filter(f=>f.prem).map(f=>cardHTML(f)).join('');
-  document.getElementById('s-rec').innerHTML=st.films.filter(f=>f.st==='watched').slice(0,4).map(f=>cardHTML(f)).join('');
-  document.getElementById('s-wish').innerHTML=st.films.filter(f=>f.st==='wish'&&!f.prem).slice(0,4).map(f=>cardHTML(f)).join('');
-  document.getElementById('s-muse').innerHTML=st.muses.map(m=>{
-    const s=mStat(m);
-    return `<div onclick="st.museId='${m.id}';go('arcana')" style="width:74px;flex-shrink:0;text-align:center;cursor:pointer;"><div style="position:relative;width:54px;height:54px;margin:0 auto;border-radius:50%;border:1.5px solid var(--gold);padding:2px;"><img src="${m.skins[0]}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;"/><span class="r-${s.tier}" style="position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);font-size:9px;padding:0 6px;border-radius:99px;">${s.tier}</span></div><div style="font-size:11px;font-weight:600;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${m.cn}</div><div class="sub">${s.w} 部</div></div>`;
-  }).join('');
+  document.getElementById('btnFetchUni').addEventListener('click',async ()=>{
+    const q=document.getElementById('uniInput').value.trim(); if(!q) return;
+    toast('正在抓取系列「'+q+'」...');
+    try{ const u=await fetchSeriesLive(q); state.universes[u.id]=u; save(); toast('已构建系列：'+u.name); }catch(e){ toast(e.message); }
+  });
 
-  // Arcana
-  const m=st.muses.find(x=>x.id===st.museId)||st.muses[0];
-  const ms=mStat(m);
-  document.getElementById('b-nm').textContent=m.cn;
-  document.getElementById('b-dy').textContent=m.days;
-  document.getElementById('b-dt').textContent=m.bday;
-  document.getElementById('m-tabs').innerHTML=st.muses.map(x=>`<button class="pill ${x.id===m.id?'r-SSR':''}" onclick="st.museId='${x.id}';st.flip=false;render()">${x.cn}</button>`).join('');
-  document.getElementById('t-in').classList.toggle('flip',st.flip);
-  document.getElementById('t-img').src=m.skins[m.skin||0];
-  const tr=document.getElementById('t-rar');tr.className='pill r-'+ms.tier;tr.textContent=ms.tier+' ★★';
-  document.getElementById('t-cnt').textContent=ms.w+'/'+ms.tot;
-  document.getElementById('t-en').textContent=m.en;
-  document.getElementById('t-cn').textContent=m.cn;
-  document.getElementById('t-col').textContent=ms.w;
-  document.getElementById('t-tot').textContent=' / '+ms.tot+' 已集作品';
-  document.getElementById('t-pct').textContent=ms.pct+'% 收集度 · 🏅 1 枚徽章';
-  document.getElementById('t-bar').style.width=ms.pct+'%';
-  document.getElementById('t-up').textContent=ms.need>0?`再集 ${ms.need} 部，卡面升级为 ${ms.nxt}（点下方进入档案直接点亮）`:`👑 已晋升最高典藏等级 ${ms.tier}`;
-  document.getElementById('tb-list').innerHTML=m.works.map((w,i)=>`<div class="row-sb" style="padding:8px 10px;border-radius:10px;border:1px solid ${w.st==='watched'?'var(--gold)':'var(--bdr)'};background:${w.st==='watched'?'var(--elev)':'var(--bg)'};"><div><div style="font-size:12px;font-weight:600;">${w.cn} (${w.yr})</div><div class="sub">${w.en}</div></div><button class="pill ${w.st==='watched'?'r-SSR':''}" onclick="togWork(${i})">${w.st==='watched'?'✓ 已集':'点亮看过'}</button></div>`).join('');
+  document.getElementById('btnBatchDate').addEventListener('click',()=>{
+    const today=new Date().toISOString().slice(0,10);
+    Object.values(state.movies).forEach(m=>{if(m.status==='watched'&&!m.watchDate) m.watchDate=today;});
+    save(); toast('✅ 已为所有未记日期的已看影片补齐观影日期');
+  });
 
-  // Archive
-  const fl=st.films.filter(f=>f.st===st.arcSt&&(st.fType==='all'||f.tp===st.fType));
-  document.getElementById('arc-box').innerHTML=st.vm==='poster'?`<div class="grid3">${fl.map(f=>cardHTML(f)).join('')}</div>`:`<div style="display:flex;flex-direction:column;gap:8px;">${fl.map((f,i)=>`<div class="ticket" onclick="openFilm('${f.id}')"><div style="padding-right:78px;"><div style="font-size:13px;font-weight:700;">${f.cn} (${f.yr})</div><div class="sub">${f.en} · ${f.rt}</div></div><div style="width:72px;text-align:right;font-family:monospace;font-size:10px;color:var(--gold);">NO.0${295-i}<br/>${f.dt||'没记日期'}</div></div>`).join('')}</div>`;
+  document.getElementById('fileJson').addEventListener('change',e=>{
+    const f=e.target.files&&e.target.files[0]; if(!f) return;
+    const r=new FileReader();
+    r.onload=async ev=>{
+      try{ await mergeData(JSON.parse(String(ev.target.result||'{}')),false); save(); toast('✅ JSON 备份已导入并完成动态重算'); }catch(err){ toast('JSON 解析错误'); }
+    };
+    r.readAsText(f);
+  });
 
-  // Cosmos
-  const u=st.unis[st.uIdx];
-  document.getElementById('u-tabs').innerHTML=st.unis.map((x,i)=>`<button class="pill ${i===st.uIdx?'r-SSR':''}" onclick="st.uIdx=${i};render()">${x.name}</button>`).join('');
-  document.getElementById('u-tit').textContent='✦ '+u.name+' '+u.prog;
-  document.getElementById('u-ch').textContent=u.ch;
-  document.getElementById('u-chars').innerHTML=u.chars.map(c=>`<div class="pill" style="justify-content:center;padding:8px;" onclick="toast('✦ 已点亮角色：${c}')">✦ ${c}</div>`).join('');
-  drawCv();
+  document.getElementById('btnExportJson').addEventListener('click',()=>{
+    const b=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});
+    const a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download='love-movie-backup.json'; a.click();
+  });
 
-  // Oracle
-  document.getElementById('q-chips').innerHTML=st.chips.map(c=>`<button class="pill" onclick="goQ('${c}')">${c}</button>`).join('');
-  document.getElementById('q-hot').innerHTML=st.films.filter(f=>f.cat==='hot').map(f=>cardHTML(f)).join('');
-  document.getElementById('q-up').innerHTML=st.films.filter(f=>f.cat==='up').map(f=>cardHTML(f)).join('');
-  save();
-}
-function drawCv(){
-  const cv=document.getElementById('u-cv');if(!cv||st.tab!=='cosmos')return;
-  const w=cv.width=cv.clientWidth||320,h=cv.height=175,ctx=cv.getContext('2d');
-  ctx.clearRect(0,0,w,h);ctx.strokeStyle='rgba(216,184,120,0.4)';ctx.beginPath();
-  [[0.15,0.4],[0.38,0.68],[0.62,0.3],[0.86,0.56]].forEach((p,i)=>{if(i===0)ctx.moveTo(p[0]*w,p[1]*h);else ctx.lineTo(p[0]*w,p[1]*h);});ctx.stroke();
-  [[0.15,0.4],[0.38,0.68],[0.62,0.3],[0.86,0.56]].forEach(p=>{ctx.beginPath();ctx.arc(p[0]*w,p[1]*h,6,0,Math.PI*2);ctx.fillStyle='#F5E2B8';ctx.fill();});
-}
-function flipT(){st.flip=!st.flip;render();}
-function nextSkin(){const m=st.muses.find(x=>x.id===st.museId);m.skin=((m.skin||0)+1)%m.skins.length;render();toast('🎨 已切换典藏卡面');}
-function signToday(){document.getElementById('t-sig-t').textContent='✨ 今日已签到，斯派克·费恩羁绊值 +10';toast('✒️ 今日签到成功！');}
-function togWork(i){
-  const m=st.muses.find(x=>x.id===st.museId),oldT=mStat(m).tier;
-  m.works[i].st=m.works[i].st==='watched'?'none':'watched';
-  const newT=mStat(m).tier;render();
-  toast(newT!==oldT?`🎉 卡面晋升为 ${newT}！`:'✦ 已更新收集进度');
-}
-async function syncWD(){
-  const m=st.muses.find(x=>x.id===st.museId);toast('⚡ 正在从 Wikidata 实时同步作品...');
-  try{
-    const r=await fetch(WD_API+'?action=wbsearchentities&search='+encodeURIComponent(m.en)+'&language=en&limit=1&format=json&origin=*').then(x=>x.json());
-    if(r.search&&r.search[0])toast('✓ Wikidata ('+r.search[0].id+') 实时同步完成');
-  }catch(e){toast('✓ 当前片单已是最新');}
-}
-function setVM(v){st.vm=v;render();}
-function setSt(s){st.arcSt=s;render();}
-function setFT(t){st.fType=t;render();}
-function goQ(v){document.getElementById('q-in').value=v;onQ(v);liveQ();}
-function onQ(v){
-  const q=(v||'').trim().toLowerCase(),bx=document.getElementById('q-res');
-  if(!q){bx.classList.add('hidden');return;}
-  bx.classList.remove('hidden');
-  const loc=st.films.filter(f=>f.cn.toLowerCase().includes(q)||f.en.toLowerCase().includes(q));
-  bx.innerHTML=loc.map(f=>`<div class="card row-sb" style="padding:10px 12px;font-size:12px;"><div><strong>${f.cn}</strong> (${f.yr}) · ${f.rt}</div><div style="display:flex;gap:6px;"><button class="pill gold" onclick="mkF('${f.id}','watched')">看过</button><button class="pill" onclick="mkF('${f.id}','wish')">想看</button></div></div>`).join('');
-}
-async function liveQ(){
-  const q=(document.getElementById('q-in').value||'').trim();if(!q)return;
-  if(!st.chips.includes(q))st.chips.unshift(q);
-  const bx=document.getElementById('q-res');bx.classList.remove('hidden');
-  document.getElementById('q-btn').textContent='检索中...';
-  try{
-    const [wd,tv]=await Promise.allSettled([
-      fetch(WD_API+'?action=wbsearchentities&search='+encodeURIComponent(q)+'&language=zh&uselang=zh-hans&limit=5&format=json&origin=*').then(r=>r.json()),
-      fetch(TV_API+'?q='+encodeURIComponent(q)).then(r=>r.json())
-    ]);
-    let h='';
-    if(wd.status==='fulfilled'&&wd.value.search){
-      wd.value.search.forEach(x=>{
-        const nm=(x.label||q).replace(/'/g,'');
-        h+=`<div class="card row-sb" style="padding:10px 12px;font-size:12px;"><div><strong>${nm}</strong> <span class="sub gold">Wikidata ${x.id}</span><div class="sub">${x.description||'实时词条'}</div></div><div style="display:flex;gap:6px;"><button class="pill gold" onclick="addF('${nm}','watched')">+看过</button><button class="pill" onclick="addF('${nm}','wish')">+想看</button></div></div>`;
-      });
+  document.getElementById('btnParsePaste').addEventListener('click',async ()=>{
+    const raw=document.getElementById('pasteArea').value.trim(); if(!raw) return;
+    if(raw.startsWith('{')||raw.startsWith('[')){
+      try{ await mergeData(JSON.parse(raw),false); save(); toast('✅ JSON 导入成功'); return; }catch(e){}
     }
-    if(tv.status==='fulfilled'&&Array.isArray(tv.value)){
-      tv.value.slice(0,3).forEach(e=>{
-        if(!e.show)return;const nm=e.show.name.replace(/'/g,'');
-        h+=`<div class="card row-sb" style="padding:10px 12px;font-size:12px;"><div><strong>${nm}</strong> <span class="sub gold">在线片源</span></div><button class="pill gold" onclick="addF('${nm}','watched')">+看过</button></div>`;
-      });
+    const lines=raw.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
+    toast('正在批量检索导入 '+lines.length+' 项...');
+    for(let i=0;i<lines.length;i++){
+      try{
+        const s=await wdSearch(lines[i],1);
+        if(s&&s[0]){
+          const em=await wdBatch([s[0].id]), ent=em[s[0].id];
+          if(claimAll(ent&&ent.claims,'P31').includes('Q5')){ const m=await fetchPersonFull(s[0].id); state.muses[m.id]=m; }
+          else { const n=pickLbl(ent,lines[i]); markMovie({id:s[0].id,title:n.en,cn_title:n.zh},'watched'); }
+        }
+      }catch(e){}
     }
-    bx.innerHTML=h||'<div class="sub" style="text-align:center;">可点快速标记直接收录</div>';
-  }catch(e){}
-  document.getElementById('q-btn').textContent='全网实时搜';render();
-}
-function mkF(id,s){const f=st.films.find(x=>x.id===id);if(f){f.st=s;if(s==='watched')f.dt='2026-11';render();toast('✦ 已更新状态');}}
-function addF(nm,s){st.films.unshift({id:'n_'+Date.now(),cn:nm,en:nm,yr:2026,tp:'movie',rt:'实时收录',st:s,dt:s==='watched'?'2026-11':'',lk:1,c:'#D8B878'});render();toast('✦ 已将《'+nm+'》收入片库');}
-function openM(t,b){document.getElementById('m-tit').textContent=t;document.getElementById('m-bd').innerHTML=b;document.getElementById('m-bg').classList.remove('hidden');}
-function closeM(){document.getElementById('m-bg').classList.add('hidden');}
-function openFilm(id){
-  const f=st.films.find(x=>x.id===id);if(!f)return;
-  openM(f.cn,`<div class="sub">${f.en} (${f.yr}) · ${f.rt}</div><div class="grid3" style="margin-top:8px;"><button class="pill r-SSR" style="justify-content:center;" onclick="mkF('${f.id}','watched');closeM()">✓ 看过</button><button class="pill" style="justify-content:center;" onclick="mkF('${f.id}','watching');closeM()">⏳ 在看</button><button class="pill" style="justify-content:center;" onclick="mkF('${f.id}','wish');closeM()">🌹 想看</button></div>`);
-}
-function openBackfill(){openM('🕰️ 批量补记观影日期',`<div class="row-sb"><input type="month" value="2026-10" class="pill"/><button class="pill r-SSR" onclick="st.undated=Math.max(0,st.undated-15);render();closeM();toast('🕰️ 已批量补记 15 部影片日期')">一键补记本批</button></div>`);}
-function openQuick(){openM('⚡ 快速标记',`<input id="qa-in" placeholder="输入片名..." class="pill" style="width:100%;margin-bottom:8px;"/><div class="grid2"><button class="pill r-SSR" style="justify-content:center;" onclick="const v=document.getElementById('qa-in').value.trim();if(v){addF(v,'watched');closeM();}">✓ 看过</button><button class="pill" style="justify-content:center;" onclick="const v=document.getElementById('qa-in').value.trim();if(v){addF(v,'wish');closeM();}">🌹 想看</button></div>`);}
-function newMuseModal(){openM('🃏 缔结新影人',`<input id="nm-in" placeholder="输入影人名字..." class="pill" style="width:100%;margin-bottom:8px;"/><button class="pill r-SSR" style="width:100%;justify-content:center;" onclick="const v=document.getElementById('nm-in').value.trim();if(v){const id='m_'+Date.now();st.muses.unshift({id,cn:v,en:v,bday:'12 月 9 日',days:24,base:1,skin:0,skins:[artSVG(v,'Muse','SSR')],works:[{id:'w1',cn:v+' 代表作',en:'Featured',yr:2026,st:'watched'}]});st.museId=id;render();closeM();toast('🃏 已添加 '+v);}">生成专属塔罗卡</button>`);}
-function openBox(k){
-  if(k==='itabag')openM('🎀 丝绒痛柜',`<div style="padding:14px;border-radius:14px;background:#3A101E;border:1px solid var(--gold);display:flex;flex-direction:column;gap:8px;"><div class="pill">✦ 斯派克·费恩 · R ★★ 典藏卡</div><div class="pill">✦ 汤姆·哈迪 · SSR 殿堂卡 (35部)</div><div class="pill">✦ Homefront (1991) 挚爱红心票根</div></div>`);
-  if(k==='cal')openM('🗓️ 2026年11月 观影与院线月历',`<div style="display:flex;flex-direction:column;gap:6px;"><div class="pill">11.06 · 《哥吉拉-0.0》 IMAX</div><div class="pill">11.14 · 已看《V世代》</div><div class="pill">11.15 · 已看《Homefront》 ❤️</div><div class="pill">11.20 · 《饥饿游戏：收获日出》</div><div class="pill">11.25 · 《后来，有个克里夫》</div></div>`);
-  if(k==='rep')openM('✨ 2026 审美年报',`<div style="padding:14px;border-radius:14px;border:1px solid var(--gold);text-align:center;"><strong class="gold">「午夜胶片炼金术士」</strong><p class="sub" style="margin-top:6px;">已收藏 257 部电影、38 部剧集、点亮 1229 位角色。</p></div>`);
-  if(k==='list')openM('📜 策展片单',`<div class="pill">《斯派克·费恩：英伦少年感全集》 · 15部</div><div class="pill">《2026 冬季 IMAX 必看》 · 4部</div>`);
-}
-function openSet(){
-  openM('⚙️ 数据源与 JSON 备份',`<div style="display:flex;flex-direction:column;gap:6px;"><div class="row-sb"><span>IMDb 官方数据集 (126,909 部)</span><span style="color:#6EE7B7;">正常</span></div><div class="row-sb"><span>Wikidata (编号对照)</span><span style="color:#6EE7B7;">正常</span></div><div class="row-sb"><span>在线搜索 (CORS)</span><span style="color:#6EE7B7;">正常</span></div></div><div class="grid2" style="margin-top:10px;"><button class="pill gold" style="justify-content:center;" onclick="expJ()">导出全部标记 (JSON)</button><label class="pill" style="justify-content:center;cursor:pointer;">从备份恢复<input type="file" accept=".json" onchange="impJ(event)" class="hidden"/></label></div>`);
-}
-function expJ(){const b=new Blob([JSON.stringify(st,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='love-movie-backup.json';a.click();toast('📤 已导出 JSON');}
-function impJ(ev){const f=ev.target.files[0];if(!f)return;const r=new FileReader();r.onload=e=>{try{Object.assign(st,JSON.parse(e.target.result));render();closeM();toast('📥 恢复成功');}catch(err){}};r.readAsText(f);}
-window.addEventListener('DOMContentLoaded',render);
+    save(); toast('✅ 批量导入完成');
+  });
+
+  document.getElementById('btnRefreshMuses').addEventListener('click',async ()=>{
+    const list=Object.values(state.muses); if(!list.length) return toast('请先搜索并缔约至少一位缪斯');
+    toast('正在同步 '+list.length+' 位缪斯的最新作品...');
+    for(let i=0;i<list.length;i++){
+      try{ const f=await fetchPersonFull(list[i].qid||list[i].imdb_id||list[i].id); list[i].birthDate=f.birthDate||list[i].birthDate; list[i].credits=f.credits; }catch(e){}
+    }
+    save(); toast('✅ 已同步全部缪斯最新作品');
+  });
+  document.getElementById('btnCustomUni').addEventListener('click',()=>{
+    const name=prompt('输入新建影视系列名称：',''); if(!name) return;
+    const raw=prompt('输入系列包含的片名（用逗号分隔）：','');
+    const items=(raw||'').split(/[,，]/).map(x=>x.trim()).filter(Boolean).map((t,i)=>({id:'u_'+Date.now()+'_'+i,title:t,cn_title:t,year:''}));
+    const id='uni_'+Date.now(); state.universes[id]={id,name,items}; save(); toast('已创建系列：'+name);
+  });
+  document.getElementById('btnAddChar').addEventListener('click',()=>{
+    const name=prompt('输入银幕角色名称：',''); if(!name) return;
+    const actor=prompt('输入饰演演员：','')||'';
+    const movie=prompt('输入所属电影/剧集：','')||'';
+    const id='ch_'+Date.now(); state.characters[id]={id,name,actor,movie}; save(); toast('✨ 已点亮角色：'+name);
+  });
+  document.getElementById('btnAddManualMovie').addEventListener('click',()=>{
+    const title=prompt('输入电影或剧集名称：',''); if(!title) return;
+    const yr=prompt('输入年份：',String(new Date().getFullYear()))||'';
+    markMovie({id:'m_'+Date.now(),title:title,cn_title:title,year:yr},'watched');
+  });
+  document.getElementById('btnEditMotto').addEventListener('click',()=>{
+    const m=prompt('输入痛柜专属铭文：',state.shrineMotto||'');
+    if(m!==null){ state.shrineMotto=m.trim()||'光影流转，唯热爱与自由不可辜负'; save(); }
+  });
+  document.getElementById('btnGenYaml').addEventListener('click',()=>{
+    const lines=['people:'];
+    Object.values(state.muses).forEach(m=>{ lines.push('  - name: "'+(m.name||m.cn_name)+'"'); if(m.imdb_id) lines.push('    imdb_id: "'+m.imdb_id+'"'); });
+    document.getElementById('pasteArea').value=lines.join('\n');
+    toast('已生成 watchlist.yaml 配置');
+  });
+  document.getElementById('btnPushGh').addEventListener('click',async ()=>{
+    const repo=document.getElementById('ghRepo').value.trim()||'TangTangMo/love-movie';
+    const tok=document.getElementById('ghToken').value.trim();
+    if(!tok) return toast('请先填入 GitHub Token，或使用左侧导出 JSON 备份');
+    const u=API_GH+repo+'/contents/docs/data.json';
+    const h={'Authorization':'Bearer '+tok,'Accept':'application/vnd.github+json','Content-Type':'application/json'};
+    try{
+      let sha;
+      const gr=await fetch(u,{headers:h}); if(gr.ok){ const gj=await gr.json(); sha=gj.sha; }
+      const content=btoa(unescape(encodeURIComponent(JSON.stringify(state,null,2))));
+      const pr=await fetch(u,{method:'PUT',headers:h,body:JSON.stringify({message:'sync from Love Movie web app',content,sha})});
+      if(!pr.ok) throw new Error('HTTP '+pr.status);
+      document.getElementById('ghLog').textContent='✅ 已成功推送至 '+repo;
+      toast('⬆️ 已成功推送至 GitHub 仓库');
+    }catch(e){ document.getElementById('ghLog').textContent='推送失败：'+e.message; }
+  });
+
+  document.getElementById('btnPullGh').addEventListener('click',()=>syncRepo(false));
+  document.getElementById('btnClearDb').addEventListener('click',()=>{state=emptyState();save();toast('已清空本地数据');});
+
+  document.body.addEventListener('click',async e=>{
+    const b=e.target.closest('[data-act]'); if(!b) return;
+    const act=b.getAttribute('data-act');
+    if(act==='bind-muse'){
+      b.textContent='抓取中...';
+      try{ const m=await fetchPersonFull(b.getAttribute('data-qid')); state.muses[m.id]=m; save(); toast('🃏 已缔约缪斯：'+(m.cn_name||m.name)); switchNav('muses'); }catch(err){ b.textContent='重试'; }
+    }else if(act==='mark'){
+      markMovie({id:b.getAttribute('data-id'),title:b.getAttribute('data-title'),cn_title:b.getAttribute('data-cn'),year:b.getAttribute('data-yr'),character:b.getAttribute('data-char')},b.getAttribute('data-st')||'watched');
+    }else if(act==='flip'){
+      const el=document.getElementById('mc-'+b.getAttribute('data-mid')); if(el) el.classList.toggle('flipped');
+    }else if(act==='checkin'){
+      const m=state.muses[b.getAttribute('data-mid')]; if(!m) return;
+      const td=new Date().toISOString().slice(0,10);
+      if(m.lastCheckinDate===td) return toast('今日已签到');
+      m.lastCheckinDate=td; m.bondPoints=(m.bondPoints||0)+10; save(); toast('✨ 签到成功！羁绊值 +10');
+    }else if(act==='skin'){
+      const m=state.muses[b.getAttribute('data-mid')]; if(!m) return;
+      const u=prompt('输入自定义高清图片 URL（留空则轮换内置剧照）：','');
+      if(u&&u.trim()){ m.avatar=u.trim(); }
+      else if(m.skins&&m.skins.length>1){ m.skins.push(m.skins.shift()); m.avatar=m.skins[0]; }
+      save(); toast('🎨 已切换卡面');
+    }else if(act==='sync-muse'){
+      const m=state.muses[b.getAttribute('data-mid')]; if(!m) return;
+      toast('正在同步作品...');
+      try{ const f=await fetchPersonFull(m.qid||m.imdb_id||m.id); m.birthDate=f.birthDate||m.birthDate; m.credits=f.credits; save(); toast('✅ 作品已更新'); }catch(e){}
+    }else if(act==='del-muse'){
+      delete state.muses[b.getAttribute('data-mid')]; save();
+    }else if(act==='del-uni'){
+      delete state.universes[b.getAttribute('data-uid')]; save();
+    }else if(act==='edit-mov'){
+      const m=state.movies[b.getAttribute('data-mid')]; if(!m) return;
+      const dt=prompt('修改观影日期 (YYYY-MM-DD)：',m.watchDate||new Date().toISOString().slice(0,10)); if(dt!==null) m.watchDate=dt.trim();
+      const rt=prompt('修改评分 (1-10)：',String(m.userRating||9)); if(rt!==null) m.userRating=parseFloat(rt)||9;
+      const nt=prompt('修改票根批注：',m.note||''); if(nt!==null) m.note=nt.trim();
+      save();
+    }else if(act==='del-mov'){
+      delete state.movies[b.getAttribute('data-mid')]; save();
+    }
+  });
+
+  document.body.setAttribute('data-theme',state.theme||'astral');
+  renderAll();
+  syncRepo(true);
+  fetchPulse();
+})();
 </script>
 </body>
 </html>
